@@ -1,0 +1,196 @@
+<div class="master-container1 container p-0" style="margin-bottom: 25px;">
+  <div class="card-header">MASTER DESIGNATION</div>
+<div class="card">
+<form [formGroup]="MasterDesignation" >
+  <div class="container1 col-lg-12" *ngIf=display_add; id="add">
+    <div class="col-lg-12 first">
+      <a  role="button" aria-expanded="false"  (click)="addShow()" style="cursor:pointer">
+          ADD DESIGNATION
+        </a>
+        <hr>
+        <div *ngIf="addshow">
+  
+        <div class="card-body">
+         <div class="row">
+           <div class="col-lg-6">
+         <input type="text" formControlName="designationName" placeholder="Designation Name"><br>
+      <mat-error *ngIf="(MasterDesignation.controls['designationName'].dirty || MasterDesignation.controls['designationName'].touched) && MasterDesignation.controls['designationName'].errors?.required">This field is mandatory.</mat-error>
+            </div>
+         <div class="col-lg-6 text-right">
+         <button type="button" class="btn btn-primary" (click)="addDesignation()">Add</button>
+         <button type="button" class="btn btn-primary " (click)="reset()" style = "margin-left: 20px;">Reset</button>
+
+         </div>
+         </div>
+         <hr>
+        </div>
+        <div class="list-container-fluid">
+  
+         <div class="row row1">
+          <div class="todo-container column-container col-lg-6 m-0 p-0">
+            <div class="col-lg-12" style="background-color:rgba(240, 248, 255, 0.89);"><mat-icon style="display:inline-block;">view_list</mat-icon> <h4 style="display:inline-block;">ALL AVAILABLE ROLES ({{roles.length}})</h4></div>
+            <div class="list"
+                 cdkDropList
+                 #todoList="cdkDropList"
+                 [cdkDropListData]="roles"
+                 [cdkDropListConnectedTo]="[doneList]"
+                 (cdkDropListDropped)="onDrop($event)" >
+              
+              <mat-card *ngFor="let todo of roles" cdkDrag>
+                <mat-card-header>
+                  <mat-card-title>{{todo.name}}</mat-card-title>
+                </mat-card-header>
+                <mat-icon mat-icon-button (click)="addRole(todo)" class="float-right" title="Add" style="margin-right:1px" >add_circle</mat-icon>
+              </mat-card>
+            </div>
+          </div>
+      
+          <div class="done-container column-container col-lg-6 m-0 p-0 margin123">
+            <div class="col-lg-12" style="background-color :rgba(240, 248, 255, 0.89);"> <mat-icon style="display:inline-block;">event_note</mat-icon> <h4 style="display:inline-flex">ASSIGNED ROLES ({{roles_assigned.length}})</h4></div>
+            <div class="list"
+                 cdkDropList
+                 #doneList="cdkDropList"
+                 [cdkDropListData]="roles_assigned"
+                 [cdkDropListConnectedTo]="todoList"
+                 (cdkDropListDropped)="onDrop($event)" 
+                 >
+              
+              <mat-card *ngFor="let role of roles_assigned" cdkDrag>
+                <mat-card-header>
+                  <mat-card-title>{{role.name}}</mat-card-title>
+                </mat-card-header>
+                <mat-icon mat-icon-button (click)="removeRole(role)" class="float-right" title="Remove">cancel</mat-icon>
+
+              </mat-card>
+            </div>
+          </div>
+         </div>
+      
+        </div>
+      </div>
+</div>
+  </div>
+</form>
+
+
+<form [formGroup]="EditMasterDesignation">
+
+  <div class="container1 col-lg-12" *ngIf=display_edit; id="edit">
+    <div class="col-lg-12 first">
+      <a data-toggle="collapse"  aria-expanded="false">
+          EDIT DESIGNATION
+        </a>
+        <hr>
+        <div  id="collapseExample">
+          <div class="card-body">
+           <div class="row">
+           <div class="col-lg-6">
+
+           <input type="text" formControlName="editDesignationName" placeholder="Designation Name"><br>
+      <mat-error *ngIf="EditMasterDesignation.controls['editDesignationName'].errors?.required">This field is mandatory.</mat-error>
+            </div>
+           <div class="col-lg-6 text-right">
+
+           <button type="button" class="btn btn-primary float-right" (click)="cancel()" style = "margin-left: 20px;">Cancel</button>
+           <button type="button" class="btn btn-primary float-right" (click)="updateDesignation()">Update</button>
+           </div>
+           </div>
+           <hr>
+          </div>
+         <div class="list-container-fluid">
+  
+         <div class="row row1">
+          <div class="todo-container column-container col-lg-6 m-0 p-0">
+            <div class="col-lg-12" style="background-color:rgba(240, 248, 255, 0.89);"><mat-icon style="display:inline-block;">view_list</mat-icon> <h4 style="display:inline-block;">ALL AVAILABLE ROLES ({{roles.length}})</h4></div>
+            <div class="list"
+                 cdkDropList
+                 #todoList="cdkDropList"
+                 [cdkDropListData]="roles"
+                 [cdkDropListConnectedTo]="[doneList]"
+                 (cdkDropListDropped)="onDrop($event)" >
+              
+              <mat-card *ngFor="let todo of roles" cdkDrag>
+                <mat-card-header>
+                  <mat-card-title>{{todo.name}}</mat-card-title>
+                </mat-card-header>
+                <mat-icon mat-icon-button (click)="addRole(todo)" class="float-right" title="Add" style="margin-right:1px" >add_circle</mat-icon>
+              </mat-card>
+            </div>
+          </div>
+      
+          <div class="done-container column-container col-lg-6 m-0 p-0 margin123">
+            <div class="col-lg-12" style="background-color :rgba(240, 248, 255, 0.89);"> <mat-icon style="display:inline-block;">event_note</mat-icon> <h4 style="display:inline-flex">ASSIGNED ROLES ({{roles_assigned.length}})</h4></div>
+            <div class="list"
+                 cdkDropList
+                 #doneList="cdkDropList"
+                 [cdkDropListData]="roles_assigned"
+                 [cdkDropListConnectedTo]="todoList"
+                 (cdkDropListDropped)="onDrop($event)" 
+                 >
+              
+              <mat-card *ngFor="let role of roles_assigned" cdkDrag>
+                <mat-card-header>
+                  <mat-card-title>{{role.name}}</mat-card-title>
+                </mat-card-header>
+                <mat-icon mat-icon-button (click)="removeRole(role)" class="float-right" title="Remove">cancel</mat-icon>
+
+              </mat-card>
+            </div>
+          </div>
+         </div>
+      
+        </div>
+      </div>
+</div>
+  </div>
+  </form>
+    
+    
+  
+  <div class="container-fluid">
+    <div class="col-lg-12 first">
+     <h4 style="color: black;">ALL DESIGNATIONS({{designations.length + 2}})</h4>
+      <hr>
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table class="table" style="text-align: center;">
+      <thead style="position: static;">
+        <tr>
+          <th scope="col"  >Name</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let designation of designations ; let i=index">
+          <td scope="col">{{designation.name ? designation.name : ''}}</td>
+          <td scope="col">{{designation.status ? designation.status : ''}}</td>
+          <td scope="col">
+            <mat-icon mat-icon-button  (click)="editDesignation(designation)" title="Edit"> edit</mat-icon>
+            <mat-icon mat-icon-button (click)="activate(i)" style = "margin-left: 20px;"title="Activate" *ngIf="designation.status=='Inactive'"> how_to_reg</mat-icon>
+           <mat-icon  mat-icon-button (click)="inactivate(i)" style = "margin-left: 20px;"title="Deactivate" *ngIf="designation.status=='Active'">voice_over_off</mat-icon>
+
+          </td>
+        </tr>
+        <tr>
+          <td scope="col" >Student</td>
+          <td scope="col">system_defined_fixed</td>
+          <td scope="col"></td>
+        </tr>
+        <tr>
+          <td scope="col">Teacher</td>
+          <td scope="col">system_defined_fixed</td>
+          <td scope="col"></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    </div>
+ </div>
+  
+
+
+
+
+ 

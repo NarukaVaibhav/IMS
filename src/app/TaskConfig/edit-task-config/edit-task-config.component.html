@@ -1,0 +1,91 @@
+<div class="master-container1  container p-0">
+  <div class="container1 heading pl-3 pr-3">
+    
+    <p >EDIT TASK CONFIGURATION</p>
+</div>
+
+<form [formGroup]="TaskConfig">
+    <div class="container1 pr-3 pl-3">
+            <div class="row">
+        
+        <div class="col-lg-12" id="add-user">
+         
+          
+    
+          <div class="form-group">
+           
+            <select class="form-control" formControlName="type" (change)="onChangeType($event.target.value)" required>
+                <option  disabled [innerHTML] value="">Type</option>
+                <option  value="Task">Task</option>
+                <option  value="Project">Project</option>   
+            </select>
+    
+            <mat-error *ngIf="TaskConfig.controls['type'].errors?.required">This field is mandatory.</mat-error>
+
+          </div>
+
+          <div class="form-group" *ngIf="config">
+           
+            <select class="form-control" formControlName="config_type" (change)="onChangeConfig($event.target.value)" required>
+                <option  disabled [innerHTML] value="">Configuration Type</option>
+                <option  value="Status">Status</option>
+                <option  value="Type">Type</option> 
+                <option  value="Priority" *ngIf="config_priority">Priority</option>
+                <option  value="Category" *ngIf="config_categ">Category</option>   
+                <option  value="Label" *ngIf="config_label">Label</option>   
+
+            </select>
+    
+            <mat-error *ngIf="TaskConfig.controls['config_type'].errors?.required">This field is mandatory.</mat-error>
+
+          </div>
+
+        <div *ngIf="value">
+          <input class="form-control form-control-lg" type="text" placeholder="Configuration Value" formControlName="config_value"  >
+          <mat-error *ngIf="TaskConfig.controls['config_value'].errors?.required">This field is mandatory.</mat-error>
+        </div>
+
+
+    
+        <div class="col-lg-6" id="office" *ngIf="lab_type">
+    
+          <div class="form-group">
+           
+            <select class="form-control" formControlName="label_type">
+                <option  disabled [innerHTML] value="">Label Type</option>
+                <ng-container *ngFor= "let ty of type">
+                  <option [value]="ty.configValue">{{ty.configValue ? ty.configValue : ''}}  </option>
+                  </ng-container>
+  
+                </select>
+    
+            <mat-error *ngIf="TaskConfig.controls['config_value'].errors?.required">This field is mandatory.</mat-error>
+
+          </div>
+
+    
+      </div>     
+      
+      <hr>
+    
+      <div class="row">
+      
+      <div class="col-lg-6">
+        <button type="button" class="btn btn-secondary"  id="back-btn"  (click)="cancel()">Cancel</button>
+      </div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-1">
+        <button type="button" class="btn btn-primary float-right"  (click)="reset()" id="create-btn" >Reset </button>
+      </div>
+      <div class="col-lg-1">
+        <button type="button" class="btn btn-primary float-right"  (click)="update()" id="create-btn">Update</button>
+        </div>
+      
+      
+      </div>
+      <br>
+      </div>
+    </div>
+    </div>
+  </form>
+  </div>

@@ -1,0 +1,121 @@
+table {
+  width: 100%;
+}
+
+.pop1 {
+  /* max-width: 92%; */
+  margin-left: 5rem;
+  /* margin-top: 8rem; */
+}
+
+.bottomBorder {
+  border-bottom: 1px solid #edf1f7;
+}
+
+.session-1 {
+  background-color: #FFFFFF;
+  border: 1px solid #CEEBED;
+}
+
+.headerTextWB {
+
+  padding: 1rem 1.5rem;
+  /* border-bottom: 1px solid #edf1f7; */
+  border-top-left-radius: .17rem;
+  border-top-right-radius: .17rem;
+  color: rgba(0, 0, 0, 0.54);
+  font-family: Open Sans, sans-serif;
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+
+
+}
+
+th {
+  font-size: 12px ;
+  font-weight: bolder;
+
+}
+
+td {
+  font-weight: 500;
+  font-size: 12px ;
+}
+
+i {
+  border: 1px solid black;
+  margin-right: 2px;
+  cursor: pointer;
+}
+
+
+.mat-elevation-z8 {
+  border: 0 solid transparent;
+  border-radius: .25rem;
+}
+
+td,
+th {
+  padding: 1% 1%;
+  padding-right: 1.75rem;
+  text-align: center;
+  vertical-align: middle;
+  font-family: Open Sans, sans-serif;
+  border: 1px solid #CEEBED;
+  color: rgba(0, 0, 0, 0.54);
+  max-width: 12%;
+  font-size: large;
+  font-weight: bold;
+}
+
+td {
+  font-weight: initial;
+  word-wrap: break-word;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+::ng-deep td.mat-cell {
+  border-radius: .25rem;
+  color: rgba(0, 0, 0, 0.54);
+  text-align: center;
+  vertical-align: middle;
+  font-family: Open Sans, sans-serif;
+  font-size: .9375rem;
+  border: 1px solid #CEEBED;
+}
+
+::ng-deep tr.mat-row:hover {
+  background-color: aliceblue;
+}
+
+
+::ng-deep .mat-sort-header-container {
+  display: flex;
+  vertical-align: middle;
+  text-align: center;
+  vertical-align: middle;
+  justify-content: center;
+}
+
+
+.mat-row:nth-child(odd) {
+  background-color: rgba(240, 248, 255, 0.89);
+}
+
+i {
+  cursor: pointer;
+}
+
+.headerText {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #edf1f7;
+  border-top-left-radius: .17rem;
+  border-top-right-radius: .17rem;
+  color: rgba(0, 0, 0, 0.54);
+  font-family: Open Sans, sans-serif;
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+}

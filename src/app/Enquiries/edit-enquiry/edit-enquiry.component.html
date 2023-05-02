@@ -1,0 +1,101 @@
+<div class="master-container1 container p-0">
+
+  <div class="container1 heading pl-3 pr-3">
+    
+      <p >EDIT ENQUIRY</p>
+  </div>
+
+    <form [formGroup]="Enquiry" >
+        <div class="container1 pl-3 pr-3">
+          
+             <hr>
+          <div class="row">
+            
+            <div class="col-lg-6" id="add-user">
+             
+    
+              <input class="form-control form-control-lg" type="text" placeholder="Name" formControlName="name">
+          <mat-error *ngIf=" Enquiry.controls['name'].errors?.required">This field is mandatory.</mat-error>
+
+
+
+          <input class="form-control form-control-lg" type="text" placeholder="Qualification" formControlName="qualification">
+          <mat-error *ngIf=" Enquiry.controls['qualification'].errors?.required">This field is mandatory.</mat-error>
+
+          
+    
+          <div class="form-group">
+           
+            <select class="form-control" formControlName="enquiredFor">
+                <option  disabled [innerText] value="">Enquired For</option>
+                <ng-container *ngFor= "let course of courses">
+                <option   [value] = "course.name"> {{course.name ? course.name : '' }} </option>
+                </ng-container>
+              </select>
+              
+            <mat-error *ngIf=" Enquiry.controls['enquiredFor'].errors?.required">This field is mandatory.</mat-error>
+
+
+          </div>
+
+
+          <input class="form-control form-control-lg" type="text" placeholder="Reference Name" formControlName="reference" value="">
+
+
+
+          <textarea class="form-control form-control-lg"  rows ="3" placeholder="Description" formControlName="description" value=""></textarea>
+          
+        </div>
+
+
+    
+        <div class="col-lg-6" id="office">
+          
+          
+          <input class="form-control form-control-lg" type="text" placeholder="Contact No" formControlName="contact" >
+                    <mat-error *ngIf="Enquiry.controls['contact'].errors?.required">This field is mandatory.</mat-error>
+                   <mat-error *ngIf="Enquiry.controls['contact'].errors?.pattern">Enter correct pattern.</mat-error>
+
+                    <mat-error *ngIf="Enquiry.controls['contact'].errors?.minlength">Minimum 10 characters needed.</mat-error>
+                    <mat-error *ngIf="Enquiry.controls['contact'].errors?.maxlength">Maximum 10 characters needed.</mat-error>
+
+
+
+            <input class="form-control form-control-lg" type="email" placeholder="Email Id" formControlName="email">
+             <mat-error *ngIf="Enquiry.controls['email'].errors?.required">This field is mandatory.</mat-error>
+             <mat-error *ngIf="Enquiry.controls['email'].errors?.pattern">Enter correct pattern.</mat-error>
+          
+
+
+          <input class="form-control form-control-lg" type="text" placeholder="Institute/College Name" formControlName="colg" value="">
+
+
+
+          <input placeholder="Enquiry Date" class="textbox-n form-control" type="text" onblur="(this.type='text')"
+           onfocus="(this.type='date')"  formControlName="date">
+          <mat-error *ngIf="Enquiry.controls['date'].errors?.required">This field is mandatory.</mat-error>
+    
+    
+              
+            </div>
+        
+          </div>     
+          
+          <hr>
+        
+          <div class="row">
+          
+         
+            <div class="col-lg-6">
+            <button type="button" class="btn btn-primary float-left" (click)="cancel()" id="create-btn" >Cancel </button>
+          </div>
+          <div class="col-lg-6">
+            <button type="button"  class="btn btn-primary float-right" (click)="updateEnquiry()" id="create-btn">Update</button>
+            </div>
+          
+          
+          </div>
+          <br>
+          </div>
+        </form>
+</div>

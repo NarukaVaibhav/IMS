@@ -1,0 +1,58 @@
+<div class="master-container">
+  
+  <h3>Individual Feedback</h3>
+  
+  <mat-card style="color: rgba(0,0,0,0.54);">
+    <div class='row'>
+      <div class='col-12'>
+        Feedback Name: {{feedbackName}}
+      </div>
+    </div>
+    <hr>
+    <div class='row'>
+      <div class='col-6'>
+        Teacher: {{teacherName}}
+      </div>
+      <div class='col-6'>
+        Student: {{studentName}}
+      </div>
+    </div>
+  
+    <div class='row'>
+      <div class='col-6'>
+        Course: {{courseName}}
+      </div>
+      <div class='col-6'>
+        Batch: {{batchName}}
+      </div>
+    </div>
+  </mat-card>
+  
+  
+  <mat-card>
+    <h3 style="box-shadow: none !important; width: 100% !important;">Feedback</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Question</th>
+          <th>Response</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of feedbackTable">
+          <td>{{item.User}}</td>
+          <td>{{item.question}}</td>
+          <td>{{item.response}}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <tr>
+  
+    </tr>
+  
+  
+  </mat-card>
+  
+</div>

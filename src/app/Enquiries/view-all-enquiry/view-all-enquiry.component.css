@@ -1,0 +1,242 @@
+  
+ input {
+  font-size: 14px;
+  width: 100%;
+  
+}
+input:focus {
+  border-color: rgba(240, 248, 255, 0.89);
+}
+
+.mat-elevation-z8 {
+  box-shadow: none;
+  z-index: 1;
+}
+
+
+
+  
+  .example-container {
+    
+    width:100%;
+    overflow-y: scroll;
+    margin-top:20px;    
+    
+
+    background-color: white;
+    max-height : 350px;
+    border-radius: 0.3rem;
+    border:  1px solid rgba(240, 248, 255, 0.89);
+  
+  }
+  
+  #enquiry-table{
+    width: 100%;
+  }
+  table{
+    
+    text-align: center;
+  
+  }
+  
+  
+  
+  .card-footer {
+    font-size: large;
+    font-weight: bolder;
+    background-color: white;
+    width: 100%;
+    padding: 0;
+    position: sticky;
+  }
+  
+  
+  
+  .card-header{
+    font-size: medium !important;
+    font-weight: bolder;
+    background-color: white;
+    width:100%;
+    margin-bottom: 5px;
+    
+    font-family: Open Sans, sans-serif;
+    background-color: white !important;
+  box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1);
+  
+  border-radius: 0.3rem;
+  border: solid 2px rgba(240, 248, 255, 0.89);
+  color: rgba(0, 0, 0, 0.54);
+
+  }
+  
+  .form-control-lg ,select{
+    margin-bottom: 15px;
+    margin-top: 5px;
+    background-color: #fff;
+    height:40px;    
+  }
+ 
+  textarea{
+    margin-bottom: 15px;
+    background-color: #fff;
+  }
+  table{
+    width:100%;
+    table-layout: fixed;
+    
+  }
+    #durat {
+    margin-bottom: 15px;
+    background-color: white;
+    height:40px;
+    width : 200px;
+  }
+  
+  .card-body{
+    padding: 0px;
+    margin: 0;
+  }
+  .card{
+    padding: 2%;
+    width:100%;
+
+  background-color: white;
+  box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1);
+  border-radius: 0.3rem;
+  border: solid 2px rgba(240, 248, 255, 0.89);
+  }
+  
+  #enq{
+    font-weight: bolder;
+
+  }
+
+
+  
+
+  th {
+    padding: 1% 1%;
+    font-family: Open Sans, sans-serif;
+    border: 1px solid #CEEBED;
+    color: rgba(0, 0, 0, 0.54);
+    max-width: 15px;
+    vertical-align: middle !important;
+    text-align: center !important;
+    font-size: 12px !important;
+    font-weight: bolder;
+    max-height : 10px;
+    overflow: hidden !important;
+    padding-left: 10px !important;
+  
+    text-overflow: ellipsis !important; 
+    white-space: nowrap !important; 
+  
+  }
+  
+  td{
+        vertical-align: middle !important;
+    text-align: center !important;
+    padding: 0.5% 0.5%;
+    padding-right: 1.75rem;
+    font-family: Open Sans, sans-serif;
+    border: 1px solid #CEEBED;
+    color: rgba(0, 0, 0, 0.54);
+    max-width: 15px !important;
+    vertical-align: middle;
+    text-align: center;
+  padding-left: 10px !important;
+    
+    font-size: 12px !important;
+    max-height: 5px !important;
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+    
+    text-overflow: ellipsis !important; 
+    white-space: nowrap !important; 
+  
+  }
+
+
+::ng-deep td.mat-cell {
+  border-radius: .25rem;
+  color: rgba(0, 0, 0, 0.54);
+  padding-right: 1.75rem;
+  font-family: Open Sans, sans-serif;
+  vertical-align: middle;
+  text-align: center;
+  font-size: .9375rem;
+  border: 1px solid #CEEBED;
+}
+
+::ng-deep tr.mat-row:hover {
+  background-color: aliceblue;
+}
+
+
+::ng-deep .mat-sort-header-container {
+  display: flex;
+  
+  justify-content: center;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: rgba(240, 248, 255, 0.89);
+}
+
+#action{
+  
+
+  text-align: center !important;
+  overflow: visible !important;
+  white-space: normal !important;
+  padding-left: 10px !important;
+  width : 20% !important;
+
+  text-overflow: initial !important;
+
+}
+
+
+.master-container {
+  position: absolute;
+  margin :auto;
+  
+  margin-top: 110px;
+
+  width : 91%;
+}
+
+
+mat-icon{
+  font-size: 20px !important;
+  cursor: pointer;
+}
+
+#clear_btn{
+  font-size: 15px !important;
+}
+
+td,th{
+  padding-right: 0px !important;
+}
+
+.mat-table-sticky:first-child {
+  border-right: 1px solid #CEEBED;
+}
+
+.mat-table-sticky:last-child {
+  border-left: 1px solid #CEEBED;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background:#E4E9F2;
+}

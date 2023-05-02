@@ -1,0 +1,248 @@
+.master-container {
+  position: absolute;
+  margin-top: 110px;
+  width: 95%;
+  max-width: 87%;
+  left : 50%;
+  transform: translateX(-50%);
+}
+
+.add-course {
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 1%;
+}
+
+.filter-row {
+  width: 98%;
+  margin: 1%;
+  color: #192038;
+  font-family: Open Sans, sans-serif;
+  transition-duration: .15s;
+  transition-property: border, background-color, color, box-shadow;
+  transition-timing-function: ease-in;
+  border: 0px;
+  padding: 5px 13px;
+  border-bottom: 2px solid #CEEBED;
+  background-color: transparent;
+  border-radius: 0px;
+}
+.filter-row:focus{
+  outline: none;
+}
+
+h3 {
+  font-size: medium !important;
+  margin: 0.8em auto;
+  background-color: white;
+  padding: 0.8em;
+  border-radius: 0.2em;
+  box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1);
+  font-family: Open Sans, sans-serif;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.title {
+  margin-top: 1%;
+  margin-left: 1%;
+  font-size: larger;
+}
+
+table {
+  width: 100%;
+}
+
+input:hover {
+  border-color: #007bff;
+}
+
+select:hover {
+  border-color: #007bff;
+}
+
+textarea:hover {
+  border-color: #007bff;
+}
+
+mat-card {
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 1%;
+  border: 0 solid transparent;
+  border-radius: .25rem;
+  box-shadow: 0 0rem 1rem 0 rgba(44, 51, 73, .1) !important;
+}
+
+th.mat-header-cell {
+  text-align: center;
+}
+
+td.mat-cell {
+  text-align: center;
+}
+
+
+.col {
+  margin-left: 1%;
+}
+
+.row-bottom {
+  margin-left: 1%;
+  width: 50%;
+}
+
+ckeditor {
+  width: 100%;
+}
+
+.add-sub-course {
+  margin-left: 28.5px;
+  margin-bottom: 20px;
+}
+
+.add-sub-course {
+  margin-left: 28.5px;
+  margin-bottom: 20px;
+  background-color: white;
+}
+
+button {
+  color: #0095FF;
+  font-size: 14px;
+  font-family: Open Sans, sans-serif;
+  margin-right: 1rem;
+  padding: 7px 18px;
+  border-color: #0095ff;
+  background: transparent;
+  border-style: solid;
+  border-width: .0625rem;
+  text-transform: uppercase;
+  border-radius: .25rem;
+}
+
+input,
+select {
+  padding: 7px 18px;
+  width: 100%;
+  border-radius: .25rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: #192038;
+  background-color: #f7f9fc;
+  font-family: Open Sans, sans-serif;
+  transition-duration: .15s;
+  transition-property: border, background-color, color, box-shadow;
+  transition-timing-function: ease-in;
+  border: 1px solid #CEEBED;
+  height: 2.5rem;
+}
+
+.checkbox{
+  height: auto;
+}
+
+.table-action-btn{
+  color: #0095FF;
+  font-size: 14px;
+  font-family: Open Sans, sans-serif;
+  margin: 8px;
+  padding: 0px;
+  border-color: transparent;
+  background: transparent;
+  border-style: none;
+  border-width: none;
+  text-transform: uppercase;
+  border-radius: 0rem;
+}
+
+::placeholder {
+  color: rgb(0, 0, 0);
+}
+
+::-ms-input-placeholder {
+  color: rgb(0, 0, 0);
+}
+
+
+.submit-btn-grp {
+  float: right;
+  margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+.mat-elevation-z8{
+  box-shadow: none; 
+  margin-top: 1%;
+}
+
+img{
+  width: 18px;
+}
+
+th{
+  padding-right: 1.75rem;
+  vertical-align: middle;
+  text-align: center;
+  padding-right: 1.75rem;
+  font-family: Open Sans, sans-serif;
+  border: 1px solid #CEEBED;
+  color: rgba(0, 0, 0, 0.54);
+  max-width: 15px !important;
+  padding: 1px !important;
+  font-size: small !important;
+  max-height: 5px !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  font-weight: bold;
+}
+
+td{
+  padding-right: 1.75rem;
+  font-weight: normal;
+  vertical-align: middle;
+  text-align: center;
+  padding-right: 1.75rem;
+  font-family: Open Sans, sans-serif;
+  border: 1px solid #CEEBED;
+  color: rgba(0, 0, 0, 0.54);
+  max-width: 15px !important;
+  padding: 1px !important;
+  font-size: small !important;
+  max-height: 5px !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+td{
+  font-weight: initial;
+  word-wrap: break-word;
+}
+
+::ng-deep td.mat-cell {
+  border-radius: .25rem;
+  color: rgba(0, 0, 0, 0.54);
+  padding-right: 1.75rem;
+  font-family: Open Sans, sans-serif;
+  font-size: .9375rem;
+  border: 1px solid #CEEBED;
+}
+
+::ng-deep tr.mat-row:hover {
+  background-color: aliceblue;
+}
+
+
+::ng-deep .mat-sort-header-container {
+  display: flex;
+  justify-content: center;
+}
+
+
+.mat-row:nth-child(odd) {
+  background-color: rgba(240, 248, 255, 0.89);
+}

@@ -1,0 +1,87 @@
+<div class="master-container1 container p-0" style="margin-bottom: 2%;">
+  <div class="card-header">MASTER FOLLOW UP MODE</div>
+
+  <div class="card">
+<form [formGroup]="MasterFollowUp">
+<div class="container-fluid" *ngIf=addFollow>
+    
+    <div class="col-lg-12 first">
+        <a  role="button" aria-expanded="false" (click)="addShow()" style="cursor:pointer">
+            ADD FOLLOW UP MODE
+          </a>
+          <hr>
+          <div *ngIf="addshow">
+            <div class="card-body">
+             <div class="row">
+               <div class="col-lg-6">
+             <input type="text" placeholder="Follow Up Mode Name" formControlName="addMode" name="addMode">
+              <mat-error *ngIf="(MasterFollowUp.controls['addMode'].dirty || MasterFollowUp.controls['addMode'].touched) && MasterFollowUp.controls['addMode'].errors?.required">This field is mandatory.</mat-error>
+                </div>
+                <div class="col-lg-6 text-right">
+             <button type="button" class="btn btn-primary float-right" (click)= "reset()" style="margin-left : 20px">Reset</button>
+             <button type="button" class="btn btn-primary float-right" (click)= "addFollowUp()" >Add</button>
+             </div>
+
+             </div>
+            </div>
+          </div>
+    </div>
+    
+</div>
+</form>
+
+
+
+<form [formGroup]="EditMasterFollowUp">
+
+<div class="container-fluid" *ngIf=editFollow>
+    <div class="col-lg-12 first">
+        <a>
+            EDIT FOLLOW UP MODE
+          </a>
+          <hr>
+          <div>
+            <div class="card-body">
+             <div class="row">
+              <div class="col-lg-6">
+
+             <input type="text" placeholder="Follow Up Mode Name" formControlName="editMode" name="editMode">
+             <mat-error *ngIf="EditMasterFollowUp.controls['editMode'].errors?.required">This field is mandatory.</mat-error>
+                </div>
+               <div class="col-lg-6 text-right">
+
+             <button type="button" class="btn btn-primary float-right" (click)= "updateFollowUp()">Update</button>
+             <button type="button" class="btn btn-primary float-right" (click)= "cancel()" style="margin-right : 20px">Cancel</button>
+             </div>
+             </div>
+            </div>
+          </div>
+    </div>
+</div>
+</form>
+
+<div class="container-fluid table1">
+    <div class="col-lg-12 first">
+     <h4 >ALL FOLLOW UP MODES({{FollowUps.length}})</h4>
+      <hr>
+    <table class="table" style="text-align:center">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let followup of FollowUps ; let i=index" >
+          <td scope="col">{{followup.name ? followup.name : ''}}</td>
+          <td scope="col">
+            <mat-icon mat-icon-button (click)="editFollowUp(followup)" title="Edit"> edit</mat-icon>
+            <mat-icon mat-icon-button (click)="deleteFollowUp(i)" style = "margin-left: 20px;"title="Delete">delete_outline</mat-icon>
+          </td>
+        </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+</div>
+</div>

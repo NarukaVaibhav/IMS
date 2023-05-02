@@ -1,0 +1,330 @@
+.container1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width : 1500px;
+    
+  } */
+ 
+  .master-container2{
+    position: absolute;
+    margin :auto;
+    margin-top: 110px !important;
+    width: 98% !important;
+    left : 50%;
+    transform: translateX(-50%);
+  }
+
+  input{
+    border-radius: .17rem;
+    font-size: .9375rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    padding: .4375rem 1rem;
+    background-color: #f7f9fc;
+    border-color: #e4e9f2;
+    color: #222b45;
+    width: 100%;
+    border-style: solid;
+    border-width: 1px;
+    font-family: Open Sans,sans-serif;
+    -webkit-appearance: none;
+overflow: visible;    
+  }
+  
+  input:hover{
+    border-color:#007bff;
+  }
+  select:hover{
+    border-color:#007bff;
+  }
+  textarea:hover{
+    border-color: #007bff;
+  }
+  
+
+  h2 {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+  }
+  
+  .list-container-fluid {
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    height: 600px;
+    
+  }
+  
+  .todo-container {
+    width: 500px;
+    max-width: 100%;
+    display: inline-block;
+    height: 600px;
+    vertical-align: top;
+    background-color: white;
+
+  }
+  
+  
+  mat-card {
+    margin: 1em;
+    cursor: pointer;
+  }
+
+  
+  
+  .list {
+    border-radius: 2px;
+    height : 500px;
+    overflow-y: scroll;
+    border: 0 solid transparent;
+    border-radius: .25rem;
+    box-shadow: 0 0.5rem 1rem 0 rgba(240, 248, 255, 0.89);
+
+  }
+  
+
+  .list-item {
+
+  font-family: Open Sans, sans-serif;
+  color: rgba(0, 0, 0, 0.54) !important;
+
+    margin: 10px;
+    padding: 20px 10px;
+    border-bottom: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: move;
+    background: white;
+    font-size: small !important;
+    
+  }
+  
+  .cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.first {
+  margin-top: 20px;
+  
+  background-color: #fff;
+  border: 0 solid transparent;
+  border-radius: .25rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(240, 248, 255, 0.89);
+}
+
+input {
+  margin-bottom: 25px;
+  
+  height: 40px;
+
+  width: 600px;
+}
+
+mat-card-header {
+  display: -webkit-inline-flex !important;
+  font-size: smaller  !important;
+  font-family: Open Sans, sans-serif !important;
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 350px;
+  overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+  display: block;
+}
+
+
+
+
+.master-container {
+  position: absolute;
+  margin :auto;
+  
+  margin-top: 110px;
+  width : 91%;
+  margin-bottom: 2%;
+}
+
+
+th {
+  padding: 1% 1%;
+  font-family: Open Sans, sans-serif;
+  border: 1px solid #CEEBED;
+  color: rgba(0, 0, 0, 0.54);
+  vertical-align: middle !important;
+  text-align: center !important;
+  font-size: medium !important;
+  font-weight: bolder;
+  max-height : 10px;
+  overflow: hidden !important;
+  padding-left: 10px !important;
+
+  text-overflow: ellipsis !important; 
+  white-space: nowrap !important; 
+
+}
+
+td{
+      vertical-align: middle !important;
+  text-align: center !important;
+  padding: 0.5% 0.5%;
+
+  padding-right: 1.75rem;
+  font-family: Open Sans, sans-serif;
+  border: 1px solid #CEEBED;
+  color: rgba(0, 0, 0, 0.54);
+  max-width: 15px !important;
+  vertical-align: middle;
+  text-align: center;
+padding-left: 10px !important;
+  
+  font-size: small !important;
+  max-height: 5px !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  
+  text-overflow: ellipsis !important; 
+  white-space: nowrap !important; 
+
+}
+
+::ng-deep td.mat-cell {
+  border-radius: .25rem;
+  color: rgba(0, 0, 0, 0.54);
+  padding-right: 1.75rem;
+  font-family: Open Sans, sans-serif;
+  vertical-align: middle;
+  text-align: center;
+  font-size: .9375rem;
+  border: 1px solid #CEEBED;
+}
+
+
+tr:nth-child(even) {background-color: rgba(240, 248, 255, 0.89);}
+
+
+h3, h4 , a{
+  font-size: medium;
+  color: rgba(0, 0, 0, 0.54) !important;
+
+  font-weight: bolder;
+  font-family: Open Sans, sans-serif;
+
+}
+
+mat-icon{
+  font-size : 20px;
+  cursor: pointer;
+}
+mat-card-header{
+  font-size: smaller !important;
+
+  font-family: Open Sans, sans-serif !important;
+  word-break: break-all !important;
+}
+
+.margin123{
+left: 10px;
+/* right: 10px; */
+max-width: 650px !important;
+}
+.margin1234{
+  left: 10px;
+  right: 10px;
+  max-width: 650px !important;
+  }
+  
+textarea{
+  margin-top: 15px;
+  background-color: #f7f9fc;
+  font-size: .9375rem;
+  font-family: Open Sans,sans-serif;
+  color: #222b45;
+}
+hr{
+  border: 1px solid rgba(240, 248, 255, 0.89);
+}
+
+.done-container {
+  
+  display: inline-block;
+  height: 600px;
+  vertical-align: top;
+  background-color: white;
+
+}
+
+.container-fluid{
+  margin-bottom: 25px;
+}
+.card{
+  
+  width:100%;
+  background-color: white;
+  box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1);
+  
+  border-radius: 0.3rem;
+  border: solid 2px rgba(240, 248, 255, 0.89);
+  }
+  
+  .card-header{
+   
+    font-size: medium !important;
+    font-weight: bolder;
+    background-color: white;
+    
+    width:100%;
+    margin-bottom: 5px;
+    
+    font-family: Open Sans, sans-serif;
+    background-color: white !important;
+  box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1);
+  
+  border-radius: 0.3rem;
+  border: solid 2px rgba(240, 248, 255, 0.89);
+  color: rgba(0, 0, 0, 0.54);
+
+  }
+
+  .row1{
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+  }
+ 

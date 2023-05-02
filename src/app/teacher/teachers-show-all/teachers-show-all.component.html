@@ -1,0 +1,83 @@
+<div class="section-1 main container p-0">
+  <div class="container-fluid" >
+    <div class="col-lg-12 headerText">
+      ALL BATCHES 
+      
+    </div>
+    <div class="section-2 col-lg-12 mt-5" *ngFor="let row of aa ; let index = index">
+      <div class="row mb-3">
+        <div class="col-lg-4 headerTextWB">
+          {{row.name}}
+          <br>
+          NO. OF STUDENT IN BATCH: {{numberOfStudent[index]}}
+        </div>
+        <div class="col-lg-4 headerTextWB">
+          BATCH TIME: {{row.startTime | date:'h:mm a'}} - {{row.endTime | date:'h:mm a'}} 
+        </div>
+        <div class="col-lg-4 headerTextWB">
+          BATCH START DATE: {{row.date |date}} 
+        </div>
+      </div>
+
+      <div class="row">
+        <div class=" col-lg-3 " style="text-align: center;">
+
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title" (click) = "attendence(row)">
+                <p style="cursor: pointer; font-weight: bolder;" class="headerTextWB">
+                  <u>Attendence</u>
+                </p>
+                </h5>
+              <h6 class="headerTextWB">Present Today - 0</h6>
+              <h6 class="headerTextWB">Absent Today - 0</h6>
+              <br>
+              <h6 class="card-subtitle mb-2 text-muted headerTextWB">Today's Attendance</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1"></div>
+        <div class=" col-lg-3 " style="text-align: center;">
+
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title headerTextWB">
+                <p style="cursor: pointer; font-weight: bolder;" (click)="examForward(exm[index].id)">
+                  <u>Exam</u>
+                </p>
+                
+              </h5>
+              <h6 class="headerTextWB">Total Marks - {{exm[index] ? exm[index].totalMarks : ''}}</h6>
+              <h6 class="headerTextWB">Exam Type - {{exm[index] ? exm[index].examType :''}}</h6>
+              <h6 class="headerTextWB">Total Questions - {{exm[index] ? exm[index].totalQuestions : ''}}</h6>
+              <h6 class="headerTextWB">Submitted By - {{exm[index] ? exm[index].submittedBy :''}}</h6>
+              <h6 class="headerTextWB">Last Date - {{exm[index] ? (exm[index].lastDate |date): ''}}</h6>
+              <br>
+              <h6 class="card-subtitle mb-2 text-muted headerTextWB ">Recent Exam</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1"></div>
+        <div class=" col-lg-3 " style="text-align: center;">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title headerTextWB">
+                <p style="cursor: pointer; font-weight: bolder;" >
+                  <u (click)="summary(vv[index])">Feedback</u>
+                </p>
+              </h5>
+              
+              <h6 class="headerTextWB">Date - {{vv[index] ? (vv[index].feedback != undefined ? (vv[index].feedback.createdAt |date) : '') : ''}}</h6>
+              <h6 class="headerTextWB">Submitted By - {{vv[index] ? (vv[index].index == "" ? 0 : vv[index].index) : ''}}</h6>
+              <br>
+              <h6 class="card-subtitle mb-2 text-muted headerTextWB">Recent fedback</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1"></div>
+
+      </div>
+      <hr>
+    </div>
+  </div>
+</div>

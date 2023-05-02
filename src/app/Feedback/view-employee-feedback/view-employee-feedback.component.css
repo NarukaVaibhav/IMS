@@ -1,0 +1,102 @@
+.master-container {
+    position: absolute;
+    margin-top: 110px;
+    width: 91%;
+    left: 50%;
+    max-width: 87%;
+    transform: translateX(-50%);
+  }
+  
+  h3 {
+    font-size: medium !important;
+    margin: 0.8em auto;
+    background-color: white;
+    padding: 0.8em;
+    border-radius: 0.2em;
+    box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1);
+    font-family: Open Sans, sans-serif;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.54);
+  }
+  
+  .form-container {
+    background-color: white;
+    box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1);
+    width: 100%;
+    border-radius: 0.2em;
+    margin: 0 auto;
+  }
+  
+  .row {
+    padding: 1.1rem;
+  }
+  
+  input:hover {
+    border-color: #007bff;
+  }
+  
+  input,
+  select {
+    padding: 7px 18px;
+    width: 100%;
+    border-radius: .25rem;
+    color: #192038;
+    background-color: #f7f9fc;
+    font-family: Open Sans, sans-serif;
+    transition-duration: .15s;
+    transition-property: border, background-color, color, box-shadow;
+    transition-timing-function: ease-in;
+    border: 1px solid #CEEBED;
+    height: 2.5rem;
+  }
+  
+  textarea:hover {
+    border-color: #007bff;
+  }
+  
+  textarea {
+    border-color: #CEEBED;
+    width: 100%;
+    background-color: #f7f9fc;
+  }
+  
+  table{
+      width: 100%;
+  }
+  
+  th {
+    vertical-align: middle;
+    text-align: center;
+    font-family: Open Sans, sans-serif;
+    border: 1px solid #CEEBED;
+    color: rgba(0, 0, 0, 0.54);
+    max-width: 15px !important;
+    font-size: small !important;
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-weight: bold !important;
+  }
+  
+  td {
+    font-weight: normal;
+    vertical-align: middle;
+    text-align: center;
+    font-family: Open Sans, sans-serif;
+    border: 1px solid #CEEBED;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: small !important;
+    padding: 0.5em;
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    word-wrap: break-word;
+  }
+  
+  .project-record-btn{
+      background: transparent;
+      border: none;
+      cursor: pointer;
+  }

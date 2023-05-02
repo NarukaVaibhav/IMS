@@ -1,0 +1,84 @@
+<div class="section-1 main ">
+  <div class="container-fluid ">
+    <div class="col-lg-12 fontHeader mt-4">
+    Student Name : <span style=" font-weight: bolder;">{{studentDetail ? studentDetail.basicDetails.studentName : ''}}</span>
+    <br>
+    Batch Name : <span style=" font-weight: bolder;">{{studentDetail ? studentDetail.officeUseForm.batch[0].name : ''}}</span>
+    </div>
+    <br>
+    <div class="col-lg-12">
+      <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="All">
+          <table class="table table-striped">
+            <thead>
+              <th class="headerTextWB">Date</th>
+              <th class="headerTextWB">Present</th>
+              <th  class="headerTextWB">Absent</th>
+              <th  class="headerTextWB">Leave</th>
+            </thead>
+            <tbody>
+                <tr class="tTd" *ngFor="let row of all">
+                    <td style=" font-weight: bolder;">{{row.date}}</td>
+                  <td class="tTd"  style=" color:indigo ; font-weight: bolder;">
+                    {{row.attendance == "P" ? row.attendance : "-"}}</td>
+                  <td  class="tTd" style=" color:red ; font-weight: bolder;">{{row.attendance == "A" ? row.attendance :"-"}}</td>
+                  <td class="tTd"  style=" color:forestgreen ; font-weight: bolder;">{{row.attendance == "L" ? row.attendance : "-"}}</td>
+                </tr>
+            </tbody>
+          </table>
+        </mat-tab>
+        <mat-tab label="Present">
+          <table class="table table-striped">
+            <thead>
+              <th class="headerTextWB">Date</th>
+              <th class="headerTextWB">Present</th>
+            </thead>
+            <tbody>
+              <tr class="headerTextWB" *ngFor="let row of all">
+                 <ng-container *ngIf="row.attendance == 'P'">
+                    <td  class="tTd" style=" font-weight: bolder;">{{row.date}}</td>
+                    <td  class="tTd" style=" color:indigo ; font-weight: bolder;" >
+                      {{row.attendance}}</td>
+                 </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </mat-tab>
+        <mat-tab  class="headerTextWB" label="Absent">
+          <table class="table table-striped ">
+            <thead>
+              <th class="headerTextWB">Date</th>
+              <th class="headerTextWB">Absent</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of all">
+                    <ng-container *ngIf="row.attendance == 'A'">
+                       <td  class="tTd" style=" font-weight: bolder;">{{row.date}}</td>
+                       <td class="tTd"  style=" color:indigo ; font-weight: bolder;">
+                         {{row.attendance}}</td>
+                    </ng-container>
+                 </tr>
+            </tbody>
+          </table>
+        </mat-tab>
+        <mat-tab label="Leave"  class="headerTextWB">
+          <table class="table table-striped">
+            <thead>
+              <th  class="headerTextWB">Date</th>
+              <th  class="headerTextWB">Leave</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of all">
+                    <ng-container *ngIf="row.attendance == 'L'">
+                       <td   class="tTd">{{row.date}}</td>
+                       <td   class="tTd" style=" color:indigo ; font-weight: bolder;">
+                         {{row.attendance}}</td>
+                    </ng-container>
+                 </tr>
+            </tbody>
+          </table>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

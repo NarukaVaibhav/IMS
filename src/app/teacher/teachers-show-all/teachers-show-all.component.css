@@ -1,0 +1,37 @@
+.headerTextWB{
+
+    /* padding: 1rem 1.5rem; */
+    /* border-bottom: 1px solid #edf1f7; */
+    border-top-left-radius: .17rem;
+    border-top-right-radius: .17rem;
+    color: rgba(0, 0, 0, 0.54);
+    font-family: Open Sans,sans-serif;
+    font-size: .9375rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+  
+  
+  }
+
+  .card{
+    background-color:rgba(240, 248, 255, 0.80);
+  }
+  .headerText{
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #edf1f7;
+    border-top-left-radius: .17rem;
+    border-top-right-radius: .17rem;
+    color: rgba(0, 0, 0, 0.54);
+    font-family: Open Sans,sans-serif;
+    font-size: .9375rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+  }
+
+  .container-fluid{
+    background-color: #FFFFFF;
+  }
+
+  .main{
+    border: 1px solid #CEEBED;
+  }

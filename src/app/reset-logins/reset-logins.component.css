@@ -1,0 +1,51 @@
+
+.submitButton {
+    background-color: #36f;
+    border-color: #36f;
+  
+  }
+  
+.btnCSS {
+    color: #fff;
+    padding: .6875rem 1.125rem;
+    border-style: solid;
+    border-width: .0625rem;
+    text-transform: uppercase;
+    border-radius: .17rem;
+    font-size: .875rem;
+    line-height: 1rem;
+    transition-duration: 0.15s;
+    transition-property: background-color, border-color, box-shadow, color;
+    transition-timing-function: ease-in;
+    cursor: pointer;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+  }
+
+  
+  th,td{
+      font-size: 15px !important;
+  }
+  .master-container1 {
+      background-color: #ffffff !important;
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+      border: 1px solid #dee2e6;
+  }
+  td {
+    font-family: Open Sans, sans-serif;
+    font-size: .9375rem;
+    line-height: 1.5rem;
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: 600;
+    padding-top: calc(.375rem + 1px);
+    padding-bottom: calc(.375rem + 1px);
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+  

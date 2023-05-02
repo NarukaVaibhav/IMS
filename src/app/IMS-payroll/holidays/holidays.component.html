@@ -1,0 +1,90 @@
+<div class="master-container1 container p-0">
+    <div *ngIf="!teacherlogin" class="card-header" >Holidays </div>
+
+
+    <div *ngIf="!teacherlogin" class="col-lg-12 card" style="margin-top: 10px;padding: 0px;">
+
+        <div class="row">
+            <div class="col-md-1"></div>
+        <div class="col-md-4 card" style="padding: 0px;height: 300px;margin: 10px;">
+            <div class="card-header">
+                Mark Holiday
+            </div>
+            <div style="padding: 20px;">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Choose Date *</mat-label>
+                    <input (click)="mdate.open()" [matDatepicker]="mdate" matInput   name="dob" [(ngModel)]="mark_holiday_obj.date">
+                        <mat-datepicker-toggle matSuffix [for]="mdate"></mat-datepicker-toggle>
+                        <mat-datepicker #mdate></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field style="height: auto !important;" appearance="outline" class="full-width">
+                    <mat-label>Reason *</mat-label>
+                    <textarea cdkTextareaAutosize
+
+                    cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="3"  matInput   name="reason" [(ngModel)]="mark_holiday_obj.reason">   </textarea>
+                  </mat-form-field>
+
+
+                  <button (click)="markHoliday()"  mat-stroked-button  style="width:150px;text-align:center;bottom: 0;margin-top:4px;">
+                    Mark Holiday</button>
+            </div>
+        </div>
+
+        <div class="col-md-1"></div>
+
+        <div class="col-md-4 card" style="padding: 0px;height: 300px;margin: 10px;">
+            <div class="card-header">
+                Upload Holiday List
+                <i  (click)="downloadholidayFILE()" class="material-icons ml-2"  matTooltip="Download Sample" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;"  >save_alt</i>
+            </div>
+            <div style="padding: 20px;">
+                <label for="infile">
+                    <img src="../../../assets/upload1.svg" style="height: 80px;width:100px;">
+                    </label>
+                <!-- <mat-form-field style="width:100%;" appearance="outline">
+                    <mat-label>Document Name</mat-label>
+                    <input matInput disabled="true" type="text"  placeholder="Other" name="other" [(ngModel)]="documentname">
+                  </mat-form-field> -->
+
+
+
+                  <input accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" id="infile"  (error)="err($event)" name="infile" style="display: none;"  type="file" (change)="onFileChange($event)" >
+                  <button mat-stroked-button   (click)="uploadholiday()" style="width: 150px;margin-top: 20px;">Upload Holiday File</button>
+            </div>
+         </div>
+
+        </div>
+     </div>
+
+
+
+
+     <div class="col-lg-12 card" style="padding: 0px !important;" >
+         <div class="card-header">Holiday Lists</div>
+        <table style="margin:10px !important" mat-table  [dataSource]="allHolidayList" matSort class="mat-elevation-z8">
+            <tr mat-header-row *matHeaderRowDef="holidayColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: holidayColumns;"></tr>
+            <!-- Position Column -->
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Date</th>
+              <td mat-cell *matCellDef="let element" id="date"> {{element.date | date:'mediumDate' :'GMT' }} </td>
+            </ng-container>
+            <ng-container matColumnDef="reason">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason</th>
+                <td mat-cell *matCellDef="let element" id="reason"> {{element.reason}} </td>
+              </ng-container>
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+                <td mat-cell *matCellDef="let element" id="id">
+                  <i *ngIf="!teacherlogin" (click)="deleteHoliday(element)" class="material-icons ml-2"  matTooltip="Delete" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;"  >delete</i>
+                </td>
+              </ng-container>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[7, 15]" showFirstLastButtons></mat-paginator>
+
+     </div>
+
+
+ </div>

@@ -1,0 +1,1198 @@
+<ngx-loading-bar></ngx-loading-bar>
+<!-- <app-login *ngIf="loggedIn==false"></app-login> -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Profile</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <a style="font-size: medium !important; margin-left: 12rem;" class="modal-link" routerLinkActive="active"
+      style="cursor:pointer" (click)=" editProfile(); modal.dismiss('Cross click')">Edit Profile</a>
+    <a style="font-size: medium !important; margin-left: 12rem;" class="modal-link"
+      (click)="logout(); modal.dismiss('Cross click')" routerLinkActive="active" style="cursor:pointer">Log Out</a>
+  </div>
+</ng-template>
+
+<header class="demo-header">
+  <div class="master-header row">
+    <div class='col-2' style="display: flex; cursor: pointer;">
+      <img class="toggleIcon" (click)="_toggleOpened()" src="../assets/menu-2.svg">
+      <div class="title">IMS</div>
+    </div>
+
+    <div class="col-10">
+      <button style="display: flex;" (click)="openDialog(content)" class="login-button">
+        <mat-icon class="proicon">account_circle</mat-icon>
+        <p style="margin: 1rem; margin-top: 0.7rem;">{{ProfileName}}</p>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+
+<ng-sidebar-container >
+  <ng-sidebar [(opened)]="_opened" mode="slide" position="left" dock="_dock" dockedSize="70px" ariaLabel="'My sidebar'">
+    <a routerLinkActive="active">
+      <div style="height: 20px;"><img src="../assets/home-outline.svg">
+      </div>
+    </a>
+
+    <div *ngFor="let i of SIDEMENUARR;let index=index;">
+      <div *ngIf="!i.submenu && i.show ">
+      <a *ngIf="_opened" [routerLink]="i.route" title="Dashboard" (click)="_toggleOpened()" routerLinkActive="active"
+         >
+        <mat-icon class="sideicon">{{i.icon}}</mat-icon>{{i.name}}
+      </a>
+      <a *ngIf="!_opened" [routerLink]="i.route" title="Dashboard" (click)="oneTimeToggle()" routerLinkActive="active"
+              >
+        <mat-icon style="float: right;" class="sideicon">{{i.icon}}</mat-icon>
+      </a>
+      </div>
+
+      <div *ngIf="i.submenu && i.show">
+      <button *ngIf="_opened" title="Enquiry" (click)="oneTimeToggle();submenuSHOW(index);" class="dropdown-btn">
+        <mat-icon  class="sideicon">{{i.icon}}</mat-icon>{{i.name}}
+        <mat-icon *ngIf="!i.showsub" class="sideicon"   style="float: right;">keyboard_arrow_left</mat-icon>
+        <mat-icon *ngIf="i.showsub" class="sideicon"  style="float: right;">keyboard_arrow_down</mat-icon>
+
+      </button>
+        <button *ngIf="!_opened" title="Enquiry" (click)="oneTimeToggle()" class="dropdown-btn">
+          <mat-icon style="float: right;" class="sideicon">{{i.icon}}</mat-icon>
+        </button>
+      <div *ngIf="i.showsub && _opened"  [@inOutAnimation] class="dropdown-container">
+        <div *ngFor="let j of i.sub"><a *ngIf="j.show" [routerLink]='j.route' (click)="_toggleOpened()" routerLinkActive="active">{{j.name}}</a></div>
+      </div>
+
+    </div>
+    </div>
+    <!--<a routerLink='/dashboard' title="Dashboard" (click)="oneTimeToggle(); _toggleOpened();" routerLinkActive="active"-->
+      <!--*ngIf="['Default Admin', 'Admin HR', 'Assistant HR Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important">-->
+        <!--<svg class="nav-icons" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="home">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M20.42 10.18L12.71 2.3a1 1 0 0 0-1.42 0l-7.71 7.89A2 2 0 0 0 3 11.62V20a2 2 0 0 0 1.89 2h14.22A2 2 0 0 0 21 20v-8.38a2.07 2.07 0 0 0-.58-1.44zM10 20v-6h4v6zm9 0h-3v-7a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v7H5v-8.42l7-7.15 7 7.19z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Dashboard-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;">-->
+        <!--<svg class="nav-icons" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="home">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M20.42 10.18L12.71 2.3a1 1 0 0 0-1.42 0l-7.71 7.89A2 2 0 0 0 3 11.62V20a2 2 0 0 0 1.89 2h14.22A2 2 0 0 0 21 20v-8.38a2.07 2.07 0 0 0-.58-1.44zM10 20v-6h4v6zm9 0h-3v-7a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v7H5v-8.42l7-7.15 7 7.19z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</a>-->
+
+    <!--<button title="Enquiry" (click)="toggleDisplay('enquiry'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin', 'Admin HR', 'Assistant HR Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="smartphone">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0" />-->
+              <!--<path-->
+                <!--d="M17 2H7a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zm1 17a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z" />-->
+              <!--<circle cx="12" cy="16.5" r="1.5" />-->
+              <!--<path d="M14.5 6h-5a1 1 0 0 0 0 2h5a1 1 0 0 0 0-2z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Enquiries-->
+
+        <!--<svg *ngIf="enquiryVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!enquiryVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="smartphone">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0" />-->
+              <!--<path-->
+                <!--d="M17 2H7a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zm1 17a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z" />-->
+              <!--<circle cx="12" cy="16.5" r="1.5" />-->
+              <!--<path d="M14.5 6h-5a1 1 0 0 0 0 2h5a1 1 0 0 0 0-2z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!enquiryVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a routerLink='/Enquiry/add-enquiry' (click)="_toggleOpened();" routerLinkActive="active">Add</a>-->
+      <!--<a routerLink='/Enquiry/view-enquiry' (click)="_toggleOpened();" routerLinkActive="active">View All</a>-->
+    <!--</div>-->
+
+    <!--<button title="Admission" (click)="toggleDisplay('admission'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin', 'Admin HR', 'Assistant HR Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="external-link">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M20 11a1 1 0 0 0-1 1v6a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h6a1 1 0 0 0 0-2H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-6a1 1 0 0 0-1-1z" />-->
+              <!--<path-->
+                <!--d="M16 5h1.58l-6.29 6.28a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0L19 6.42V8a1 1 0 0 0 1 1 1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-4a1 1 0 0 0 0 2z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Admission-->
+        <!--<svg *ngIf="admissionVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3"-->
+          <!--style="float: right; width:auto;" height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!admissionVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3"-->
+          <!--style="float: right; width:auto;" height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="external-link">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M20 11a1 1 0 0 0-1 1v6a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h6a1 1 0 0 0 0-2H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-6a1 1 0 0 0-1-1z" />-->
+              <!--<path-->
+                <!--d="M16 5h1.58l-6.29 6.28a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0L19 6.42V8a1 1 0 0 0 1 1 1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-4a1 1 0 0 0 0 2z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!admissionVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Admission/add-new-admission' routerLinkActive="active">Add</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Admission/view-admissions' routerLinkActive="active">View All</a>-->
+    <!--</div>-->
+
+
+    <!--<button title="Payroll" (click)="toggleDisplay('payroll'); oneTimeToggle();" class="dropdown-btn">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important"><svg xmlns="http://www.w3.org/2000/svg"-->
+          <!--class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="award">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M19 20.75l-2.31-9A5.94 5.94 0 0 0 18 8 6 6 0 0 0 6 8a5.94 5.94 0 0 0 1.34 3.77L5 20.75a1 1 0 0 0 1.48 1.11l5.33-3.13 5.68 3.14A.91.91 0 0 0 18 22a1 1 0 0 0 1-1.25zM12 4a4 4 0 1 1-4 4 4 4 0 0 1 4-4zm.31 12.71a1 1 0 0 0-1 0l-3.75 2.2L9 13.21a5.94 5.94 0 0 0 5.92 0L16.45 19z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Payroll-->
+        <!--<svg *ngIf="payrollVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!payrollVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 24px"><svg xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3"-->
+          <!--class="nav-icons" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="award">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M19 20.75l-2.31-9A5.94 5.94 0 0 0 18 8 6 6 0 0 0 6 8a5.94 5.94 0 0 0 1.34 3.77L5 20.75a1 1 0 0 0 1.48 1.11l5.33-3.13 5.68 3.14A.91.91 0 0 0 18 22a1 1 0 0 0 1-1.25zM12 4a4 4 0 1 1-4 4 4 4 0 0 1 4-4zm.31 12.71a1 1 0 0 0-1 0l-3.75 2.2L9 13.21a5.94 5.94 0 0 0 5.92 0L16.45 19z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!payrollVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--&lt;!&ndash; <a routerLink='/payroll-dashboard' routerLinkActive="active">Dashboard</a> &ndash;&gt;-->
+      <!--<a (click)="_toggleOpened();" *ngIf="['Default Admin', 'Admin HR'].includes(designation)"-->
+        <!--routerLink='/Payroll/Employee/All_Emp' routerLinkActive="active">Employee</a>-->
+      <!--<a (click)="_toggleOpened();" *ngIf="['Default Admin', 'Teacher', 'Admin HR'].includes(designation)"-->
+        <!--routerLink='/Payroll/Attendance' routerLinkActive="active">Attendance</a>-->
+      <!--<a (click)="_toggleOpened();" *ngIf="['Default Admin', 'Admin HR'].includes(designation)"-->
+        <!--routerLink='/Payroll/Payroll-Overview' routerLinkActive="active">Payroll</a>-->
+      <!--<a (click)="_toggleOpened();" *ngIf="['Default Admin', 'Teacher', 'Admin HR'].includes(designation)"-->
+        <!--routerLink='/Payroll/Leaves' routerLinkActive="active">Leaves</a>-->
+      <!--<a (click)="_toggleOpened();" *ngIf="['Default Admin', 'Teacher', 'Admin HR'].includes(designation)"-->
+        <!--routerLink='/Payroll/Holidays' routerLinkActive="active">Holidays</a>-->
+      <!--<a (click)="_toggleOpened();" *ngIf="['Default Admin', 'Teacher', 'Admin HR'].includes(designation)"-->
+        <!--routerLink='/Payroll/PaySlip' routerLinkActive="active">Pay Slip</a>-->
+      <!--&lt;!&ndash; <a routerLink='/payroll-official-work' routerLinkActive="active">Official Work</a> &ndash;&gt;-->
+    <!--</div>-->
+
+
+    <!--<a title="Attendance" routerLink='/Attendance/attendance' (click)="oneTimeToggle(); _toggleOpened();"-->
+      <!--routerLinkActive="active" *ngIf="['Default Admin', 'Admin HR', 'Assistant HR Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="person">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M12 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0-6a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" />-->
+              <!--<path d="M12 13a7 7 0 0 0-7 7 1 1 0 0 0 2 0 5 5 0 0 1 10 0 1 1 0 0 0 2 0 7 7 0 0 0-7-7z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Attendance-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="person">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M12 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0-6a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" />-->
+              <!--<path d="M12 13a7 7 0 0 0-7 7 1 1 0 0 0 2 0 5 5 0 0 1 10 0 1 1 0 0 0 2 0 7 7 0 0 0-7-7z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</a>-->
+
+    <!--<a title="Attendance Sheet" routerLink='/Attendance/attendance-sheet' (click)="oneTimeToggle(); _toggleOpened();"-->
+      <!--routerLinkActive="active" *ngIf="['Default Admin', 'Admin HR', 'Assistant HR Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="people">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M9 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0-6a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" />-->
+              <!--<path d="M17 13a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0-4a1 1 0 1 1-1 1 1 1 0 0 1 1-1z" />-->
+              <!--<path-->
+                <!--d="M17 14a5 5 0 0 0-3.06 1.05A7 7 0 0 0 2 20a1 1 0 0 0 2 0 5 5 0 0 1 10 0 1 1 0 0 0 2 0 6.9 6.9 0 0 0-.86-3.35A3 3 0 0 1 20 19a1 1 0 0 0 2 0 5 5 0 0 0-5-5z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Attendance Sheet-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="people">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M9 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0-6a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" />-->
+              <!--<path d="M17 13a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0-4a1 1 0 1 1-1 1 1 1 0 0 1 1-1z" />-->
+              <!--<path-->
+                <!--d="M17 14a5 5 0 0 0-3.06 1.05A7 7 0 0 0 2 20a1 1 0 0 0 2 0 5 5 0 0 1 10 0 1 1 0 0 0 2 0 6.9 6.9 0 0 0-.86-3.35A3 3 0 0 1 20 19a1 1 0 0 0 2 0 5 5 0 0 0-5-5z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</a>-->
+
+    <!--<button title="Task" (click)="toggleDisplay('task'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin', 'Teacher'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="checkmark-square">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M20 11.83a1 1 0 0 0-1 1v5.57a.6.6 0 0 1-.6.6H5.6a.6.6 0 0 1-.6-.6V5.6a.6.6 0 0 1 .6-.6h9.57a1 1 0 1 0 0-2H5.6A2.61 2.61 0 0 0 3 5.6v12.8A2.61 2.61 0 0 0 5.6 21h12.8a2.61 2.61 0 0 0 2.6-2.6v-5.57a1 1 0 0 0-1-1z" />-->
+              <!--<path-->
+                <!--d="M10.72 11a1 1 0 0 0-1.44 1.38l2.22 2.33a1 1 0 0 0 .72.31 1 1 0 0 0 .72-.3l6.78-7a1 1 0 1 0-1.44-1.4l-6.05 6.26z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Task-->
+        <!--<svg *ngIf="taskVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!taskVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="checkmark-square">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M20 11.83a1 1 0 0 0-1 1v5.57a.6.6 0 0 1-.6.6H5.6a.6.6 0 0 1-.6-.6V5.6a.6.6 0 0 1 .6-.6h9.57a1 1 0 1 0 0-2H5.6A2.61 2.61 0 0 0 3 5.6v12.8A2.61 2.61 0 0 0 5.6 21h12.8a2.61 2.61 0 0 0 2.6-2.6v-5.57a1 1 0 0 0-1-1z" />-->
+              <!--<path-->
+                <!--d="M10.72 11a1 1 0 0 0-1.44 1.38l2.22 2.33a1 1 0 0 0 .72.31 1 1 0 0 0 .72-.3l6.78-7a1 1 0 1 0-1.44-1.4l-6.05 6.26z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!taskVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Task/addtask' routerLinkActive="active">Add</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Task/viewtask' routerLinkActive="active">View All</a>-->
+    <!--</div>-->
+
+    <!--<button title="Assignment" (click)="toggleDisplay('assignment'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin', 'Teacher', 'Admin HR', 'Assistant HR Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="edit-2">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M19 20H5a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2z" />-->
+              <!--<path-->
+                <!--d="M5 18h.09l4.17-.38a2 2 0 0 0 1.21-.57l9-9a1.92 1.92 0 0 0-.07-2.71L16.66 2.6A2 2 0 0 0 14 2.53l-9 9a2 2 0 0 0-.57 1.21L4 16.91a1 1 0 0 0 .29.8A1 1 0 0 0 5 18zM15.27 4L18 6.73l-2 1.95L13.32 6zm-8.9 8.91L12 7.32l2.7 2.7-5.6 5.6-3 .28z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Assignment-->
+        <!--<svg *ngIf="assignmentVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3"-->
+          <!--style="float: right; width:auto;" height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!assignmentVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3"-->
+          <!--style="float: right; width:auto;" height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="edit-2">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M19 20H5a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2z" />-->
+              <!--<path-->
+                <!--d="M5 18h.09l4.17-.38a2 2 0 0 0 1.21-.57l9-9a1.92 1.92 0 0 0-.07-2.71L16.66 2.6A2 2 0 0 0 14 2.53l-9 9a2 2 0 0 0-.57 1.21L4 16.91a1 1 0 0 0 .29.8A1 1 0 0 0 5 18zM15.27 4L18 6.73l-2 1.95L13.32 6zm-8.9 8.91L12 7.32l2.7 2.7-5.6 5.6-3 .28z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!assignmentVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Assignment/assignment' routerLinkActive="active">Add</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Assignment/assignment-ViewAll' routerLinkActive="active">View All</a>-->
+    <!--</div>-->
+
+    <!--<button title="User Task" (click)="toggleDisplay('userTask'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="book">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M19 3H7a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM7 5h11v10H7a3 3 0 0 0-1 .18V6a1 1 0 0 1 1-1zm0 14a1 1 0 0 1 0-2h11v2z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>User Task-->
+        <!--<svg *ngIf="userTaskVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!userTaskVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3"-->
+          <!--style="float: right; width:auto;" height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="book">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M19 3H7a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM7 5h11v10H7a3 3 0 0 0-1 .18V6a1 1 0 0 1 1-1zm0 14a1 1 0 0 1 0-2h11v2z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!userTaskVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a (click)="_toggleOpened();" routerLink="/UserTask/userTasks-viewall" routerLinkActive="active">View All</a>-->
+    <!--</div>-->
+
+    <!--<button title="Exam" (click)="toggleDisplay('exam'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin', 'Teacher', 'Admin HR', 'Assistant HR Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="file-text">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M15 16H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z" />-->
+              <!--<path d="M9 14h3a1 1 0 0 0 0-2H9a1 1 0 0 0 0 2z" />-->
+              <!--<path-->
+                <!--d="M19.74 8.33l-5.44-6a1 1 0 0 0-.74-.33h-7A2.53 2.53 0 0 0 4 4.5v15A2.53 2.53 0 0 0 6.56 22h10.88A2.53 2.53 0 0 0 20 19.5V9a1 1 0 0 0-.26-.67zM14 5l2.74 3h-2a.79.79 0 0 1-.74-.85zm3.44 15H6.56a.53.53 0 0 1-.56-.5v-15a.53.53 0 0 1 .56-.5H12v3.15A2.79 2.79 0 0 0 14.71 10H18v9.5a.53.53 0 0 1-.56.5z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Exam-->
+        <!--<svg *ngIf="examVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!examVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="file-text">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M15 16H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z" />-->
+              <!--<path d="M9 14h3a1 1 0 0 0 0-2H9a1 1 0 0 0 0 2z" />-->
+              <!--<path-->
+                <!--d="M19.74 8.33l-5.44-6a1 1 0 0 0-.74-.33h-7A2.53 2.53 0 0 0 4 4.5v15A2.53 2.53 0 0 0 6.56 22h10.88A2.53 2.53 0 0 0 20 19.5V9a1 1 0 0 0-.26-.67zM14 5l2.74 3h-2a.79.79 0 0 1-.74-.85zm3.44 15H6.56a.53.53 0 0 1-.56-.5v-15a.53.53 0 0 1 .56-.5H12v3.15A2.79 2.79 0 0 0 14.71 10H18v9.5a.53.53 0 0 1-.56.5z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!examVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Exam/add-exam' routerLinkActive="active">Add</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Exam/view' routerLinkActive="active">View All</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Exam/format-Exam' routerLinkActive="active"-->
+        <!--*ngIf="['Default Admin'].includes(designation)">Format</a>-->
+    <!--</div>-->
+
+    <!--<button title="Task Configuration" (click)="toggleDisplay('taskConfig'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important">-->
+        <!--<svg xmlns="http://www.w3.org/2000/svg" class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="list">-->
+              <!--<rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />-->
+              <!--<circle cx="4" cy="7" r="1" />-->
+              <!--<circle cx="4" cy="12" r="1" />-->
+              <!--<circle cx="4" cy="17" r="1" />-->
+              <!--<rect x="7" y="11" width="14" height="2" rx=".94" ry=".94" />-->
+              <!--<rect x="7" y="16" width="14" height="2" rx=".94" ry=".94" />-->
+              <!--<rect x="7" y="6" width="14" height="2" rx=".94" ry=".94" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Task Config.-->
+
+        <!--<svg *ngIf="taskConfigVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3"-->
+          <!--style="float: right; width:auto;" height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!taskConfigVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3"-->
+          <!--style="float: right; width:auto;" height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icons"-->
+          <!--fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="list">-->
+              <!--<rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />-->
+              <!--<circle cx="4" cy="7" r="1" />-->
+              <!--<circle cx="4" cy="12" r="1" />-->
+              <!--<circle cx="4" cy="17" r="1" />-->
+              <!--<rect x="7" y="11" width="14" height="2" rx=".94" ry=".94" />-->
+              <!--<rect x="7" y="16" width="14" height="2" rx=".94" ry=".94" />-->
+              <!--<rect x="7" y="6" width="14" height="2" rx=".94" ry=".94" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!taskConfigVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a (click)="_toggleOpened();" routerLink='/TaskConfig/addtaskconfig' routerLinkActive="active">Add</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/TaskConfig/viewtaskconfig' routerLinkActive="active">View All</a>-->
+    <!--</div>-->
+
+    <!--<button title="Course Management" (click)="toggleDisplay('courseMgmt'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin', 'Teacher', 'Admin HR', 'Assistant HR Admin', 'Assistant HR Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important"><svg xmlns="http://www.w3.org/2000/svg"-->
+          <!--fill="#8f9bb3" class="nav-icons" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="layers">-->
+              <!--<rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />-->
+              <!--<path-->
+                <!--d="M21 11.35a1 1 0 0 0-.61-.86l-2.15-.92 2.26-1.3a1 1 0 0 0 .5-.92 1 1 0 0 0-.61-.86l-8-3.41a1 1 0 0 0-.78 0l-8 3.41a1 1 0 0 0-.61.86 1 1 0 0 0 .5.92l2.26 1.3-2.15.92a1 1 0 0 0-.61.86 1 1 0 0 0 .5.92l2.26 1.3-2.15.92a1 1 0 0 0-.61.86 1 1 0 0 0 .5.92l8 4.6a1 1 0 0 0 1 0l8-4.6a1 1 0 0 0 .5-.92 1 1 0 0 0-.61-.86l-2.15-.92 2.26-1.3a1 1 0 0 0 .5-.92zm-9-6.26l5.76 2.45L12 10.85 6.24 7.54zm-.5 7.78a1 1 0 0 0 1 0l3.57-2 1.69.72L12 14.85l-5.76-3.31 1.69-.72zm6.26 2.67L12 18.85l-5.76-3.31 1.69-.72 3.57 2.05a1 1 0 0 0 1 0l3.57-2.05z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Course-->
+        <!--Mgmt.-->
+        <!--<svg *ngIf="cMgmtVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!cMgmtVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 24px"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icons"-->
+          <!--fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="layers">-->
+              <!--<rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />-->
+              <!--<path-->
+                <!--d="M21 11.35a1 1 0 0 0-.61-.86l-2.15-.92 2.26-1.3a1 1 0 0 0 .5-.92 1 1 0 0 0-.61-.86l-8-3.41a1 1 0 0 0-.78 0l-8 3.41a1 1 0 0 0-.61.86 1 1 0 0 0 .5.92l2.26 1.3-2.15.92a1 1 0 0 0-.61.86 1 1 0 0 0 .5.92l2.26 1.3-2.15.92a1 1 0 0 0-.61.86 1 1 0 0 0 .5.92l8 4.6a1 1 0 0 0 1 0l8-4.6a1 1 0 0 0 .5-.92 1 1 0 0 0-.61-.86l-2.15-.92 2.26-1.3a1 1 0 0 0 .5-.92zm-9-6.26l5.76 2.45L12 10.85 6.24 7.54zm-.5 7.78a1 1 0 0 0 1 0l3.57-2 1.69.72L12 14.85l-5.76-3.31 1.69-.72zm6.26 2.67L12 18.85l-5.76-3.31 1.69-.72 3.57 2.05a1 1 0 0 0 1 0l3.57-2.05z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!cMgmtVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a *ngIf="['Default Admin', 'Admin HR', 'Teacher', 'Assistant HR Admin'].includes(designation)" (click)="_toggleOpened();" routerLink='/CourseMgmt/batches' routerLinkActive="active">Batches</a>-->
+      <!--<a *ngIf="['Default Admin', 'Admin HR', 'Teacher', 'Assistant HR Admin'].includes(designation)" (click)="_toggleOpened();" routerLink='/CourseMgmt/courses' routerLinkActive="active">Courses</a>-->
+      <!--<a *ngIf="['Default Admin', 'Admin HR', 'Teacher', 'Assistant HR Admin'].includes(designation)" (click)="_toggleOpened();" routerLink='/CourseMgmt/subcourses' routerLinkActive="active">Subcourses</a>-->
+      <!--<a *ngIf="['Default Admin', 'Admin HR', 'Teacher', 'Assistant HR Admin'].includes(designation)" (click)="_toggleOpened();" routerLink='/CourseMgmt/subjects' routerLinkActive="active">Subjects</a>-->
+      <!--<a *ngIf="['Default Admin', 'Teacher'].includes(designation)" (click)="_toggleOpened();" routerLink='/CourseMgmt/chapter' routerLinkActive="active">Chapter</a>-->
+      <!--<a *ngIf="['Default Admin', 'Teacher'].includes(designation)" (click)="_toggleOpened();" routerLink='/CourseMgmt/topic' routerLinkActive="active">Topic</a>-->
+      <!--<a *ngIf="['Default Admin', 'Teacher'].includes(designation)" (click)="_toggleOpened();" routerLink='/CourseMgmt/questions' routerLinkActive="active">Questions</a>-->
+    <!--</div>-->
+
+    <!--<button title="Project" (click)="toggleDisplay('project'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin', 'Teacher'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important"><svg xmlns="http://www.w3.org/2000/svg"-->
+          <!--fill="#8f9bb3" class="nav-icons" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="cube">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M20.66 7.26c0-.07-.1-.14-.15-.21l-.09-.1a2.5 2.5 0 0 0-.86-.68l-6.4-3a2.7 2.7 0 0 0-2.26 0l-6.4 3a2.6 2.6 0 0 0-.86.68L3.52 7a1 1 0 0 0-.15.2A2.39 2.39 0 0 0 3 8.46v7.06a2.49 2.49 0 0 0 1.46 2.26l6.4 3a2.7 2.7 0 0 0 2.27 0l6.4-3A2.49 2.49 0 0 0 21 15.54V8.46a2.39 2.39 0 0 0-.34-1.2zm-8.95-2.2a.73.73 0 0 1 .58 0l5.33 2.48L12 10.15 6.38 7.54zM5.3 16a.47.47 0 0 1-.3-.43V9.1l6 2.79v6.72zm13.39 0L13 18.61v-6.72l6-2.79v6.44a.48.48 0 0 1-.31.46z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Project-->
+        <!--<svg *ngIf="projectVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!projectVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icons"-->
+          <!--fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="cube">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M20.66 7.26c0-.07-.1-.14-.15-.21l-.09-.1a2.5 2.5 0 0 0-.86-.68l-6.4-3a2.7 2.7 0 0 0-2.26 0l-6.4 3a2.6 2.6 0 0 0-.86.68L3.52 7a1 1 0 0 0-.15.2A2.39 2.39 0 0 0 3 8.46v7.06a2.49 2.49 0 0 0 1.46 2.26l6.4 3a2.7 2.7 0 0 0 2.27 0l6.4-3A2.49 2.49 0 0 0 21 15.54V8.46a2.39 2.39 0 0 0-.34-1.2zm-8.95-2.2a.73.73 0 0 1 .58 0l5.33 2.48L12 10.15 6.38 7.54zM5.3 16a.47.47 0 0 1-.3-.43V9.1l6 2.79v6.72zm13.39 0L13 18.61v-6.72l6-2.79v6.44a.48.48 0 0 1-.31.46z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!projectVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a (click)="_toggleOpened();" routerLink="/Project/addproject" routerLinkActive="active">Add</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink="/Project/viewproject" routerLinkActive="active">View All</a>-->
+    <!--</div>-->
+
+    <!--<button title="Users" (click)="toggleDisplay('users'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin', 'Admin HR', 'Assistant HR Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important"><svg xmlns="http://www.w3.org/2000/svg"-->
+          <!--fill="#8f9bb3" class="nav-icons" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="person">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M12 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0-6a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" />-->
+              <!--<path d="M12 13a7 7 0 0 0-7 7 1 1 0 0 0 2 0 5 5 0 0 1 10 0 1 1 0 0 0 2 0 7 7 0 0 0-7-7z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Users-->
+        <!--<svg *ngIf="usersVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!usersVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icons"-->
+          <!--fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="person">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M12 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0-6a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" />-->
+              <!--<path d="M12 13a7 7 0 0 0-7 7 1 1 0 0 0 2 0 5 5 0 0 1 10 0 1 1 0 0 0 2 0 7 7 0 0 0-7-7z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!usersVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a (click)="_toggleOpened();" routerLink='/User/add-user' routerLinkActive="active">Add</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/User/view-all-users' routerLinkActive="active">View All</a>-->
+    <!--</div>-->
+
+    <!--<button title="Receipt" (click)="toggleDisplay('reciept'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important"><svg xmlns="http://www.w3.org/2000/svg"-->
+          <!--fill="#8f9bb3" class="nav-icons" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="edit-2">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M19 20H5a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2z" />-->
+              <!--<path-->
+                <!--d="M5 18h.09l4.17-.38a2 2 0 0 0 1.21-.57l9-9a1.92 1.92 0 0 0-.07-2.71L16.66 2.6A2 2 0 0 0 14 2.53l-9 9a2 2 0 0 0-.57 1.21L4 16.91a1 1 0 0 0 .29.8A1 1 0 0 0 5 18zM15.27 4L18 6.73l-2 1.95L13.32 6zm-8.9 8.91L12 7.32l2.7 2.7-5.6 5.6-3 .28z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Receipt-->
+        <!--<svg *ngIf="recieptVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!recieptVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icons"-->
+          <!--fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="edit-2">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M19 20H5a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2z" />-->
+              <!--<path-->
+                <!--d="M5 18h.09l4.17-.38a2 2 0 0 0 1.21-.57l9-9a1.92 1.92 0 0 0-.07-2.71L16.66 2.6A2 2 0 0 0 14 2.53l-9 9a2 2 0 0 0-.57 1.21L4 16.91a1 1 0 0 0 .29.8A1 1 0 0 0 5 18zM15.27 4L18 6.73l-2 1.95L13.32 6zm-8.9 8.91L12 7.32l2.7 2.7-5.6 5.6-3 .28z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!recieptVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Receipt/receipt' routerLinkActive="active">View All</a>-->
+    <!--</div>-->
+
+    <!--<a title="Reset Login" (click)="oneTimeToggle(); _toggleOpened();" routerLink='/reset-login'-->
+      <!--routerLinkActive="active" *ngIf="['Default Admin', 'Admin HR', 'Assistant HR Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important"><svg xmlns="http://www.w3.org/2000/svg"-->
+          <!--fill="#8f9bb3" class="nav-icons" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="shuffle-2">-->
+              <!--<rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />-->
+              <!--<path-->
+                <!--d="M18.71 14.29a1 1 0 0 0-1.42 1.42l.29.29H16a4 4 0 0 1 0-8h1.59l-.3.29a1 1 0 0 0 0 1.42A1 1 0 0 0 18 10a1 1 0 0 0 .71-.29l2-2A1 1 0 0 0 21 7a1 1 0 0 0-.29-.71l-2-2a1 1 0 0 0-1.42 1.42l.29.29H16a6 6 0 0 0-5 2.69A6 6 0 0 0 6 6H4a1 1 0 0 0 0 2h2a4 4 0 0 1 0 8H4a1 1 0 0 0 0 2h2a6 6 0 0 0 5-2.69A6 6 0 0 0 16 18h1.59l-.3.29a1 1 0 0 0 0 1.42A1 1 0 0 0 18 20a1 1 0 0 0 .71-.29l2-2A1 1 0 0 0 21 17a1 1 0 0 0-.29-.71z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Reset Logins-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icons"-->
+          <!--fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="shuffle-2">-->
+              <!--<rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />-->
+              <!--<path-->
+                <!--d="M18.71 14.29a1 1 0 0 0-1.42 1.42l.29.29H16a4 4 0 0 1 0-8h1.59l-.3.29a1 1 0 0 0 0 1.42A1 1 0 0 0 18 10a1 1 0 0 0 .71-.29l2-2A1 1 0 0 0 21 7a1 1 0 0 0-.29-.71l-2-2a1 1 0 0 0-1.42 1.42l.29.29H16a6 6 0 0 0-5 2.69A6 6 0 0 0 6 6H4a1 1 0 0 0 0 2h2a4 4 0 0 1 0 8H4a1 1 0 0 0 0 2h2a6 6 0 0 0 5-2.69A6 6 0 0 0 16 18h1.59l-.3.29a1 1 0 0 0 0 1.42A1 1 0 0 0 18 20a1 1 0 0 0 .71-.29l2-2A1 1 0 0 0 21 17a1 1 0 0 0-.29-.71z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</a>-->
+
+    <!--<button title="Fee Details" (click)="toggleDisplay('feeDetail'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin', 'Admin HR', 'Assistant HR Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important"><svg xmlns="http://www.w3.org/2000/svg"-->
+          <!--fill="#8f9bb3" class="nav-icons" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="credit-card">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M19 5H5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3zM4 8a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v1H4zm16 8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-5h16z" />-->
+              <!--<path d="M7 15h4a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2z" />-->
+              <!--<path d="M15 15h2a1 1 0 0 0 0-2h-2a1 1 0 0 0 0 2z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Fee Details-->
+        <!--<svg *ngIf="feeDetailVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3"-->
+          <!--style="float: right; width:auto;" height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!feeDetailVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3"-->
+          <!--style="float: right; width:auto;" height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icons"-->
+          <!--fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="credit-card">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M19 5H5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3zM4 8a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v1H4zm16 8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-5h16z" />-->
+              <!--<path d="M7 15h4a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2z" />-->
+              <!--<path d="M15 15h2a1 1 0 0 0 0-2h-2a1 1 0 0 0 0 2z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!feeDetailVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a (click)="_toggleOpened();" routerLink='/FeeDetails/feedetails' routerLinkActive="active">View Fee Details</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/FeeDetails/fee-receipt' routerLinkActive="active">Fee Receipt</a>-->
+    <!--</div>-->
+
+    <!--<button title="Feedback" (click)="toggleDisplay('feedback'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin', 'Teacher', 'Admin HR', 'Assistant HR Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important"><svg xmlns="http://www.w3.org/2000/svg"-->
+          <!--fill="#8f9bb3" class="nav-icons" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="message-circle">-->
+              <!--<circle cx="12" cy="12" r="1" />-->
+              <!--<circle cx="16" cy="12" r="1" />-->
+              <!--<circle cx="8" cy="12" r="1" />-->
+              <!--<path-->
+                <!--d="M19.07 4.93a10 10 0 0 0-16.28 11 1.06 1.06 0 0 1 .09.64L2 20.8a1 1 0 0 0 .27.91A1 1 0 0 0 3 22h.2l4.28-.86a1.26 1.26 0 0 1 .64.09 10 10 0 0 0 11-16.28zm.83 8.36a8 8 0 0 1-11 6.08 3.26 3.26 0 0 0-1.25-.26 3.43 3.43 0 0 0-.56.05l-2.82.57.57-2.82a3.09 3.09 0 0 0-.21-1.81 8 8 0 0 1 6.08-11 8 8 0 0 1 9.19 9.19z" />-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Feedback-->
+        <!--<svg *ngIf="feedbackVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!feedbackVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3"-->
+          <!--style="float: right; width:auto;" height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icons"-->
+          <!--fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="message-circle">-->
+              <!--<circle cx="12" cy="12" r="1" />-->
+              <!--<circle cx="16" cy="12" r="1" />-->
+              <!--<circle cx="8" cy="12" r="1" />-->
+              <!--<path-->
+                <!--d="M19.07 4.93a10 10 0 0 0-16.28 11 1.06 1.06 0 0 1 .09.64L2 20.8a1 1 0 0 0 .27.91A1 1 0 0 0 3 22h.2l4.28-.86a1.26 1.26 0 0 1 .64.09 10 10 0 0 0 11-16.28zm.83 8.36a8 8 0 0 1-11 6.08 3.26 3.26 0 0 0-1.25-.26 3.43 3.43 0 0 0-.56.05l-2.82.57.57-2.82a3.09 3.09 0 0 0-.21-1.81 8 8 0 0 1 6.08-11 8 8 0 0 1 9.19 9.19z" />-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!feedbackVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Feedback/add-feedback' routerLinkActive="active">Add Feedback</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Feedback/feedback-view' routerLinkActive="active">View All</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Feedback/add-employee-feedback' routerLinkActive="active">Add Employee Feedback</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Feedback/view-employee-feedback' routerLinkActive="active">View Employee Feedback</a>-->
+    <!--</div>-->
+
+    <!--<button title="Placement" (click)="toggleDisplay('placement'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin', 'Admin HR'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important"><svg xmlns="http://www.w3.org/2000/svg"-->
+          <!--fill="#8f9bb3" class="nav-icons" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="briefcase">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M19 7h-3V5.5A2.5 2.5 0 0 0 13.5 3h-3A2.5 2.5 0 0 0 8 5.5V7H5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-4 2v10H9V9zm-5-3.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V7h-4zM4 18v-8a1 1 0 0 1 1-1h2v10H5a1 1 0 0 1-1-1zm16 0a1 1 0 0 1-1 1h-2V9h2a1 1 0 0 1 1 1z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Placement-->
+        <!--<svg *ngIf="enquiryVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!enquiryVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icons"-->
+          <!--fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="briefcase">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path-->
+                <!--d="M19 7h-3V5.5A2.5 2.5 0 0 0 13.5 3h-3A2.5 2.5 0 0 0 8 5.5V7H5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-4 2v10H9V9zm-5-3.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V7h-4zM4 18v-8a1 1 0 0 1 1-1h2v10H5a1 1 0 0 1-1-1zm16 0a1 1 0 0 1-1 1h-2V9h2a1 1 0 0 1 1 1z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!placementVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Placement/placementdrive' routerLinkActive="active">Placement Drive</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Placement/addcompany' routerLinkActive="active">Add Company</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/Placement/viewplacement' routerLinkActive="active">View All</a>-->
+    <!--</div>-->
+
+    <!--<button title="Master" (click)="toggleDisplay('master'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin', 'Admin HR'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important"><svg xmlns="http://www.w3.org/2000/svg"-->
+          <!--fill="#8f9bb3" class="nav-icons" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="settings-2">-->
+              <!--<rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />-->
+              <!--<path-->
+                <!--d="M12.94 22h-1.89a1.68 1.68 0 0 1-1.68-1.68v-1.09a.34.34 0 0 0-.22-.29.38.38 0 0 0-.41 0l-.74.8a1.67 1.67 0 0 1-2.37 0L4.26 18.4a1.66 1.66 0 0 1-.5-1.19 1.72 1.72 0 0 1 .5-1.21l.74-.74a.34.34 0 0 0 0-.37c-.06-.15-.16-.26-.3-.26H3.68A1.69 1.69 0 0 1 2 12.94v-1.89a1.68 1.68 0 0 1 1.68-1.68h1.09a.34.34 0 0 0 .29-.22.38.38 0 0 0 0-.41L4.26 8a1.67 1.67 0 0 1 0-2.37L5.6 4.26a1.65 1.65 0 0 1 1.18-.5 1.72 1.72 0 0 1 1.22.5l.74.74a.34.34 0 0 0 .37 0c.15-.06.26-.16.26-.3V3.68A1.69 1.69 0 0 1 11.06 2H13a1.68 1.68 0 0 1 1.68 1.68v1.09a.34.34 0 0 0 .22.29.38.38 0 0 0 .41 0l.69-.8a1.67 1.67 0 0 1 2.37 0l1.37 1.34a1.67 1.67 0 0 1 .5 1.19 1.63 1.63 0 0 1-.5 1.21l-.74.74a.34.34 0 0 0 0 .37c.06.15.16.26.3.26h1.09A1.69 1.69 0 0 1 22 11.06V13a1.68 1.68 0 0 1-1.68 1.68h-1.09a.34.34 0 0 0-.29.22.34.34 0 0 0 0 .37l.77.77a1.67 1.67 0 0 1 0 2.37l-1.31 1.33a1.65 1.65 0 0 1-1.18.5 1.72 1.72 0 0 1-1.19-.5l-.77-.74a.34.34 0 0 0-.37 0c-.15.06-.26.16-.26.3v1.09A1.69 1.69 0 0 1 12.94 22zm-1.57-2h1.26v-.77a2.33 2.33 0 0 1 1.46-2.14 2.36 2.36 0 0 1 2.59.47l.54.54.88-.88-.54-.55a2.34 2.34 0 0 1-.48-2.56 2.33 2.33 0 0 1 2.14-1.45H20v-1.29h-.77a2.33 2.33 0 0 1-2.14-1.46 2.36 2.36 0 0 1 .47-2.59l.54-.54-.88-.88-.55.54a2.39 2.39 0 0 1-4-1.67V4h-1.3v.77a2.33 2.33 0 0 1-1.46 2.14 2.36 2.36 0 0 1-2.59-.47l-.54-.54-.88.88.54.55a2.39 2.39 0 0 1-1.67 4H4v1.26h.77a2.33 2.33 0 0 1 2.14 1.46 2.36 2.36 0 0 1-.47 2.59l-.54.54.88.88.55-.54a2.39 2.39 0 0 1 4 1.67z"-->
+                <!--data-name="&lt;Group&gt;" />-->
+              <!--<path-->
+                <!--d="M12 15.5a3.5 3.5 0 1 1 3.5-3.5 3.5 3.5 0 0 1-3.5 3.5zm0-5a1.5 1.5 0 1 0 1.5 1.5 1.5 1.5 0 0 0-1.5-1.5z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Master-->
+        <!--<svg *ngIf="masterVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!masterVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icons"-->
+          <!--fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="settings-2">-->
+              <!--<rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />-->
+              <!--<path-->
+                <!--d="M12.94 22h-1.89a1.68 1.68 0 0 1-1.68-1.68v-1.09a.34.34 0 0 0-.22-.29.38.38 0 0 0-.41 0l-.74.8a1.67 1.67 0 0 1-2.37 0L4.26 18.4a1.66 1.66 0 0 1-.5-1.19 1.72 1.72 0 0 1 .5-1.21l.74-.74a.34.34 0 0 0 0-.37c-.06-.15-.16-.26-.3-.26H3.68A1.69 1.69 0 0 1 2 12.94v-1.89a1.68 1.68 0 0 1 1.68-1.68h1.09a.34.34 0 0 0 .29-.22.38.38 0 0 0 0-.41L4.26 8a1.67 1.67 0 0 1 0-2.37L5.6 4.26a1.65 1.65 0 0 1 1.18-.5 1.72 1.72 0 0 1 1.22.5l.74.74a.34.34 0 0 0 .37 0c.15-.06.26-.16.26-.3V3.68A1.69 1.69 0 0 1 11.06 2H13a1.68 1.68 0 0 1 1.68 1.68v1.09a.34.34 0 0 0 .22.29.38.38 0 0 0 .41 0l.69-.8a1.67 1.67 0 0 1 2.37 0l1.37 1.34a1.67 1.67 0 0 1 .5 1.19 1.63 1.63 0 0 1-.5 1.21l-.74.74a.34.34 0 0 0 0 .37c.06.15.16.26.3.26h1.09A1.69 1.69 0 0 1 22 11.06V13a1.68 1.68 0 0 1-1.68 1.68h-1.09a.34.34 0 0 0-.29.22.34.34 0 0 0 0 .37l.77.77a1.67 1.67 0 0 1 0 2.37l-1.31 1.33a1.65 1.65 0 0 1-1.18.5 1.72 1.72 0 0 1-1.19-.5l-.77-.74a.34.34 0 0 0-.37 0c-.15.06-.26.16-.26.3v1.09A1.69 1.69 0 0 1 12.94 22zm-1.57-2h1.26v-.77a2.33 2.33 0 0 1 1.46-2.14 2.36 2.36 0 0 1 2.59.47l.54.54.88-.88-.54-.55a2.34 2.34 0 0 1-.48-2.56 2.33 2.33 0 0 1 2.14-1.45H20v-1.29h-.77a2.33 2.33 0 0 1-2.14-1.46 2.36 2.36 0 0 1 .47-2.59l.54-.54-.88-.88-.55.54a2.39 2.39 0 0 1-4-1.67V4h-1.3v.77a2.33 2.33 0 0 1-1.46 2.14 2.36 2.36 0 0 1-2.59-.47l-.54-.54-.88.88.54.55a2.39 2.39 0 0 1-1.67 4H4v1.26h.77a2.33 2.33 0 0 1 2.14 1.46 2.36 2.36 0 0 1-.47 2.59l-.54.54.88.88.55-.54a2.39 2.39 0 0 1 4 1.67z"-->
+                <!--data-name="&lt;Group&gt;" />-->
+              <!--<path-->
+                <!--d="M12 15.5a3.5 3.5 0 1 1 3.5-3.5 3.5 3.5 0 0 1-3.5 3.5zm0-5a1.5 1.5 0 1 0 1.5 1.5 1.5 1.5 0 0 0-1.5-1.5z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!masterVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a *ngIf="['Default Admin', 'Admin HR', 'Assistant HR Admin']" (click)="_toggleOpened();" routerLink='/Master/master-designation' routerLinkActive="active">Designation</a>-->
+      <!--<a *ngIf="['Default Admin', 'Admin HR']" (click)="_toggleOpened();" routerLink='/Master/master-followup' routerLinkActive="active">Follow Up Modes</a>-->
+      <!--<a *ngIf="['Default Admin', 'Admin HR']" (click)="_toggleOpened();" routerLink='/Master/Pslip' routerLinkActive="active">Pay Slip</a>-->
+      <!--<a *ngIf="['Default Admin', 'Admin HR']" (click)="_toggleOpened();" routerLink='/Master/AdmissionMaster' routerLinkActive="active">Admission ID Master</a>-->
+    <!--</div>-->
+
+    <!--<button title="System" (click)="toggleDisplay('system'); oneTimeToggle();" class="dropdown-btn"-->
+      <!--*ngIf="['Default Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important"><svg xmlns="http://www.w3.org/2000/svg"-->
+          <!--fill="#8f9bb3" class="nav-icons" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="settings-2">-->
+              <!--<rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />-->
+              <!--<path-->
+                <!--d="M12.94 22h-1.89a1.68 1.68 0 0 1-1.68-1.68v-1.09a.34.34 0 0 0-.22-.29.38.38 0 0 0-.41 0l-.74.8a1.67 1.67 0 0 1-2.37 0L4.26 18.4a1.66 1.66 0 0 1-.5-1.19 1.72 1.72 0 0 1 .5-1.21l.74-.74a.34.34 0 0 0 0-.37c-.06-.15-.16-.26-.3-.26H3.68A1.69 1.69 0 0 1 2 12.94v-1.89a1.68 1.68 0 0 1 1.68-1.68h1.09a.34.34 0 0 0 .29-.22.38.38 0 0 0 0-.41L4.26 8a1.67 1.67 0 0 1 0-2.37L5.6 4.26a1.65 1.65 0 0 1 1.18-.5 1.72 1.72 0 0 1 1.22.5l.74.74a.34.34 0 0 0 .37 0c.15-.06.26-.16.26-.3V3.68A1.69 1.69 0 0 1 11.06 2H13a1.68 1.68 0 0 1 1.68 1.68v1.09a.34.34 0 0 0 .22.29.38.38 0 0 0 .41 0l.69-.8a1.67 1.67 0 0 1 2.37 0l1.37 1.34a1.67 1.67 0 0 1 .5 1.19 1.63 1.63 0 0 1-.5 1.21l-.74.74a.34.34 0 0 0 0 .37c.06.15.16.26.3.26h1.09A1.69 1.69 0 0 1 22 11.06V13a1.68 1.68 0 0 1-1.68 1.68h-1.09a.34.34 0 0 0-.29.22.34.34 0 0 0 0 .37l.77.77a1.67 1.67 0 0 1 0 2.37l-1.31 1.33a1.65 1.65 0 0 1-1.18.5 1.72 1.72 0 0 1-1.19-.5l-.77-.74a.34.34 0 0 0-.37 0c-.15.06-.26.16-.26.3v1.09A1.69 1.69 0 0 1 12.94 22zm-1.57-2h1.26v-.77a2.33 2.33 0 0 1 1.46-2.14 2.36 2.36 0 0 1 2.59.47l.54.54.88-.88-.54-.55a2.34 2.34 0 0 1-.48-2.56 2.33 2.33 0 0 1 2.14-1.45H20v-1.29h-.77a2.33 2.33 0 0 1-2.14-1.46 2.36 2.36 0 0 1 .47-2.59l.54-.54-.88-.88-.55.54a2.39 2.39 0 0 1-4-1.67V4h-1.3v.77a2.33 2.33 0 0 1-1.46 2.14 2.36 2.36 0 0 1-2.59-.47l-.54-.54-.88.88.54.55a2.39 2.39 0 0 1-1.67 4H4v1.26h.77a2.33 2.33 0 0 1 2.14 1.46 2.36 2.36 0 0 1-.47 2.59l-.54.54.88.88.55-.54a2.39 2.39 0 0 1 4 1.67z"-->
+                <!--data-name="&lt;Group&gt;" />-->
+              <!--<path-->
+                <!--d="M12 15.5a3.5 3.5 0 1 1 3.5-3.5 3.5 3.5 0 0 1-3.5 3.5zm0-5a1.5 1.5 0 1 0 1.5 1.5 1.5 1.5 0 0 0-1.5-1.5z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>System-->
+        <!--<svg *ngIf="enquiryVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-left">-->
+              <!--<rect width="24" height="24" transform="rotate(90 12 12)" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M13.36 17a1 1 0 0 1-.72-.31l-3.86-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.42L10.9 12l3.18 3.3a1 1 0 0 1 0 1.41 1 1 0 0 1-.72.29z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+        <!--<svg *ngIf="!enquiryVisible" xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3" style="float: right; width:auto;"-->
+          <!--height="100%" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="chevron-down">-->
+              <!--<rect width="24" height="24" opacity="0"></rect>-->
+              <!--<path-->
+                <!--d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z">-->
+              <!--</path>-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icons"-->
+          <!--fill="#8f9bb3" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="settings-2">-->
+              <!--<rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />-->
+              <!--<path-->
+                <!--d="M12.94 22h-1.89a1.68 1.68 0 0 1-1.68-1.68v-1.09a.34.34 0 0 0-.22-.29.38.38 0 0 0-.41 0l-.74.8a1.67 1.67 0 0 1-2.37 0L4.26 18.4a1.66 1.66 0 0 1-.5-1.19 1.72 1.72 0 0 1 .5-1.21l.74-.74a.34.34 0 0 0 0-.37c-.06-.15-.16-.26-.3-.26H3.68A1.69 1.69 0 0 1 2 12.94v-1.89a1.68 1.68 0 0 1 1.68-1.68h1.09a.34.34 0 0 0 .29-.22.38.38 0 0 0 0-.41L4.26 8a1.67 1.67 0 0 1 0-2.37L5.6 4.26a1.65 1.65 0 0 1 1.18-.5 1.72 1.72 0 0 1 1.22.5l.74.74a.34.34 0 0 0 .37 0c.15-.06.26-.16.26-.3V3.68A1.69 1.69 0 0 1 11.06 2H13a1.68 1.68 0 0 1 1.68 1.68v1.09a.34.34 0 0 0 .22.29.38.38 0 0 0 .41 0l.69-.8a1.67 1.67 0 0 1 2.37 0l1.37 1.34a1.67 1.67 0 0 1 .5 1.19 1.63 1.63 0 0 1-.5 1.21l-.74.74a.34.34 0 0 0 0 .37c.06.15.16.26.3.26h1.09A1.69 1.69 0 0 1 22 11.06V13a1.68 1.68 0 0 1-1.68 1.68h-1.09a.34.34 0 0 0-.29.22.34.34 0 0 0 0 .37l.77.77a1.67 1.67 0 0 1 0 2.37l-1.31 1.33a1.65 1.65 0 0 1-1.18.5 1.72 1.72 0 0 1-1.19-.5l-.77-.74a.34.34 0 0 0-.37 0c-.15.06-.26.16-.26.3v1.09A1.69 1.69 0 0 1 12.94 22zm-1.57-2h1.26v-.77a2.33 2.33 0 0 1 1.46-2.14 2.36 2.36 0 0 1 2.59.47l.54.54.88-.88-.54-.55a2.34 2.34 0 0 1-.48-2.56 2.33 2.33 0 0 1 2.14-1.45H20v-1.29h-.77a2.33 2.33 0 0 1-2.14-1.46 2.36 2.36 0 0 1 .47-2.59l.54-.54-.88-.88-.55.54a2.39 2.39 0 0 1-4-1.67V4h-1.3v.77a2.33 2.33 0 0 1-1.46 2.14 2.36 2.36 0 0 1-2.59-.47l-.54-.54-.88.88.54.55a2.39 2.39 0 0 1-1.67 4H4v1.26h.77a2.33 2.33 0 0 1 2.14 1.46 2.36 2.36 0 0 1-.47 2.59l-.54.54.88.88.55-.54a2.39 2.39 0 0 1 4 1.67z"-->
+                <!--data-name="&lt;Group&gt;" />-->
+              <!--<path-->
+                <!--d="M12 15.5a3.5 3.5 0 1 1 3.5-3.5 3.5 3.5 0 0 1-3.5 3.5zm0-5a1.5 1.5 0 1 0 1.5 1.5 1.5 1.5 0 0 0-1.5-1.5z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</button>-->
+    <!--<div *ngIf="!systemVisible" [@inOutAnimation] class="dropdown-container">-->
+      <!--<a (click)="_toggleOpened();" routerLink='/System/skill-bharat' routerLinkActive="active">Skill Bharat</a>-->
+      <!--<a (click)="_toggleOpened();" routerLink='/System/tenant-config' routerLinkActive="active">Tenant-->
+        <!--Configuration</a>-->
+    <!--</div>-->
+
+    <!--<a title="Teachers" (click)="oneTimeToggle(); _toggleOpened();" routerLink='/teacher/teachers'-->
+      <!--routerLinkActive="active" *ngIf="['Default Admin'].includes(designation)">-->
+      <!--<div *ngIf="iconTrue" style="height: 24px;width: 220px !important"><svg xmlns="http://www.w3.org/2000/svg"-->
+          <!--fill="#8f9bb3" class="nav-icons" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="person">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M12 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0-6a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" />-->
+              <!--<path d="M12 13a7 7 0 0 0-7 7 1 1 0 0 0 2 0 5 5 0 0 1 10 0 1 1 0 0 0 2 0 7 7 0 0 0-7-7z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>Teachers-->
+      <!--</div>-->
+      <!--<div *ngIf="!iconTrue" style="height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" fill="#8f9bb3"-->
+          <!--class="nav-icons" viewBox="0 0 24 24">-->
+          <!--<g data-name="Layer 2">-->
+            <!--<g data-name="person">-->
+              <!--<rect width="24" height="24" opacity="0" />-->
+              <!--<path d="M12 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0-6a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" />-->
+              <!--<path d="M12 13a7 7 0 0 0-7 7 1 1 0 0 0 2 0 5 5 0 0 1 10 0 1 1 0 0 0 2 0 7 7 0 0 0-7-7z" />-->
+            <!--</g>-->
+          <!--</g>-->
+        <!--</svg>-->
+      <!--</div>-->
+    <!--</a>-->
+
+    <a title="Log Out" (click)="logout(); oneTimeToggle();" routerLinkActive="active"
+      style="cursor:pointer; color: red;">
+      <div *ngIf="iconTrue" style="height: 24px;width: 220px !important"><svg xmlns="http://www.w3.org/2000/svg"
+          class="nav-icons" fill="#8f9bb3" viewBox="0 0 24 24">
+          <g data-name="Layer 2">
+            <g data-name="power">
+              <rect width="24" height="24" opacity="0" />
+              <path d="M12 13a1 1 0 0 0 1-1V2a1 1 0 0 0-2 0v10a1 1 0 0 0 1 1z" />
+              <path d="M16.59 3.11a1 1 0 0 0-.92 1.78 8 8 0 1 1-7.34 0 1 1 0 1 0-.92-1.78 10 10 0 1 0 9.18 0z" />
+            </g>
+          </g>
+        </svg>Log Out
+      </div>
+      <div *ngIf="!iconTrue" style="height: 20px;"><svg xmlns="http://www.w3.org/2000/svg" class="nav-icons"
+          fill="#8f9bb3" viewBox="0 0 24 24">
+          <g data-name="Layer 2">
+            <g data-name="power">
+              <rect width="24" height="24" opacity="0" />
+              <path d="M12 13a1 1 0 0 0 1-1V2a1 1 0 0 0-2 0v10a1 1 0 0 0 1 1z" />
+              <path d="M16.59 3.11a1 1 0 0 0-.92 1.78 8 8 0 1 1-7.34 0 1 1 0 1 0-.92-1.78 10 10 0 1 0 9.18 0z" />
+            </g>
+          </g>
+        </svg>
+      </div>
+    </a>
+  </ng-sidebar>
+  <div ng-sidebar-content [style.width]="contentWidth">
+    <section class="demo-contents">
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+</ng-sidebar-container>

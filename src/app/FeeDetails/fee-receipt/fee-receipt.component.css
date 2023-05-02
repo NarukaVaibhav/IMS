@@ -1,0 +1,300 @@
+.section-1
+{
+  border: 1px solid #CEEBED;
+  /* padding: 25px; */
+  background-color: white;
+}
+
+table {
+  width: 100%;
+}
+
+.container-fluid{
+  max-width: 96%;
+}
+
+.pop1{
+  max-width: 92%;
+  margin-left: 4rem;
+  /* margin-top: 8rem; */
+}
+
+
+
+
+hr
+{
+  color: black;
+}
+
+th {
+  padding: 1% 1%;
+  /* padding-right: 1.75rem; */
+  font-family: Open Sans, sans-serif;
+  border: 1px solid #CEEBED;
+  color: rgba(0, 0, 0, 0.54);
+  width : 10% !important;
+
+  vertical-align: middle !important;
+  text-align: center !important;
+  font-size: 12px !important;
+  font-weight: bolder;
+  max-height : 10px;
+  overflow: hidden !important;
+  padding-left: 10px !important;
+
+
+}
+.tTd{
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+td{
+      vertical-align: middle !important;
+  text-align: center !important;
+  /* padding: 1% 1%; */
+  /* padding: 0.5% 0.5%; */
+
+  /* padding-right: 1.75rem; */
+  font-family: Open Sans, sans-serif;
+  border: 1px solid #CEEBED;
+  color: rgba(0, 0, 0, 0.54);
+  /* max-width: 15px !important; */
+  width : 10% !important;
+
+  vertical-align: middle;
+  text-align: center;
+/* padding-left: 10px !important; */
+  
+  font-size: 12px !important;
+  max-height: 5px !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  
+  text-overflow: ellipsis !important; 
+  white-space: nowrap !important; 
+
+}
+
+  .inputbox{
+    border-radius: .17rem;
+       font-size: .9375rem;
+       font-weight: 500;
+       line-height: 1.5rem;
+       padding: .4375rem 1rem;
+       background-color: #f7f9fc;
+       border-color: #e4e9f2;
+       color: #222b45;
+       width: 100%;
+       border-style: solid;
+       border-width: 1px;
+       font-family: Open Sans,sans-serif;
+       -webkit-appearance: none;
+   overflow: visible;
+   }
+  
+
+  i{
+    border: 1px solid black;
+    margin-right: 2px;
+    cursor: pointer;
+  }   
+
+  .submitButton{
+    background-color: #36f;
+        border-color: #36f;
+  
+    }
+
+.btnCSS{
+  color: #fff;
+  padding: .6875rem 1.125rem;
+  border-style: solid;
+      border-width: .0625rem;
+      text-transform: uppercase;
+  border-radius: .17rem;
+  font-size: .875rem;
+      line-height: 1rem;
+      transition-duration: 0.15s;
+      transition-property: background-color,border-color,box-shadow,color;
+      transition-timing-function: ease-in;
+  cursor: pointer;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      user-select: none;
+}
+
+input:hover{
+  border-color:#007bff;
+}
+
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  background-color: rgba(240, 248, 255, 0.89);
+  color: rgba(0, 0, 0, 0.54);
+}
+/* .tTd{
+  font-family: Open Sans,sans-serif;
+  font-size: .9375rem;
+  line-height: 1.5rem;
+  color: #222b45;
+  font-weight: 600;
+  padding-top: calc(.375rem + 1px);
+  padding-bottom: calc(.375rem + 1px);
+  margin-bottom: 0;
+  vertical-align:middle;
+  text-align: center;
+} */
+.headerTextWB{
+
+  padding: 1rem 1.5rem;
+  /* border-bottom: 1px solid #edf1f7; */
+  border-top-left-radius: .17rem;
+  border-top-right-radius: .17rem;
+  color: rgba(0, 0, 0, 0.54);
+  font-family: Open Sans,sans-serif;
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+
+
+}
+
+
+
+.header{
+  
+  font-size: medium !important;
+  font-weight: bolder;
+
+  width:100%;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #edf1f7;
+  padding-bottom: 5px;
+  vertical-align: middle;
+  line-height: 25px;
+  font-family: Open Sans, sans-serif;
+  color: rgba(0, 0, 0, 0.54);
+
+}
+
+
+
+
+
+.top{
+  font-family: Open Sans, sans-serif;
+  font-weight : bolder;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: medium;
+  margin-top:10px;
+  margin-bottom : 10px;
+  }
+  .heading{
+    margin-bottom: 5px;
+    height : 50px;
+    background-color: #ffffff;
+    
+  }
+  .upload{
+    margin-top : 5px !important;
+  }
+
+
+
+  ::ng-deep .mat-checkbox-inner-container-no-side-margin {
+
+    width: 12px !important;
+    height: 12px !important;
+    vertical-align: middle !important;
+    justify-content: center !important;
+    padding-right: 0px !important;
+}
+  
+th {
+    /* padding: 1% 1%; */
+    /* padding-right: 1.75rem; */
+    font-family: Open Sans, sans-serif;
+    border: 1px solid #CEEBED;
+    color: rgba(0, 0, 0, 0.54);
+    width : 10% !important;
+
+    vertical-align: middle !important;
+    text-align: center !important;
+    font-size: 12px ;
+    font-weight: bolder !important;
+    max-height : 10px;
+    overflow: hidden !important;
+    padding-left: 10px !important;
+  
+    /* text-overflow: ellipsis !important; 
+    white-space: nowrap !important; 
+   */
+  }
+
+  
+  .cancelButton {
+    background-color: #ff3d71;
+    border-color: #ff3d71;
+  }
+  
+  td{
+        vertical-align: middle !important;
+    text-align: center !important;
+    /* padding: 1% 1%;
+    padding: 0.5% 0.5%;
+
+    padding-right: 1.75rem; */
+    font-family: Open Sans, sans-serif;
+    border: 1px solid #CEEBED;
+    color: rgba(0, 0, 0, 0.54);
+    max-width: 25px !important;
+    width : 10% !important;
+
+    vertical-align: middle !important;
+    text-align: center !important;
+  padding-left: 10px !important;
+    
+    font-size: 12px ;
+    max-height: 5px !important;
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+    
+    text-overflow: ellipsis !important; 
+    white-space: nowrap !important; 
+  
+  }
+
+::ng-deep td.mat-cell {
+  border-radius: .25rem;
+  color: rgba(0, 0, 0, 0.54);
+  /* padding-right: 1.75rem; */
+  font-family: Open Sans, sans-serif;
+  vertical-align: middle !important;
+  text-align: center !important;
+  font-size: .9375rem;
+  border: 1px solid #CEEBED;
+  padding-right: 0px !important;
+}
+
+::ng-deep tr.mat-row:hover {
+  background-color: aliceblue;
+}
+
+
+
+::ng-deep .mat-sort-header-container {
+  display: flex;
+  
+  justify-content: center;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: rgba(240, 248, 255, 0.89);
+}

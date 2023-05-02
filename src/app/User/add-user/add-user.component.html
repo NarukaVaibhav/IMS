@@ -1,0 +1,121 @@
+<div class="master-container1  container p-0">
+  <div class="container1 pl-3 pr-3 heading">
+    
+    <p >ADD USER</p>
+</div>
+
+  <form [formGroup]="AddUser">
+    <div class="container1 pl-3 pr-3">
+           
+      <div class="row">
+
+        <div class="col-lg-6" id="add-user">
+         
+          <input class="form-control form-control-lg" type="text" placeholder="User Name" formControlName="user_name">
+          <mat-error *ngIf=" (AddUser.controls['user_name'].dirty || AddUser.controls['user_name'].touched) && AddUser.controls['user_name'].errors?.required">This field is mandatory.</mat-error>
+
+          <div class="form-group">
+            <select class="form-control" formControlName="designation">
+              <option value="" disabled [innerText]> Designation </option>
+              <option  *ngFor="let val of designations" [value]="val.name ? val.name : '' "> {{val.name ? val.name : ''}} </option>
+
+              <option value="Teacher">Teacher</option>
+              <option value="Student">Student</option>
+            </select>
+            <mat-error *ngIf="(AddUser.controls['designation'].dirty || AddUser.controls['designation'].touched) && AddUser.controls['designation'].errors?.required">This field is mandatory.</mat-error>
+
+          </div>
+
+
+
+          <textarea class="form-control form-control-lg" rows="3" placeholder="Postal Address"
+            formControlName="address" value=""></textarea>
+
+
+
+
+          <select class="form-control" formControlName="countries" (change)="onChangeCountry($event.target.value)">
+            <option value="" disabled [innerText]>Country</option>
+            
+              <option *ngFor="let con of country" [value]="con.countryId ? con.countryId : '' "> {{con.countryName ? con.countryName : ''}} </option>
+            
+          </select>
+
+
+
+          <input class="form-control form-control-lg" type="text" placeholder="Pincode" formControlName="pincode" value="">
+
+        </div>
+
+        <div class="col-lg-6" id="office">
+
+          <input class="form-control form-control-lg" type="tel" placeholder="Contact No" formControlName="contact">
+          <mat-error *ngIf="(AddUser.controls['contact'].dirty || AddUser.controls['contact'].touched) && AddUser.controls['contact'].errors?.required">This field is mandatory.</mat-error>
+          <mat-error *ngIf="(AddUser.controls['contact'].dirty || AddUser.controls['contact'].touched) && AddUser.controls['contact'].errors?.pattern">Enter correct pattern.</mat-error>
+
+          <mat-error *ngIf="(AddUser.controls['contact'].dirty || AddUser.controls['contact'].touched) && AddUser.controls['contact'].errors?.minlength">Minimum 10 characters needed.</mat-error>
+          <mat-error *ngIf="(AddUser.controls['contact'].dirty || AddUser.controls['contact'].touched) && AddUser.controls['contact'].errors?.maxlength">Maximum 10 characters needed.</mat-error>
+
+
+
+
+          <input class="form-control form-control-lg" type="email" placeholder="Email Id" formControlName="email">
+          <mat-error *ngIf="(AddUser.controls['email'].dirty || AddUser.controls['email'].touched) && AddUser.controls['email'].errors?.required">This field is mandatory.</mat-error>
+          <mat-error *ngIf="(AddUser.controls['email'].dirty || AddUser.controls['email'].touched) && AddUser.controls['email'].errors?.pattern">Enter correct pattern.</mat-error>
+
+
+
+
+
+          <input placeholder="Date of Birth" class="textbox-n form-control" type="text" onblur="(this.type='text')"
+            onfocus="(this.type='date')" formControlName="dob">
+          <mat-error *ngIf="(AddUser.controls['dob'].dirty || AddUser.controls['dob'].touched) && AddUser.controls['dob'].errors?.required">This field is mandatory.</mat-error>
+
+
+
+
+          <select class="form-control" formControlName="states" (change)="onChangeState($event.target.value)">
+            <option value="" [innerText] disabled>State</option>
+            <option  *ngFor="let st of state" [value]="st.stateId ? st.stateId : '' "> {{st.stateName ? st.stateName : ''}} </option>
+          </select>
+
+
+
+
+
+          <select class="form-control" formControlName="cities" (change)="onChangeCity($event.target.value)">
+            <option value="" disabled [innerText]>City</option>
+            <option *ngFor="let cit of city" [value]="cit.cityId ? cit.cityId : '' "> {{cit.cityName ? cit.cityName : ''}} </option>
+          </select>
+
+
+
+
+          <input class="form-control form-control-lg" type="password" placeholder="Password" formControlName="pass">
+          <mat-error *ngIf="(AddUser.controls['pass'].dirty || AddUser.controls['pass'].touched) &&AddUser.controls['pass'].errors?.required">This field is mandatory.</mat-error>
+          <mat-error *ngIf="(AddUser.controls['pass'].dirty || AddUser.controls['pass'].touched) &&AddUser.controls['pass'].errors?.minlength">Minimum 6 characters required</mat-error>
+        </div>
+
+      </div>
+
+      <hr>
+
+      <div class="row">
+
+        <div class="col-lg-6">
+          <button type="button" class="btn btn-secondary" (click)="back()" id="back-btn">Back</button>
+        </div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-1">
+          <button type="button" class="btn btn-primary float-right" (click)="clear()" id="create-btn">Reset </button>
+        </div>
+        <div class="col-lg-1">
+          <button type="button" class="btn btn-primary float-right" (click)="create()" id="create-btn">Create </button>
+        </div>
+
+
+      </div>
+      <br>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,381 @@
+<div class=" master-container1 container p-0">
+  <div class=" m-0 heading border line">
+    <div class="row m-0">
+      <div class="col-lg-6 top">
+        ADD EXAM
+      </div>
+      <div class="col-lg-6">
+        <button class="btnCSS submitButton upload float-right" (click)="addExam()">Add Exam</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-1 ">
+    <!-- *****************Section-1 -->
+    <div class="row p-2 m-0 mt-2 line border ">
+
+      <div class="col-md-6">
+        <input type="text" class="form-control inputBox" placeholder="Exam Name/Title *" name="examName"
+          [(ngModel)]="examName">
+      </div>
+      <div class="col-md-6">
+        <select class="form-control inputBox" name="examFormat" [(ngModel)]="examFormat"
+          (change)="onChangeFormat($event.target.value)">
+          <option [ngValue]="placeholder" disabled selected hidden>Select Exam Format *</option>
+          <option *ngFor="let key of apiExamFormat" [ngValue]="key.name ? key.name : ''">{{key.name ? key.name : ''}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6 mt-4">
+        <select class="form-control inputBox" name="batch" [(ngModel)]="batch">
+          <option [ngValue]="placeholder" disabled selected hidden>Select Batch *</option>
+          <option *ngFor="let key of apiBatch" [value]="key.name ? key.name : ''">{{key.name ? key.name : ''}}</option>
+        </select>
+      </div>
+      <div class="col-md-6 mt-4">
+
+        <div class="row">
+          <div class="col-lg-10">
+            <input class="form-control inputBox" autocomplete="off" matInput [matDatepicker]="picker"
+              (click)="picker.open()" placeholder="Choose a date" [min]="tomorrow" name="date" [(ngModel)]="date">
+
+          </div>
+          <div class="col-lg-2">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4">
+        <input type="text" class="form-control inputBox dateBox" placeholder="Enter Passcode" name="passcode"
+          [(ngModel)]="passcode">
+      </div>
+      <div class="col-md-6 mt-4"></div>
+      <div class="col-md-3 mt-4">
+        <input type="text" class="form-control inputBox" placeholder="Exam Start Time *" [popover]="popTemplate"
+          placement="bottom" [outsideClick]="true" #popoverRef="bs-popover"
+          value="{{examStartTime |date :'hh:mm:ss a'}}">
+
+      </div>
+      <div class="col-md-3 mt-4">
+        <input type="text" class="form-control inputBox" placeholder="Exam End Time *" [popover]="popTemplate1"
+          placement="bottom" [outsideClick]="true" #popoverRef2="bs-popover"
+          value="{{examEndTime |date :'hh:mm:ss a'}}">
+
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-6 mt-4 text">
+            <p>Show Results After Submission</p>
+          </div>
+          <div class="col-md-6 mt-4">
+            <label class="switch float-left">
+              <input type="checkbox" class="primary " (change)="showResult()" name="afterSubmission"
+                [(ngModel)]="afterSubmission">
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="col-md-6 mt-4 text">
+            <p>Is Exam Time Bounded</p>
+          </div>
+          <div class="col-md-6 mt-4">
+            <label class="switch float-left">
+              <input type="checkbox" class="primary" (change)="examTimeBound()" name="timeBound"
+                [(ngModel)]="timeBound">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- *******************************Exam Statics**************** -->
+
+      <div class="col-md-12 headerTextWB" *ngIf="examStatic">
+        <hr>
+        Exam Question Statistics
+      </div>
+      <hr>
+      <div class="col-md-12 mt-4" *ngIf="examStatic">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="headerTextWB" scope="col">Section</th>
+              <th class="headerTextWB" scope="col">Difficulty</th>
+              <th class="headerTextWB" scope="col">Required</th>
+              <th class="headerTextWB" scope="col">Added</th>
+              <th class="headerTextWB" scope="col">Remaining</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let key of examStaticShow[0].sections ; let i = index">
+            <tr *ngFor="let j of examStaticShow[0].sections[i].difficultyLevels">
+              <td class="tTd">{{key.name}}</td>
+              <td class="tTd">{{j.level}}</td>
+              <td class="tTd">{{j.questions}}</td>
+              <td class="tTd" *ngIf="j.level == 'Easy'">{{obj[i].easy}}</td>
+              <td class="tTd" *ngIf="j.level == 'Medium'">{{obj[i].medium}}</td>
+              <td class="tTd" *ngIf="j.level == 'Hard'">{{obj[i].hard}}</td>
+
+              <td class="tTd" *ngIf="j.level == 'Easy'">{{j.questions-obj[i].easy}}</td>
+              <td class="tTd" *ngIf="j.level == 'Medium'">{{j.questions-obj[i].medium}}</td>
+              <td class="tTd" *ngIf="j.level == 'Hard'">{{j.questions-obj[i].hard}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-12 mt-4 text-right">
+        <hr>
+        <button class="submitButton btnCSS mr-2 " (click)="uploadQuestion()">Upload Question</button>
+        <button class="submitButton btnCSS" (click)="addQuestion()">Add Question</button>
+      </div>
+
+      <!-- *********************************Excel File Upload *********************** -->
+
+      <div class="col-md-4 mt-5" *ngIf="excelSection">
+
+        <input type="file" class="form-control inputBox" (change)="onFileChange($event)" multiple="false" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,text/comma-separated-values, text/csv, application/csv" style="height:45px">
+      </div>
+      <div class="col-md-4 mt-5 text-right" *ngIf="excelSection">
+
+
+        <button class="btnCSS sampleDownload" (click)="sameDownload()">Download Sample</button>
+      </div>
+      <div class="col-md-4 mt-5 text-right" *ngIf="excelSection">
+
+        <button class="btnCSS instruction" (click)="sameDownload()">Instruction</button>
+      </div>
+      <div class="col-md-12 mt-4" *ngIf="excelFile" style="overflow: scroll;">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th >
+                Sr.
+              </th>
+              <th >No. Error</th>
+              <th >Questions</th>
+              <th >Difficulity</th>
+              <th >Type</th>
+              <th >Section</th>
+              <th >correctAnswer</th>
+              <th >Option_1</th>
+              <th >Option_2</th>
+              <th >Option_3</th>
+              <th >Option_4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of uploadExcelData; let i = index">
+              <td >{{row.id}}</td>
+
+              <td >{{row.noError}}</td>
+
+              <td *ngIf="row.id === editRowId"><input type="text" [(ngModel)]="row.question"
+                  class="form-control tableData" (change)="noErrorCheck($event)"></td>
+
+              <td *ngIf="row.id !== editRowId" (click)="edit(row.id)" >{{row.question}} {{i}}</td>
+
+
+              <td *ngIf="row.id === editRowId"><input type="text" [(ngModel)]="row.difficulity" class="form-control tTd"
+                  (change)="noErrorCheck($event)"></td>
+              <td *ngIf="row.id !== editRowId" (click)="edit(row.id)" >{{row.difficulity}}</td>
+
+              <td *ngIf="row.id === editRowId"><input type="text" [(ngModel)]="row.type" class="form-control tTd"
+                  (change)="noErrorCheck($event)"></td>
+
+              <td *ngIf="row.id !== editRowId" (click)="edit(row.id)" >{{row.type}}</td>
+              <td *ngIf="row.id === editRowId"><input type="text" [(ngModel)]="row.section" class="form-control tTd"
+                  (change)="noErrorCheck($event)"></td>
+              <td *ngIf="row.id !== editRowId" (click)="edit(row.id)" >{{row.section}}</td>
+              <td *ngIf="row.id === editRowId"><input type="text" [(ngModel)]="row.correctAnswer"
+                  class="form-control tTd" (change)="noErrorCheck($event)"></td>
+              <td *ngIf="row.id !== editRowId" (click)="edit(row.id)" >{{row.correctAnswer}}</td>
+              <td *ngIf="row.id === editRowId"><input type="text" [(ngModel)]="row.option_1" class="form-control tTd"
+                  (change)="noErrorCheck($event)"></td>
+              <td *ngIf="row.id !== editRowId" (click)="edit(row.id)" >{{row.option_1}}</td>
+              <td *ngIf="row.id === editRowId"><input type="text" [(ngModel)]="row.option_2" class="form-control tTd"
+                  (change)="noErrorCheck($event)"></td>
+              <td *ngIf="row.id !== editRowId" (click)="edit(row.id)" >{{row.option_2}}</td>
+              <td *ngIf="row.id === editRowId"><input type="text" [(ngModel)]="row.option_3" class="form-control tTd"
+                  (change)="noErrorCheck($event)"></td>
+              <td *ngIf="row.id !== editRowId" (click)="edit(row.id)" >{{row.option_3}}</td>
+              <td *ngIf="row.id === editRowId"><input type="text" [(ngModel)]="row.option_4" class="form-control tTd"
+                  (change)="noErrorCheck($event)"></td>
+              <td *ngIf="row.id !== editRowId" (click)="edit(row.id)" >{{row.option_4}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-12 mt-4 text-right" *ngIf="excelFile">
+        <button class="submitButton btnCSS mr-3 " (click)="AddExcelData()">Add Question</button>
+        <button class="cancelButton btnCSS" (click)="excelDataClear()">Cancel</button>
+      </div>
+    </div>
+    <div class=" line mt-2 border">
+
+      <!-- **********************************Custom Add Question **************** -->
+      <div class="customSection row p-4" *ngIf="customAddSection">
+        <hr>
+        <div class="col-md-6 mt-4">
+          <select class="form-control inputBox" name="section" [(ngModel)]="section">
+            <option [value]="placeholder" disabled hidden selected>Select Section</option>
+            <option *ngFor="let key of examStaticShow[0].sections" [value]="key.name">{{key.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-6 mt-4">
+          <select class="form-control inputBox" name="difficultiy" [(ngModel)]="difficultiy">
+            <option [value]="placeholder" disabled hidden selected>Select Difficulity level</option>
+            <option *ngFor="let key of examStaticShow[0].sections[0].difficultyLevels" [value]="key.level">{{key.level}}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-6 mt-4">
+          <select class="form-control inputBox" name="qType" [(ngModel)]="qType">
+            <option [value]="placeholder" disabled hidden selected>Question Type</option>
+            <option value="MCQ">MCQ</option>
+            <option value="Subjective">Subjective</option>
+          </select>
+        </div>
+        <div class="col-md-12 mt-4">
+          <ckeditor [config]="{ autoParagraph : false}" [(ngModel)]="question" name="question">
+          </ckeditor>
+        </div>
+        <div class="col-md-12" *ngIf="qType== 'MCQ'">
+          <div class="row">
+            <div class="col-md-1 mt-4">
+              <div class="form-check form-check-inline ">
+                <input class="form-check-input " type="radio" name="mcq" value="a" [(ngModel)]="mcq" checked>
+              </div>
+            </div>
+            <div class="col-md-2 mt-4">
+              <input type="text" class="form-control inputBox" placeholder="Option A" name="option_1"
+                [(ngModel)]="option_1">
+            </div>
+            <div class="col-md-1 mt-4">
+              <div class="form-check form-check-inline ">
+                <input class="form-check-input" type="radio" name="mcq" value="b" [(ngModel)]="mcq">
+              </div>
+            </div>
+            <div class="col-md-2 mt-4 ">
+              <input type="text" class="form-control inputBox" placeholder="Option B" name="option_2"
+                [(ngModel)]="option_2">
+            </div>
+            <div class="col-md-1 mt-4">
+              <div class="form-check form-check-inline ">
+                <input class="form-check-input" type="radio" name="mcq" value="c" [(ngModel)]="mcq">
+              </div>
+            </div>
+            <div class="col-md-2 mt-4">
+              <input type="text" class="form-control inputBox" placeholder="Option C" name="option_3"
+                [(ngModel)]="option_3">
+            </div>
+            <div class="col-md-1 mt-4">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="mcq" value="d" [(ngModel)]="mcq">
+              </div>
+            </div>
+            <div class="col-md-2 mt-4">
+              <input type="text" class="form-control inputBox" placeholder="Option D" name="option_4"
+                [(ngModel)]="option_4">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 mt-4 text-right">
+          <button class="submitButton btnCSS" (click)="customAdd()" *ngIf="!editSection">Add Question</button>
+          <button class="submitButton btnCSS mr-3" (click)="editDone()" *ngIf="editSection">Edit</button>
+          <button class="cancelButton btnCSS" (click)="Cancel()" *ngIf="editSection">Cancel</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ********************QuestionTable -->
+    <div class="line mt-2 border" *ngIf="customAddSection">
+      <div class="col-md-12">
+<div class="row">
+  <div class="col-md-4 mt-4 headerText">
+    <p>Added Questions <span *ngIf="customQuestion.length > 0">({{customQuestion.length}})</span></p>
+  </div>
+
+  <div class="col-md-8 mt-4 text-right bottomBorder exportButton">
+    <button class="submitButton btnCSS " (click)="export()">Export Questions</button>
+  </div>
+</div>
+      </div>
+
+      <div class="form-group col-md-4 mt-4">
+        <div class="input-group">
+
+          <input type="text" class="form-control inputBox" placeholder="Search " [(ngModel)]="filter" name="filter">
+        </div>
+      </div>
+      <div class="col-md-12 mt-4 headerText">
+        <table class="table table-striped">
+          <thead>
+            <th class="headerTextWB">Question</th>
+            <th class="headerTextWB">Difficulity</th>
+            <th class="headerTextWB">Type</th>
+            <th class="headerTextWB">Section</th>
+            <th class="headerTextWB">Source</th>
+            <th class="headerTextWB">Action</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of customQuestion | questionSearch:filter ; let index=index">
+              <td style="width: 700px;" [innerHTML]="item.question"></td>
+              <td class="tTd">{{item.difficulity}}</td>
+              <td class="tTd">{{item.type}}</td>
+              <td class="tTd">{{item.section}}</td>
+              <td class="tTd">{{item.source}}</td>
+              <td>
+                <i class="material-icons" matTooltip="Edit" (click)='editData(item ,index)' style="cursor: pointer;">
+                  create
+                </i>
+                <i class="material-icons" matTooltip="Delete" (click)="delete(index)" style="cursor: pointer;">
+                  delete
+                </i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #popTemplate>
+
+  <timepicker [(ngModel)]="time" (ngModelChange)="updateTime()" [showMeridian]="isMeridian">
+  </timepicker>
+
+  <div style="padding:5px">
+    <span class="btn-group pull-left" style="margin-right:10px;">
+
+      <button type=button class="btn btn-sm btn-info" [hidden]="!isDateVisible" (click)="now()">Now</button>
+      <button type=button class="btn btn-sm btn-danger" (click)="Tclear()">Clear</button>
+    </span>
+    <span class="btn-group pull-right">
+
+      <button type=button class="btn btn-sm btn-success" (click)="close()">Close</button>
+    </span> <span class=clearfix></span>
+  </div>
+</ng-template>
+
+<ng-template #popTemplate1>
+
+  <timepicker [hidden]="!isDateVisible" [(ngModel)]="time2" (ngModelChange)="updateTime2()" [showMeridian]="isMeridian">
+  </timepicker>
+
+  <div style="padding:5px">
+    <span class="btn-group pull-left" style="margin-right:10px;">
+
+      <button type=button class="btn btn-sm btn-info" [hidden]="!isDateVisible" (click)="now2()">Now</button>
+      <button type=button class="btn btn-sm btn-danger" (click)="Tclear2()">Clear</button>
+    </span>
+    <span class="btn-group pull-right">
+
+      <button type=button class="btn btn-sm btn-success" (click)="close2()">Close</button>
+    </span> <span class=clearfix></span>
+  </div>
+</ng-template>

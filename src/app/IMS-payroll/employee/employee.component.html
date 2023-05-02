@@ -1,0 +1,305 @@
+<div class="master-container1 container p-0">
+    <div class="card-header" > {{headerTxt}}
+
+    </div>
+
+
+    <div class="col-lg-12 card" [style.display]="editEMP">
+      <mat-form-field appearance="outline" [style.display]="editEMP" style="float:right;width:150px;">
+        <mat-label>Search Employee</mat-label>
+        <input type="text"  matInput  name="searchemp" (keyup)="searchEmployee()" [(ngModel)]="searchemp">
+
+      </mat-form-field>
+        <table mat-table  [dataSource]="allemp" matSort class="mat-elevation-z8">
+            <tr mat-header-row *matHeaderRowDef="empColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: empColumns;"></tr>
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
+              <td mat-cell *matCellDef="let element" id="name"> {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="designation">
+                <th mat-header-cell *matHeaderCellDef > Designation</th>
+                <td mat-cell *matCellDef="let element" id="designation"> {{element.designation}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="contactNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact</th>
+                <td mat-cell *matCellDef="let element" id="contactNumber"> {{element.contactNumber}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="emailId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email</th>
+                <td mat-cell *matCellDef="let element" id="emailId"> {{element.emailId}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status</th>
+                <td mat-cell *matCellDef="let element" id="status"> {{element.status}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action</th>
+                <td mat-cell *matCellDef="let element;let j=index;" id="action">
+                    <i class="material-icons ml-2" [routerLink]="['/Payroll/Employee',element.name]" (click)="editProfile(element)" matTooltip="Edit" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;"  >create</i>
+                </td>
+              </ng-container>
+
+           </table>
+           <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+    </div>
+
+
+
+
+    <div class="col-lg-12 card" style="padding-top: 0px;" *ngIf="showedit" >
+        <i *ngIf="showedit" class="material-icons ml-2" (click)="reset()" matTooltip="Back" style=" font-size: 28px; cursor: pointer; padding: 10px 0px;width: 40px;margin: 0px;"  >arrow_back</i>
+        <div class="row">
+            <div class="col-md-6" >
+                <div class="col-lg-12 card cardstyle">
+                    <div class="card-header">Profile
+                        <i *ngIf="update && !profileedit" class="material-icons ml-2"  matTooltip="Edit" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="edi('e')" >create</i>
+                        <i *ngIf="update && profileedit" class="material-icons ml-2"  matTooltip="Update" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="updateemp('e')" >done_outline</i>
+                        <i *ngIf="update && profileedit" class="material-icons ml-2"  matTooltip="Cancel" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="cancel('e')" >clear</i>
+                    </div>
+                         <div style="padding: 20px;">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input type="text" matInput [disabled]="!profileedit"   placeholder="Employee  Name*" name="Emp Name" [(ngModel)]="empobj.profile.name">
+                      </mat-form-field>
+                      <mat-form-field  appearance="outline">
+                        <mat-label>EMP Id</mat-label>
+                        <input matInput [disabled]="!profileedit" type="text"  placeholder="Employee Id *" name="Emp id"  [(ngModel)]="empobj.profile.empid">
+                      </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="col-lg-12 card cardstyle">
+                    <div class="card-header">Personal Information
+                        <i *ngIf="update && !personinfoedit" class="material-icons ml-2"  matTooltip="Edit" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="edi('p')" >create</i>
+                        <i *ngIf="update && personinfoedit" class="material-icons ml-2"  matTooltip="Update" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="updateemp('p')" >done_outline</i>
+                        <i *ngIf="update && personinfoedit" class="material-icons ml-2"  matTooltip="Cancel" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="cancel('p')" >clear</i>
+                    </div>
+                    <div style="padding: 20px;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Father's Name *</mat-label>
+                        <input matInput [disabled]="!personinfoedit" type="text"  placeholder="Father's Name*" name="fname" [(ngModel)]="empobj.personalInfo.father_name">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Spouse *</mat-label>
+                        <input matInput [disabled]="!personinfoedit" type="text"  placeholder="Spouse *" name="spouse" [(ngModel)]="empobj.personalInfo.spouse">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Date of Birth *</mat-label>
+                        <input (click)="picker1.open()" [matDatepicker]="picker1" matInput [disabled]="!personinfoedit"   placeholder="Date of Birth*" name="dob" [(ngModel)]="empobj.personalInfo.dob">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Blood Group</mat-label>
+                        <input matInput [disabled]="!personinfoedit" type="text"  placeholder="Blood Group" name="bloodgroup" [(ngModel)]="empobj.personalInfo.blood_group">
+                      </mat-form-field>
+                     </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-lg-12 card cardstyle1">
+                    <div class="card-header">Current Position and joining Detail
+                        <i *ngIf="update && !currentposedit" class="material-icons ml-2"  matTooltip="Edit" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="edi('c')" >create</i>
+                        <i *ngIf="update && currentposedit" class="material-icons ml-2"  matTooltip="Update" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="updateemp('c')" >done_outline</i>
+                        <i *ngIf="update && currentposedit" class="material-icons ml-2"  matTooltip="Cancel" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="cancel('c')" >clear</i>
+                    </div>
+                     <div class="row">
+                      <div class=col-md-6>
+                        <div style="padding: 20px;">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Designation*</mat-label>
+                            <input matInput [disabled]="!currentposedit" type="text"  placeholder="Designation*" name="Designation" [(ngModel)]="empobj.position.designation">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Department*</mat-label>
+                            <input matInput [disabled]="!currentposedit" type="text"  placeholder="Department*" name="Department" [(ngModel)]="empobj.position.department">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Reporting  To*</mat-label>
+                            <input matInput [disabled]="!currentposedit" type="text"  placeholder="Reporting  To*" name="Reporting" [(ngModel)]="empobj.position.reporting" >
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Date Of Joining*</mat-label>
+                            <input (click)="picker.open()" [disabled]="!currentposedit" matInput [matDatepicker]="picker" [(ngModel)]="empobj.position.doj">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+
+                          </mat-form-field>
+                          <!-- <input [disabled]="!currentposedit" type="date"  placeholder="Date Of Joining*" name="Doj" [(ngModel)]="empobj.position.doj" >                        -->
+                        </div>
+                      </div>
+                        <div class="col-md-6">
+                            <div style="padding: 20px;">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Location *</mat-label>
+                                <input matInput [disabled]="!currentposedit" type="text"  placeholder="Location *" name="location" [(ngModel)]="empobj.position.location"  >
+                              </mat-form-field>
+                              <mat-form-field appearance="outline">
+                                <mat-label>Notice Period *</mat-label>
+                                <input matInput [disabled]="!currentposedit" type="text"  placeholder="Notice Period *" name="notice period" [(ngModel)]="empobj.position.notice_period" >
+                              </mat-form-field>
+                              <mat-form-field appearance="outline">
+                                <mat-label>Employment Type *</mat-label>
+                                <input matInput [disabled]="!currentposedit" type="text"  placeholder="Employment Type *" name="Employment type" [(ngModel)]="empobj.position.employment_type">
+                              </mat-form-field>
+                         </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="col-lg-12 card cardstyle1">
+                    <div class="card-header">Salary Information
+                        <i *ngIf="update && !sedit" class="material-icons ml-2"  matTooltip="Edit" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="edi('s')" >create</i>
+                        <i *ngIf="update && sedit" class="material-icons ml-2"  matTooltip="Update" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="updateemp('s')" >done_outline</i>
+                        <i *ngIf="update && sedit" class="material-icons ml-2"  matTooltip="Cancel" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="cancel('s')" >clear</i>
+                    </div>
+
+                    <!-- <div style="padding: 20px;"> -->
+                    <mat-checkbox style="margin-left: 20px;margin-top: 20px;" class="example-margin" [(ngModel)]="salary" (change)="cs()">Consolidated Salary</mat-checkbox>
+                    <mat-checkbox style="margin-left: 20px;margin-top: 5px;" class="example-margin" [(ngModel)]="netsalary" (change)="ns()">Net Salary</mat-checkbox>
+                    <mat-checkbox style="margin-left: 20px;margin-top: 5px;" class="example-margin" [(ngModel)]="bankinfo" (change)="bs()">Bank Info</mat-checkbox>
+                    <!-- </div> -->
+                    <div class="card carddialog" *ngIf="salary">
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Basic Salary</mat-label>
+                            <input matInput [disabled]="!sedit" type="number"  placeholder="Basic Salary" name="basic salary" [(ngModel)]="empobj.salary.gross_salary.basic_salary">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Hra</mat-label>
+                            <input matInput [disabled]="!sedit" type="number"  placeholder="Hra" name="hra" [(ngModel)]="empobj.salary.gross_salary.hra">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Conveyance</mat-label>
+                            <input matInput [disabled]="!sedit" type="number"  placeholder="Conveyance" name="conveyance" [(ngModel)]="empobj.salary.gross_salary.conveyance">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Medical Allowance</mat-label>
+                            <input matInput [disabled]="!sedit" type="number"  placeholder="Medical Allowance" name="Medical" [(ngModel)]="empobj.salary.gross_salary.medical_allowance">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Bonus</mat-label>
+                            <input matInput [disabled]="!sedit" type="number"  placeholder="Bonus" name="bonus" [(ngModel)]="empobj.salary.gross_salary.bonus">
+                          </mat-form-field>
+
+                    </div>
+                    <div class="card carddialog" *ngIf="netsalary">
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>PF</mat-label>
+                            <input matInput [disabled]="!sedit" type="number"  placeholder="PF" name="pf" [(ngModel)]="empobj.salary.net_salary.pf">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Loan</mat-label>
+                            <input matInput [disabled]="!sedit" type="number"  placeholder="Loan" name="loan" [(ngModel)]="empobj.salary.net_salary.loan">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Advance Salary</mat-label>
+                            <input matInput [disabled]="!sedit" type="number"  placeholder="Advance Salary" name="advance salary" [(ngModel)]="empobj.salary.net_salary.salary_advance">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>IT/TDS</mat-label>
+                            <input matInput [disabled]="!sedit" type="number"  placeholder="IT/TDS" name="it/tds" [(ngModel)]="empobj.salary.net_salary['it/tds']">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Insurance</mat-label>
+                            <input matInput [disabled]="!sedit" type="number"  placeholder="Insurance" name="insurance" [(ngModel)]="empobj.salary.net_salary.insurance">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Other</mat-label>
+                            <input matInput [disabled]="!sedit" type="number"  placeholder="Other" name="other" [(ngModel)]="empobj.salary.net_salary.other">
+                          </mat-form-field>
+
+                    </div>
+                    <div class="card carddialog" *ngIf="bankinfo">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Pan Number</mat-label>
+                        <input matInput [disabled]="!sedit" type="text"   name="" [(ngModel)]="empobj.salary.bank_info.pan_no">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>PF number</mat-label>
+                        <input matInput [disabled]="!sedit" type="text"   name="" [(ngModel)]="empobj.salary.bank_info.PF_no">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Account Name</mat-label>
+                        <input matInput [disabled]="!sedit" type="text"   name="" [(ngModel)]="empobj.salary.bank_info.account_name">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Account Number</mat-label>
+                        <input matInput [disabled]="!sedit" type="text"   name="" [(ngModel)]="empobj.salary.bank_info.account_number">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>IFSC Code</mat-label>
+                        <input matInput [disabled]="!sedit" type="text"   name="" [(ngModel)]="empobj.salary.bank_info.ifsc_code">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Bank Name</mat-label>
+                        <input matInput [disabled]="!sedit" type="text"   name="" [(ngModel)]="empobj.salary.bank_info.bank_name">
+                      </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-11 card" style="margin: 20px; padding-top: 0px;padding-left: 0px;padding-right: 0px;">
+                    <div class="card-header">Documents
+                        <i *ngIf="update && !docedit" class="material-icons ml-2"  matTooltip="Edit" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="edi('d')" >create</i>
+                        <i *ngIf="update && docedit" class="material-icons ml-2"  matTooltip="Update" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="updateemp('d')" >done_outline</i>
+                        <i *ngIf="update && docedit" class="material-icons ml-2"  matTooltip="Cancel" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;" (click)="cancel('d')" >clear</i>
+                    </div>
+                    <div class="row" style="padding: 20px !important;">
+                        <div class="col-md-4 shadow">
+                            <mat-form-field style="width:70%;" appearance="outline">
+                                <mat-label>Document Name</mat-label>
+                                <input matInput disabled="true" type="text"  placeholder="Other" name="other" [(ngModel)]="documentname">
+                              </mat-form-field>
+
+                              <label for="infile">
+                                <img src="../../../assets/upload1.svg" style="height: 40px;width:40px;margin-left: 10px;">
+                                </label>
+
+                              <input id="infile" name="infile" style="display: none;"  type="file" (change)="onFileChange($event)" >
+                              <button mat-stroked-button [disabled]="!docedit"  (click)="AddDoc()" style="width: 150px;margin-top: 20px;">Add Document</button>
+
+
+
+                        </div>
+                        <div class="col-md-8 shadow">
+                            <div class="row">
+                            <div class="shadow2"  *ngFor="let x of docarr;let j=index;" >
+                                <i *ngIf="update" (click)="download(j)" class="material-icons ml-2"  matTooltip="Download Doc" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;float: right;"  >save_alt</i>
+                                <span>{{x.name.slice(0,20)}}</span>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+            </div>
+
+        </div>
+        <button mat-stroked-button *ngIf="!update" (click)="AddEmploye()" style="width: 100px;margin-top: 20px;">Add</button>
+
+        </div>
+
+
+
+    </div>
+
+

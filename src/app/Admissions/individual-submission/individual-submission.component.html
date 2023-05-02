@@ -1,0 +1,49 @@
+<div class="main container-fluid ">
+
+  <h3> Individual Submission </h3>
+  <mat-card>
+    <div class='row'>
+      <div class='col-6'>
+        Name: {{studentName}}
+      </div>
+      <div class='col-6'>
+        Assignment Name: {{assignmentName}}
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-6'>
+        <img src="{{imgURl}}">
+      </div>
+    </div>
+  </mat-card>
+
+
+  <mat-card>
+    <h5>Submissions</h5>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Sr.</th>
+          <th>Question</th>
+          <th>Answer</th>
+          <th>Achieved Marks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of assignmentTable; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{item.question}}</td>
+          <td>{{item.answer}}</td>
+          <td>{{item.marks}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <tr>
+
+    </tr>
+
+
+  </mat-card>
+</div>

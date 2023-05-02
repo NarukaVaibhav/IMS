@@ -1,0 +1,753 @@
+<div class="master-container" style="margin-top:110px;">
+
+
+  <h3 style="text-align: left;">ADMISSIONS</h3>
+
+  <div class="mat-accordion-div">
+
+
+    <mat-accordion class="example-headers-align">
+
+      <div class='tab-background'>
+
+
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Upload Admissions</mat-panel-title>
+
+          </mat-expansion-panel-header>
+
+          <div class="container">
+            <div class="row">
+              <div class="col-6">
+                <!-- Course Selection -->
+                <span>
+                  <p class="selected" *ngFor="let selected of selectedCourses">{{selected.name}}
+                    <button class="cross-btn" (click)="removeCourse(selected)">&#x2715;</button>
+                  </p>
+                </span>
+                <select (change)="selectCourse()" [(ngModel)]="currentSelectedCourse">
+                  <option [ngValue]="undefined" disabled> Select Course </option>
+                  <option *ngFor="let course of courseNames" [ngValue]="course">{{course.name}}</option>
+                </select>
+                <!---------------------->
+
+              </div>
+              <div class="col-6">
+                <!-- Batch Selection -->
+                <span>
+                  <p class="selected" *ngFor="let selected of selectedBatch">{{selected.name}}
+                    <button class="cross-btn" (click)="removeBatch(selected)">&#x2715;</button>
+                  </p>
+                </span>
+                <select (change)="selectBatch()" [(ngModel)]="currentSelectedBatch">
+                  <option [ngValue]="undefined" disabled> Select Batch </option>
+                  <option *ngFor="let batch of batchNames" [ngValue]="batch">{{batch.name}}</option>
+                </select>
+                <!---------------------->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+
+                <!-- Registration Date -->
+                <input class="reciept-input" type="type" placeholder="Date of Registration" onfocus="(this.type='date')"
+                  required [(ngModel)]="dateRegistration">
+                <!---------------------->
+              </div>
+
+              <div class="col-6">
+                <!-- Joining Date -->
+                <input class="reciept-input" type="type" placeholder="Date of Joining" onfocus="(this.type='date')"
+                  required [(ngModel)]="dateJoining">
+                <!---------------------->
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+
+                <!-- Admission type -->
+                <select [(ngModel)]="selectedAdmissionType" required>
+                  <option hidden value="" disabled selected> Admission Type </option>
+                  <option *ngFor="let type of admissionType" [ngValue]="type">{{type}}</option>
+                </select>
+                <!---------------------->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <!-- Choose File -->
+                <label for="myFile">Upload File</label>
+                <input (change)="uploadAdmissionFile($event)" type="file" name="myFile">
+                <!---------------------->
+              </div>
+
+              <div class='col-6'></div>
+            </div>
+            <a class="download-button" href="../../assets/upload-admissions.xlsx" download>Download Format for
+              Uploading Admissions</a>
+          </div>
+        </mat-expansion-panel>
+      </div>
+
+      <div class='tab-background'>
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+
+          <mat-expansion-panel-header>
+            <mat-panel-title>Add Admissions</mat-panel-title>
+
+          </mat-expansion-panel-header>
+          <mat-tab-group [selectedIndex]="tabCount" dynamicHeight>
+            <!-- Office Use Tab -->
+            <mat-tab [disabled]="isSelected(0)" label="Office Use">
+              <div class="container">
+
+                <div class="row">
+                  <div class="col-6">
+                    <!-- Course Selection -->
+                    <span>
+                      <p class="selected" *ngFor="let selected of selectedCourses">{{selected.name}}
+                        <button class="cross-btn" (click)="removeCourse(selected)">&#x2715;</button>
+                      </p>
+                    </span>
+                    <select (change)="selectCourse()" [(ngModel)]="currentSelectedCourse">
+                      <option [ngValue]="undefined" disabled> Select Course </option>
+                      <option *ngFor="let course of courseNames" [ngValue]="course">{{course.name}}</option>
+                    </select>
+                    <!---------------------->
+                  </div>
+                  <div class="col-6">
+                    <!-- Batch Selection -->
+                    <span>
+                      <p class="selected" *ngFor="let selected of selectedBatch">{{selected.name}}
+                        <button class="cross-btn" (click)="removeBatch(selected)">&#x2715;</button>
+                      </p>
+                    </span>
+                    <select (change)="selectBatch()" [(ngModel)]="currentSelectedBatch">
+                      <option [ngValue]="undefined" disabled> Select Batch </option>
+                      <option *ngFor="let batch of batchNames" [ngValue]="batch">{{batch.name}}</option>
+                    </select>
+                    <!---------------------->
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-6">
+                    <!-- Registration Date -->
+                    <input class="reciept-input" type="type" placeholder="Date of Registration"
+                      onfocus="(this.type='date')" required [(ngModel)]="dateRegistration">
+                  </div>
+                  <div class="col-6">
+                    <!-- Joining Date -->
+                    <input class="reciept-input" type="type" placeholder="Date of Joining" onfocus="(this.type='date')"
+                      required [(ngModel)]="dateJoining">
+                    <!---------------------->
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <!-- Reference Name -->
+
+                    <input placeholder="Reference Name" [(ngModel)]="refName">
+
+                    <!---------------------->
+                  </div>
+                  <div class="col-6">
+                    <!-- Institute Name -->
+
+                    <input placeholder="College/Institute Name" [(ngModel)]="collegeName">
+
+
+                    <!---------------------->
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <!-- Admission type -->
+                    <select [(ngModel)]="selectedAdmissionType" required>
+                      <option hidden value="" disabled selected> Admission Type </option>
+                      <option *ngFor="let type of admissionType" [ngValue]="type">{{type}}</option>
+                    </select>
+                    <!---------------------->
+                  </div>
+                  <div class="col-6">
+                    Eligible for placements<input class="fgh-checkbox" type="checkbox"
+                      [(ngModel)]="eligibleForPlacements">
+                  </div>
+                </div>
+
+              </div>
+            </mat-tab>
+
+
+
+            <!-- Basic Details Tab -->
+            <mat-tab [disabled]="isSelected(1)" label="Basic Details">
+
+              <div class="container">
+                <div class="tab-title">Basic Details</div>
+                <div class="row">
+                  <div class="col-6">
+
+
+                    User Profile
+                    <input type="file" accept="image/*" (change)="uploadImg($event)" placeholder="Upload Image">
+
+                    <div class="profile-container">
+                      <img [src]="imgPreview">
+                      <button (click)="removeProfile()" class="btn">&#x2715;</button>
+                    </div>
+                  </div>
+
+                  <div class="col-6"></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <input name="studentName" placeholder="Student Name*" #ctrl="ngModel" [(ngModel)]="studentName"
+                      required>
+                  </div>
+
+                  <div class="col-6">
+                    <input name="motherName" placeholder="Mother's Name*" #ctrl="ngModel" [(ngModel)]="motherName"
+                      required>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <input class="reciept-input" type="type" placeholder="Date of Birth" onfocus="(this.type='date')"
+                      required [(ngModel)]="DOB">
+                  </div>
+
+                  <div class="col-6">
+                    <select [(ngModel)]="category">
+                      <option [ngValue]="undefined" disabled> Select Category </option>
+                      <option *ngFor="let categoryName of categories" [ngValue]="categoryName">{{categoryName}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <input type="text" placeholder="Mobile Number*" [(ngModel)]="mobNumber" required>
+                  </div>
+
+                  <div class="col-6">
+
+                    <input placeholder="Father's Name*" [(ngModel)]="fatherName" required>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <select [(ngModel)]="gender">
+                      <option [ngValue]="undefined" disabled> Select Gender </option>
+                      <option *ngFor="let item of Gender" [ngValue]="item">{{item}}</option>
+                    </select>
+                  </div>
+
+                  <div class="col-6">
+                    <select [(ngModel)]="maritalStatus">
+                      <option [ngValue]="undefined" disabled> Marital Status </option>
+                      <option *ngFor="let marriageItem of maritalList" [ngValue]="marriageItem">{{marriageItem}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <select [(ngModel)]="isBPL">
+                      <option [ngValue]="undefined" disabled> BPL </option>
+                      <option *ngFor="let BPLItem of BPLList" [ngValue]="BPLItem">{{BPLItem}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="tab-title">Contact Details</div>
+                <div class="row">
+                  <div class="col-6">
+                    <input type="text" placeholder="Phone Number" [(ngModel)]="phoneNumber" required>
+
+                    <div class="col-6"></div>
+                  </div>
+
+                  <div class="col-6">
+
+                    <input type="tel" pattern="^\d{10}$" placeholder="Alternate Phone Number"
+                      [(ngModel)]="alternatePhoneNumber">
+
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <input placeholder="Enter Email" [(ngModel)]="email" type="text" required>
+                  </div>
+                  <div class="col-6"></div>
+                </div>
+
+                <div class="tab-title">Corresponding Address</div>
+                <div class="row">
+                  <div class="col-6">
+
+                    <textarea onfocus="(this.innerHTML='')" [(ngModel)]="address" id='Address'
+                      rows="4">Address</textarea>
+
+                  </div>
+
+                  <div class="col-6">
+
+                    <input type="text" placeholder="pincode*" [(ngModel)]="pincode" required>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+
+                    <select (change)="onChangeCountry(country.countryId)" [(ngModel)]="country">
+                      <option [ngValue]="undefined" disabled> Country </option>
+                      <option *ngFor="let con of countries" [ngValue]="con">{{con.countryName}}</option>
+                    </select>
+
+                  </div>
+
+                  <div class="col-6">
+
+                    <select (change)="onChangeState(state.stateId)" [(ngModel)]="state">
+                      <option [ngValue]="undefined" disabled> State </option>
+                      <option *ngFor="let st of states" [ngValue]="st">{{st.stateName}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+
+                    <select [(ngModel)]="city">
+                      <option [ngValue]="undefined" disabled> City </option>
+                      <option *ngFor="let cit of cities" [ngValue]="cit">{{cit.cityName}}</option>
+                    </select>
+                  </div>
+                  <div class="col-6"></div>
+                </div>
+
+                <div class="tab-title">Permanent Address</div>
+
+                <div class="row">
+                  Same as Correspondance Address
+                  <input value="" class="fgh-checkbox" type="checkbox" (change)="sameAsCorrespondanceAddress($event)">
+                </div>
+                <div class="row">
+                  <div class="col-6">
+
+                    <textarea [(ngModel)]="permanentAddress" id='Address' rows="4">Permanent Address</textarea>
+
+                  </div>
+
+                  <div class="col-6">
+
+                    <input type="text" placeholder="pincode*" [(ngModel)]="permanentPincode" required>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+
+                    <select (change)="onChangeCountry(country.countryId)" [(ngModel)]="permanentCountry">
+                      <option [ngValue]="undefined" disabled> Country </option>
+                      <option *ngFor="let con of countries" [ngValue]="con">{{con.countryName}}</option>
+                    </select>
+
+                  </div>
+
+                  <div class="col-6">
+
+                    <select (change)="onChangeState(state.stateId)" [(ngModel)]="permanentState">
+                      <option [ngValue]="undefined" disabled> State </option>
+                      <option *ngFor="let st of states" [ngValue]="st">{{st.stateName}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+
+                    <select [(ngModel)]="permanentCity">
+                      <option [ngValue]="undefined" disabled> City </option>
+                      <option *ngFor="let cit of cities" [ngValue]="cit">{{cit.cityName}}</option>
+                    </select>
+                  </div>
+                  <div class="col-6"></div>
+                </div>
+
+
+
+                <div class="tab-title"> Guardian Details </div>
+                <div class="row">
+                  <div class="col-6">
+
+
+                    <input placeholder="Parents Occupation" [(ngModel)]="parentOccupation">
+
+                  </div>
+
+                  <div class="col-6">
+
+                    <input type="text" placeholder="Parent's Phone Number" [(ngModel)]="parentPhone">
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+
+                    <textarea onfocus="(this.innerHTML='')" [(ngModel)]="guardianAddress"
+                      rows="4">Guardian Address</textarea>
+                  </div>
+
+                  <div class="col-6">
+
+                    <input placeholder="Guardian Name" [(ngModel)]="guardianName">
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+
+                    <input type="tel" pattern="^\d{10}$" placeholder="Guardian Phone Number"
+                      [(ngModel)]="guardianPhone">
+
+                  </div>
+                  <div class="col-6">
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+
+
+            <!-- Educational Details Tab -->
+            <mat-tab [disabled]="isSelected(2)" label="Educational Details">
+              <div class="tab-title">Educational Details</div>
+              <div class="row">
+                <div class="col-6">
+
+                  <select [(ngModel)]="stream">
+                    <option [ngValue]="undefined" disabled> Select Stream </option>
+                    <option *ngFor="let streamItem of Streams" [ngValue]="streamItem">{{streamItem}}</option>
+                  </select>
+                </div>
+                <div class="col-6">
+                  <input placeholder="School/College/Institute Name" [(ngModel)]="schoolName" #ctrl="ngModel"
+                    value="schoolName">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+
+                  Upload Marksheet
+                  <input type="file" accept="image/*" (change)="uploadMarkSheet($event)">
+
+                </div>
+
+                <div class="col-6">
+
+                  <input placeholder="Board/University Name" [(ngModel)]="boardName" value="boardName" #ctrl="ngModel">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+
+                  <select [(ngModel)]="currentStatus">
+                    <option [ngValue]="undefined" disabled> Select Status </option>
+                    <option *ngFor="let status of currentStatusList" [ngValue]="status">{{status}}</option>
+                  </select>
+                </div>
+
+                <div class="col-6">
+
+                  <input placeholder="Percentage %(CGPA)" [(ngModel)]="percentage" value="percentage" #ctrl="ngModel">
+                </div>
+              </div>
+
+
+
+              <button (click)="addEducationalRecord()">{{table_button}}</button>
+
+              <mat-card>
+                <div class="mat-elevation-z8">
+                  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="S.No">
+                      <th mat-header-cell *matHeaderCellDef> No. </th>
+                      <td mat-cell *matCellDef="let element"> {{element.sno}} </td>
+                    </ng-container>
+
+                    <!-- Stream Column -->
+                    <ng-container matColumnDef="Stream">
+                      <th mat-header-cell *matHeaderCellDef> Stream </th>
+                      <td mat-cell *matCellDef="let element"> {{element.stream}} </td>
+                    </ng-container>
+
+                    <!-- School/College/Institute Name Column -->
+                    <ng-container matColumnDef="School/College/Institute Name">
+                      <th mat-header-cell *matHeaderCellDef> School/College/Institute Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.schoolName}} </td>
+                    </ng-container>
+
+                    <!-- Board/University Name Column -->
+                    <ng-container matColumnDef="Board/University Name">
+                      <th mat-header-cell *matHeaderCellDef> Board/University Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.boardName}} </td>
+                    </ng-container>
+
+                    <!-- Current Status Column -->
+                    <ng-container matColumnDef="Current Status">
+                      <th mat-header-cell *matHeaderCellDef> Current Status </th>
+                      <td mat-cell *matCellDef="let element"> {{element.currentStatus}} </td>
+                    </ng-container>
+
+                    <!-- percentage Column -->
+                    <ng-container matColumnDef="Percentage">
+                      <th mat-header-cell *matHeaderCellDef> percentage </th>
+                      <td mat-cell *matCellDef="let element"> {{element.percentage}} </td>
+                    </ng-container>
+
+                    <!-- Marksheet Column -->
+                    <ng-container matColumnDef="Marksheet">
+                      <th mat-header-cell *matHeaderCellDef> Marksheet </th>
+                      <td mat-cell *matCellDef="let element"> {{element.marksheet}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Action">
+                      <th mat-header-cell *matHeaderCellDef> Action </th>
+                      <td mat-cell *matCellDef="let element" class="action-link">
+
+                        <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(element, 'edit')"
+                          title="Edit">edit
+                        </mat-icon>
+
+                        <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(element, 'delete')"
+                          title="Delete">delete_outline
+                        </mat-icon>
+
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                </div>
+              </mat-card>
+
+
+            </mat-tab>
+
+
+            <!-- Reciept Tab -->
+            <mat-tab [disabled]="isSelected(3)" label="Reciept Details">
+              <div class="tab-title">Reciept Details</div>
+
+              <div class="row">
+                <div class="col-6">
+                  <input class="reciept-input" value="Course Fees: {{totalFees}}" disabled>
+                </div>
+                <div class="col-6">
+                  Course Name:
+                  <div class='disabled-input' *ngFor="let crs of selectedCourses">
+                    {{crs.name}}
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <input class="reciept-input"  type="text"
+                         placeholder="Physical Receipt Number" [(ngModel)]="physcialReceipt">
+                </div>
+                <div class="col-6">
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <input class="reciept-input" min=0 max=50 type="number" (keyup)="applyDiscount($event.target.value)"
+                    placeholder="Discount(In %)" [(ngModel)]="discount">
+                </div>
+                <div class="col-6">
+                  <select [(ngModel)]="programName" required>
+                    <option [ngValue]="undefined" disabled>Program Name </option>
+                    <option *ngFor="let pName of programList" [ngValue]="pName">{{pName}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+
+                  <label for="fgh">Other Fee fgh(Rs. 1)</label><input type="checkbox"
+                    (change)="addOtherFee($event.target.checked)" name='fgh' class="fgh-checkbox">
+                </div>
+                <div class="col-6">
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <select [(ngModel)]="isGST">
+                    <option [ngValue]="undefined" disabled> GST (18%) </option>
+                    <option *ngFor="let gstItem of gstOptions" [ngValue]="gstItem">{{gstItem}}</option>
+                  </select>
+                </div>
+                <div class="col-6">
+                  <div *ngIf="isGST == 'Applicable'">
+                    <select (change)="includeGST($event.target.value)" [(ngModel)]="isGSTIncluded">
+                      <option [ngValue]="undefined" disabled>is GST Included </option>
+                      <option *ngFor="let gstItem_a of gstOptionsIncluded" [ngValue]="gstItem_a">{{gstItem_a}}</option>
+                    </select>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <input class="reciept-input" value="Total Payable Fees: {{totalFees}}">
+                </div>
+                <div class="col-6">
+                  <select [(ngModel)]="payableModeIsOnline" required>
+                    <option [ngValue]="undefined" disabled>Payable Mode</option>
+                    <option *ngFor="let mode of onlineList" [ngValue]="mode">{{mode}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <div *ngIf="payableModeIsOnline == 'online'">
+                    <input class="reciept-input" placeholder="Reference Number" ngModel={{referenceNumber}}>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div *ngIf="payableModeIsOnline == 'offline'">
+                    <select [(ngModel)]="selectedPaymentMedium" required>
+                      <option [ngValue]="undefined" disabled>Payment Medium </option>
+                      <option *ngFor="let mode of paymentMediumList" [ngValue]="mode">{{mode}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="selectedPaymentMedium == 'Demand Draft' || selectedPaymentMedium == 'Cheque'">
+                <div class="row">
+                  <div class="col-6">
+                    <input class="reciept-input" type="type" placeholder="DD/Cheque Date" onfocus="(this.type='date')"
+                      [(ngModel)]="DD_Cheque_Date">
+                  </div>
+                  <div class="col-6">
+                    <input class="reciept-input" type="text" [(ngModel)]="DD_Cheque_bankName" placeholder="Bank Name">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <input class="reciept-input" type="text" [(ngModel)]="DD_Cheque_Number"
+                      placeholder="DD/Cheque Number">
+                  </div>
+                  <div class="col-6">
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-6">
+                  <select (change)="updatePaymentMode()" [(ngModel)]="selectedPaymentSelection">
+                    <option [ngValue]="undefined" disabled>Fee Payment Selection </option>
+                    <option *ngFor="let mode of paymentSelection" [ngValue]="mode">{{mode}}</option>
+                  </select>
+                </div>
+                <div class="col-6">
+                  <div *ngIf="selectedPaymentSelection == 'Full Payment'"> Paid Fees: {{totalFees}} </div>
+                  <div *ngIf="selectedPaymentSelection == 'Installments'">
+                    <input (keyup)="updateDueFees($event.target.value)" class="reciept-input" type="number"
+                      placeholder="Paid Fees" [(ngModel)]="paidFees">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" *ngIf="selectedPaymentSelection == 'Installments'">
+                <div class="col-6">
+                  Due Fees: {{dueFees}}
+                  <!--<div class='disabled-input'>-->
+                  <!--Due Fees: {{dueFees}}</div>-->
+                </div>
+                <div class="col-6">
+                  Amount To Settle In Installments: {{amtToSettle}}
+                  <!--<div class='disabled-input'>Amount To Settle In Installments: {{amtToSettle}}</div>-->
+                </div>
+              </div>
+
+              <div *ngIf="selectedPaymentSelection == 'Installments'">
+                <div class="row" > 
+                  <div class="col-6">
+                    <input class="reciept-input" type="type" placeholder="Installment Dates"
+                      onfocus="(this.type='date')" [(ngModel)]="installmentDate">
+                  </div>
+                  <div class="col-5">
+                    <input (keyup)="amountToSettle($event.target.value)" class="reciept-input" type="number"
+                      [(ngModel)]="installmentPending" placeholder="Installment Amount (Pending)">
+                  </div>
+                  <div class="col-1">
+                    <button class="remove-installment-btn" (click)="appendInstallment('remove')"> &#10005; </button>
+                  </div>
+                </div>
+                
+
+              </div>
+              <button *ngIf="selectedPaymentSelection == 'Installments'" (click)="appendInstallment('add')"
+                type="button" class="plus-btn">
+                <img src="../../assets/add-24px.svg" class='plus-img' />
+              </button>
+
+              <table class="table table-striped mt-2">
+                <tr>
+                  <td style="font-size: medium; font-weight: bold;">Installments</td>
+                </tr>
+                <tr>
+                  <td style="font-size: medium;">Date</td>
+                  <td style="font-size: medium;">Amount</td>
+                  <td style="font-size: medium;">Remove</td>
+                </tr>
+                <tr *ngFor="let item of installmentList">
+                  <td style="font-size: medium;" >{{item["dueDate"] | date:"dd/MM/yyyy" }}</td>
+                  <td style="font-size: medium;" >{{item["amount"]}}</td>
+                  <td style="font-size: medium;" ><button style="padding: 0px;" class="remove-installment-btn" (click)="appendInstallment('remove')"> &#10005; </button></td>
+                </tr>
+              </table>
+
+            </mat-tab>
+
+          </mat-tab-group>
+          <button style="float: left;" (click)="submitForm()">SUBMIT</button>
+          <button class='navigator' (click)="selectTabNext()"><img class='navigator-img'
+              src="../../assets/navigate_next-24px.svg"></button>
+          <button class='navigator' (click)="selectTabPrevious()"><img class='navigator-img'
+              src="../../assets/navigate_before-24px.svg"></button>
+        </mat-expansion-panel>
+      </div>
+    </mat-accordion>
+  </div>
+</div>

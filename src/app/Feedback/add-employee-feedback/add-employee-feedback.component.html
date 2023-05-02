@@ -1,0 +1,536 @@
+<div class="master-container">
+
+  <div class="row">
+    <div class="col-6" style="padding: 0%;">
+      <h3 class="switch employee-switch" [ngStyle]="{'border':isEmployee == true ? '1px solid #007bff' : '2px solid transparent' }" (click)="switchEmployee()">Employee
+        Feedback</h3>
+    </div>
+    <div class="col-6" style="padding: 0%;float: right;">
+      <h3 class="switch trainer-switch" [ngStyle]="{'border':isEmployee == false ? '1px solid #007bff' : '2px solid transparent' }" (click)="switchTrainer()">Trainer Feedback</h3>
+    </div>
+  </div>
+
+  <div class="module-container" style="width: 100%;">
+
+    <div *ngIf="isEmployee==true" [@enterAnimation] class="form-container">
+      <div class="row">
+        <div class="col-6">
+          <h5 style="font-size:medium; font-weight: bold; color: rgba(0, 0, 0, 0.54);">Add Employee Feedback</h5>
+
+        </div>
+        <div class="col-6">
+          <button style="float:right;" class="btn btn-primary upload" (click)="AddDeveloperFeed(1)" >ADD FEEDBACK</button>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+        <input type="text" placeholder="Month" [(ngModel)]="month" required>
+        </div>
+
+        <div class="col-6">
+          <input type="text" placeholder="Year" [(ngModel)]="year" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <!--<div class="col-6">-->
+          <!--<input type="text" placeholder="Name of employee" [(ngModel)]="employeeName" required>-->
+        <!--</div>-->
+
+        <div class="col-6">
+          <input type="text" placeholder="Current Skill" [(ngModel)]="employeeCurrentSkill" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <input type="text" placeholder="Learning Details of Last Month" [(ngModel)]="learningDetailLastMonth"
+            required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <input type="text" placeholder="Learning Target for Coming Month" [(ngModel)]="learningTargetComingMonth"
+            required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <input type="text" placeholder="Learning Opportunity (Total Hours)" [(ngModel)]="learningOpportunity"
+            required>
+        </div>
+
+        <div class="col-6">
+          <input type="text" placeholder="Special Achievement" [(ngModel)]="specialAchievement" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <textarea onfocus="(this.innerHTML='')" [(ngModel)]="employeeSuggestion" placeholder="Any Suggestion"
+            rows="4"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class='col-12'>
+          <table>
+            <thead>
+              <tr>
+                <th>Sno</th>
+                <th>Development (Project Name & Task)</th>
+                <th>Technology</th>
+                <th>Status (Completed/Ongoing)</th>
+                <th>Number of Team Members</th>
+                <th>Total Hours</th>
+                <th>Status (By Team Lead)</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Add Values</td>
+                <td><input style="height: 1.5rem;" type="text" [(ngModel)]="development"></td>
+                <td><input style="height: 1.5rem;" type="text" [(ngModel)]="technology"></td>
+                <td><input style="height: 1.5rem;" type="text" [(ngModel)]="status"></td>
+                <td><input style="height: 1.5rem;" type="text" [(ngModel)]="teamMembers"></td>
+                <td><input style="height: 1.5rem;" type="text" [(ngModel)]="totalHours"></td>
+                <td><input style="height: 1.5rem;" type="text" [(ngModel)]="statusTeamLead"></td>
+                <td>
+                  <button class="project-record-btn" (click)="addProjectStatusRecord()"
+                    style="cursor: pointer; color:green !important">Add</button>
+                </td>
+              </tr>
+              <tr *ngFor="let record of projectStatusRecord; let i = index;">
+                <td>{{i+1}}</td>
+                <td>{{record['development']}}</td>
+                <td>{{record['technology']}}</td>
+                <td>{{record['status']}}</td>
+                <td>{{record['teamMembers']}}</td>
+                <td>{{record['totalHours']}}</td>
+                <td>{{record['statusTeamLead']}}</td>
+                <td>
+                  <button class="project-record-btn" (click)="removeProjectStatusRecord(i)"
+                    style="cursor: pointer; color:red !important">remove</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <!--<div class="row">-->
+        <!--<div class='col-12'>-->
+          <!--<p style="margin-top: 15px; margin-bottom: 5px;">Quality Marks for Employee by Project Manager/Business-->
+            <!--Analyst from 1 to 10</p>-->
+
+        <!--</div>-->
+        <!--<div class='col-12'>-->
+          <!--<table>-->
+            <!--<thead>-->
+              <!--<tr>-->
+                <!--<th title="Feedback by">Feedback by</th>-->
+                <!--<th title="Puncutuality">Puncutuality</th>-->
+                <!--<th title="Attitude with Others">Attitude with Others</th>-->
+                <!--<th title="Knowledge Sharing">Knowledge Sharing</th>-->
+                <!--<th title="Learning New Things">Learning New Things</th>-->
+                <!--<th title="Task Taker Regularity">Task Taker Regularity</th>-->
+                <!--<th title="Planned Working">Planned Working</th>-->
+                <!--<th title="Working Stamina">Working Stamina</th>-->
+                <!--<th title="Work on Time">Work on Time</th>-->
+              <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+              <!--<tr>-->
+                <!--<td>Admin</td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="puncutuality"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="attitudeWithOthers"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="knowledgeSharing"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="learningNewThings"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="taskTakerRegularity"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="plannedWorking"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="workingStamina"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="workOnTime"></td>-->
+              <!--</tr>-->
+              <!--<tr *ngFor="let record of feedbackRecord">-->
+                <!--<td></td>-->
+                <!--<td>{{record['puncutuality']}}</td>-->
+                <!--<td>{{record['attitudeWithOthers']}}</td>-->
+                <!--<td>{{record['knowledgeSharing']}}</td>-->
+                <!--<td>{{record['learningNewThings']}}</td>-->
+                <!--<td>{{record['taskTakerRegularity']}}</td>-->
+                <!--<td>{{record['plannedWorking']}}</td>-->
+                <!--<td>{{record['workingStamina']}}</td>-->
+                <!--<td>{{record['workOnTime']}}</td>-->
+              <!--</tr>-->
+            <!--</tbody>-->
+          <!--</table>-->
+        <!--</div>-->
+        <!--<div class='col-12'>-->
+          <!--<p style="margin-top: 15px; margin-bottom: 5px;">Table contd.</p>-->
+        <!--</div>-->
+        <!--<div class='col-12'>-->
+          <!--<table>-->
+            <!--<thead>-->
+              <!--<tr>-->
+                <!--<th title="Communication & Written Skill (English)">Communication & Written Skill (English)</th>-->
+                <!--<th title="Presentation Skill">Presentation Skill</th>-->
+                <!--<th title="Development Skill">Development Skill</th>-->
+                <!--<th title="Understanding of Problems">Understanding of Problems</th>-->
+                <!--<th title="Team Work">Team Work</th>-->
+                <!--<th title="Working Responsibility">Working Responsibility</th>-->
+                <!--<th title="Work is worship">Work is worship</th>-->
+                <!--<th title="Priority to Organisation">Priority to Organisation</th>-->
+                <!--<th title="Backbite">Backbite</th>-->
+                <!--<th title="Action">Action</th>-->
+              <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+              <!--<tr>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="communicationSkill"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="presentationSkill"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="developmentSkill"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="understandingOfProblems"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="teamWork"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="workingResponsibility"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="workIsWorship"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="priorityToOrganisation"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="backbite"></td>-->
+                <!--<td>-->
+                  <!--<button class="project-record-btn" (click)="addFeedbackRecord()"-->
+                    <!--style="cursor: pointer; color:green !important">Add</button>-->
+                <!--</td>-->
+              <!--</tr>-->
+              <!--<tr *ngFor="let record of feedbackRecord; let j = index;">-->
+                <!--<td>{{record['puncutuality']}}</td>-->
+                <!--<td>{{record['attitudeWithOthers']}}</td>-->
+                <!--<td>{{record['knowledgeSharing']}}</td>-->
+                <!--<td>{{record['learningNewThings']}}</td>-->
+                <!--<td>{{record['taskTakerRegularity']}}</td>-->
+                <!--<td>{{record['plannedWorking']}}</td>-->
+                <!--<td>{{record['workingStamina']}}</td>-->
+                <!--<td>{{record['workOnTime']}}</td>-->
+                <!--<td>-->
+                  <!--<button class="project-record-btn" (click)="removeFeedbackRecord(j)"-->
+                    <!--style="cursor: pointer; color:red !important">remove</button>-->
+                <!--</td>-->
+              <!--</tr>-->
+            <!--</tbody>-->
+          <!--</table>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!--<div class="row">-->
+        <!--<div class='col-12'>-->
+          <!--<table>-->
+            <!--<thead>-->
+              <!--<tr>-->
+                <!--<th>Employee Status by HR</th>-->
+                <!--<th>Month</th>-->
+                <!--<th>Urgent Leave</th>-->
+                <!--<th>Approved Leave</th>-->
+                <!--<th>unapproved Leave</th>-->
+                <!--<th>Extra Working Day</th>-->
+                <!--<th>Available Paid leave</th>-->
+                <!--<th>Action</th>-->
+              <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+              <!--<tr>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="employeeStatusHR"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="month"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="urgentLeave"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="approvedLeave"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="unapprovedLeave"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="extraWorkingDay"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="availablePaidLeave"></td>-->
+                <!--<td>-->
+                  <!--<button class="project-record-btn" (click)="addHRFeedbackRecord()"-->
+                    <!--style="cursor: pointer; color:green !important">Add</button>-->
+                <!--</td>-->
+              <!--</tr>-->
+              <!--<tr *ngFor="let record of HRFeedbackrecord; let k = index;">-->
+                <!--<td>{{record['employeeStatusHR']}}</td>-->
+                <!--<td>{{record['month']}}</td>-->
+                <!--<td>{{record['urgentLeave']}}</td>-->
+                <!--<td>{{record['approvedLeave']}}</td>-->
+                <!--<td>{{record['unapprovedLeave']}}</td>-->
+                <!--<td>{{record['extraWorkingDay']}}</td>-->
+                <!--<td>{{record['availablePaidLeave']}}</td>-->
+                <!--<td>-->
+                  <!--<button class="project-record-btn" (click)="removeHRFeedbackRecord(k)"-->
+                    <!--style="cursor: pointer; color:red !important">remove</button>-->
+                <!--</td>-->
+              <!--</tr>-->
+            <!--</tbody>-->
+          <!--</table>-->
+        <!--</div>-->
+      <!--</div>-->
+
+    </div>
+
+    <div *ngIf="isEmployee==false" [@enterAnimation] class="form-container">
+      <div class="row">
+        <div class="col-6">
+          <h5 style="font-size:medium; font-weight: bold; color: rgba(0, 0, 0, 0.54);">Add Trainer Feedback</h5>
+        </div>
+        <div class="col-6">
+          <button style="float:right;" class="btn btn-primary upload" (click)="AddDeveloperFeed(0)" >ADD FEEDBACK</button>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <input type="text" placeholder="Month" [(ngModel)]="month" required>
+        </div>
+
+        <div class="col-6">
+          <input type="text" placeholder="Year" [(ngModel)]="year" required>
+        </div>
+      </div>
+        <!--<div class="col-6">-->
+          <!--<input type="text" placeholder="Name of employee" [(ngModel)]="employeeName" required>-->
+        <!--</div>-->
+
+        <div class="col-6">
+          <input type="text" placeholder="Current Skill" [(ngModel)]="employeeCurrentSkill" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <input type="text" placeholder="Learning Details of Last Month" [(ngModel)]="learningDetailLastMonth"
+            required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <input type="text" placeholder="Learning Target for Coming Month" [(ngModel)]="learningTargetComingMonth"
+            required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <input type="text" placeholder="Learning Opportunity (Total Hours)" [(ngModel)]="learningOpportunity"
+            required>
+        </div>
+
+        <div class="col-6">
+          <input type="text" placeholder="Special Achievement" [(ngModel)]="specialAchievement" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <textarea onfocus="(this.innerHTML='')" [(ngModel)]="employeeSuggestion" placeholder="Any Suggestion"
+            rows="4"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class='col-12'>
+          <table>
+            <thead>
+              <tr>
+                <th>Sno</th>
+                <th>Corporate Training (Batch Time)</th>
+                <th>Technology</th>
+                <th>Number of Students</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status (By Course Coordinator)</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Add Values</td>
+                <td><input style="height: 1.5rem;" type="text" [(ngModel)]="development"></td>
+                <td><input style="height: 1.5rem;" type="text" [(ngModel)]="technology"></td>
+                <td><input style="height: 1.5rem;" type="text" [(ngModel)]="status"></td>
+                <td><input style="height: 1.5rem;" type="text" [(ngModel)]="teamMembers"></td>
+                <td><input style="height: 1.5rem;" type="text" [(ngModel)]="totalHours"></td>
+                <td><input style="height: 1.5rem;" type="text" [(ngModel)]="statusTeamLead"></td>
+                <td>
+                  <button class="project-record-btn" (click)="addTrainingStatusRecord()"
+                    style="cursor: pointer; color:green !important">Add</button>
+                </td>
+              </tr>
+              <tr *ngFor="let record of trainingStatusRecord; let p = index;">
+                <td>{{p+1}}</td>
+                <td>{{record["training"]}}</td>
+                <td>{{record["technology"]}}</td>
+                <td>{{record["numberOfStudents"]}}</td>
+                <td>{{record["startDate"]}}</td>
+                <td>{{record["endDate"]}}</td>
+                <td>{{record["status"]}}</td>
+                <td>
+                  <button class="project-record-btn" (click)="removeTrainingStatusRecord(p)"
+                    style="cursor: pointer; color:red !important">remove</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!--<div class="row">-->
+        <!--<div class='col-12'>-->
+          <!--<p style="margin-top: 15px; margin-bottom: 5px;">Quality Marks for Employee by HR, Training/Course Coordinator from 1 to 10</p>-->
+
+        <!--</div>-->
+        <!--<div class='col-12'>-->
+          <!--<table>-->
+            <!--<thead>-->
+              <!--<tr>-->
+                <!--<th title="Feedback by">Feedback by</th>-->
+                <!--<th title="Puncutuality">Puncutuality</th>-->
+                <!--<th title="Attitude with Others">Attitude with Others</th>-->
+                <!--<th title="Knowledge Sharing">Knowledge Sharing</th>-->
+                <!--<th title="Learning New Things">Learning New Things</th>-->
+                <!--<th title="Task Taker Regularity">Task Taker Regularity</th>-->
+                <!--<th title="Planned Working">Planned Working</th>-->
+                <!--<th title="Working Stamina">Working Stamina</th>-->
+                <!--<th title="Work on Time">Work on Time</th>-->
+              <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+              <!--<tr>-->
+                <!--<td>Admin</td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="puncutuality"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="attitudeWithOthers"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="knowledgeSharing"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="learningNewThings"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="taskTakerRegularity"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="plannedWorking"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="workingStamina"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="workOnTime"></td>-->
+              <!--</tr>-->
+              <!--<tr *ngFor="let record of feedbackRecord">-->
+                <!--<td></td>-->
+                <!--<td>{{record['puncutuality']}}</td>-->
+                <!--<td>{{record['attitudeWithOthers']}}</td>-->
+                <!--<td>{{record['knowledgeSharing']}}</td>-->
+                <!--<td>{{record['learningNewThings']}}</td>-->
+                <!--<td>{{record['taskTakerRegularity']}}</td>-->
+                <!--<td>{{record['plannedWorking']}}</td>-->
+                <!--<td>{{record['workingStamina']}}</td>-->
+                <!--<td>{{record['workOnTime']}}</td>-->
+              <!--</tr>-->
+            <!--</tbody>-->
+          <!--</table>-->
+        <!--</div>-->
+        <!--<div class='col-12'>-->
+          <!--<p style="margin-top: 15px; margin-bottom: 5px;">Table contd.</p>-->
+        <!--</div>-->
+        <!--<div class='col-12'>-->
+          <!--<table>-->
+            <!--<thead>-->
+              <!--<tr>-->
+                <!--<th title="Communication & Written Skill (English)">Communication & Written Skill (English)</th>-->
+                <!--<th title="Presentation Skill">Presentation Skill</th>-->
+                <!--<th title="Development Skill">Development Skill</th>-->
+                <!--<th title="Understanding of Problems">Understanding of Problems</th>-->
+                <!--<th title="Team Work">Team Work</th>-->
+                <!--<th title="Working Responsibility">Working Responsibility</th>-->
+                <!--<th title="Work is worship">Work is worship</th>-->
+                <!--<th title="Priority to Organisation">Priority to Organisation</th>-->
+                <!--<th title="Backbite">Backbite</th>-->
+                <!--<th title="Action">Action</th>-->
+              <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+              <!--<tr>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="communicationSkill"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="presentationSkill"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="developmentSkill"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="understandingOfProblems"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="teamWork"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="workingResponsibility"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="workIsWorship"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="priorityToOrganisation"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="backbite"></td>-->
+                <!--<td>-->
+                  <!--<button class="project-record-btn" (click)="addFeedbackRecord()"-->
+                    <!--style="cursor: pointer; color:green !important">Add</button>-->
+                <!--</td>-->
+              <!--</tr>-->
+              <!--<tr *ngFor="let record of feedbackRecord; let j = index;">-->
+                <!--<td>{{record['puncutuality']}}</td>-->
+                <!--<td>{{record['attitudeWithOthers']}}</td>-->
+                <!--<td>{{record['knowledgeSharing']}}</td>-->
+                <!--<td>{{record['learningNewThings']}}</td>-->
+                <!--<td>{{record['taskTakerRegularity']}}</td>-->
+                <!--<td>{{record['plannedWorking']}}</td>-->
+                <!--<td>{{record['workingStamina']}}</td>-->
+                <!--<td>{{record['workOnTime']}}</td>-->
+                <!--<td>-->
+                  <!--<button class="project-record-btn" (click)="removeFeedbackRecord(j)"-->
+                    <!--style="cursor: pointer; color:red !important">remove</button>-->
+                <!--</td>-->
+              <!--</tr>-->
+            <!--</tbody>-->
+          <!--</table>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!--<div class="row">-->
+        <!--<div class='col-12'>-->
+          <!--<table>-->
+            <!--<thead>-->
+              <!--<tr>-->
+                <!--<th>Employee Status by HR</th>-->
+                <!--<th>Month</th>-->
+                <!--<th>Urgent Leave</th>-->
+                <!--<th>Approved Leave</th>-->
+                <!--<th>unapproved Leave</th>-->
+                <!--<th>Extra Working Day</th>-->
+                <!--<th>Available Paid leave</th>-->
+                <!--<th>Action</th>-->
+              <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+              <!--<tr>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="employeeStatusHR"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="month"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="urgentLeave"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="approvedLeave"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="unapprovedLeave"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="extraWorkingDay"></td>-->
+                <!--<td><input style="height: 1.5rem;" type="text" [(ngModel)]="availablePaidLeave"></td>-->
+                <!--<td>-->
+                  <!--<button class="project-record-btn" (click)="addHRFeedbackRecord()"-->
+                    <!--style="cursor: pointer; color:green !important">Add</button>-->
+                <!--</td>-->
+              <!--</tr>-->
+              <!--<tr *ngFor="let record of HRFeedbackrecord; let k = index;">-->
+                <!--<td>{{record['employeeStatusHR']}}</td>-->
+                <!--<td>{{record['month']}}</td>-->
+                <!--<td>{{record['urgentLeave']}}</td>-->
+                <!--<td>{{record['approvedLeave']}}</td>-->
+                <!--<td>{{record['unapprovedLeave']}}</td>-->
+                <!--<td>{{record['extraWorkingDay']}}</td>-->
+                <!--<td>{{record['availablePaidLeave']}}</td>-->
+                <!--<td>-->
+                  <!--<button class="project-record-btn" (click)="removeHRFeedbackRecord(k)"-->
+                    <!--style="cursor: pointer; color:red !important">remove</button>-->
+                <!--</td>-->
+              <!--</tr>-->
+            <!--</tbody>-->
+          <!--</table>-->
+        <!--</div>-->
+      <!--</div>-->
+
+    </div>
+
+  </div>
+
+</div>

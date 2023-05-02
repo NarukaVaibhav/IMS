@@ -1,0 +1,174 @@
+.card{
+  padding: 2%;
+
+  width:100%;
+ 
+
+background-color: white;
+box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1);
+
+border-radius: 0.3rem;
+border: solid 2px rgba(240, 248, 255, 0.89);
+}
+
+
+input {
+  font-size: 14px;
+  width: 100%;
+  
+}
+input:focus {
+  border-color: rgba(240, 248, 255, 0.89);
+}
+
+
+.mat-elevation-z8 {
+  box-shadow: none;
+  z-index: 1;
+}
+
+.abc{
+  margin-top: 100px ;
+}
+
+table{  
+  text-align: center;
+
+}
+.xyz{
+  background-color: white ;
+}
+  
+  .mat-elevation-z8 {
+    border: 0 solid transparent;
+    border-radius: .25rem;
+  }
+    
+th {
+  
+  font-family: Open Sans, sans-serif;
+  border: 1px solid #CEEBED;
+  color: rgba(0, 0, 0, 0.54);
+  width : 10% !important;
+
+  vertical-align: middle !important;
+  text-align: center !important;
+  font-size: 12px !important;
+  font-weight: bolder !important;
+  max-height : 10px;
+  overflow: hidden !important;
+  padding-left: 10px !important;
+
+  text-overflow: ellipsis !important; 
+  white-space: nowrap !important; 
+
+}
+
+
+
+td{
+      vertical-align: middle !important;
+  text-align: center !important;
+
+  font-family: Open Sans, sans-serif;
+  border: 1px solid #CEEBED;
+  color: rgba(0, 0, 0, 0.54);
+  max-width: 25px !important;
+  width : 10% !important;
+
+  vertical-align: middle !important;
+  text-align: center !important;
+padding-left: 10px !important;
+  
+  font-size: 12px !important;
+  max-height: 5px !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  
+  text-overflow: ellipsis !important; 
+  white-space: nowrap !important; 
+
+}
+mat-icon{
+  font-size: 20px;
+}
+  
+  .card-header{
+    font-size: medium !important;
+    font-weight: bolder;
+    background-color: white;
+    
+    width:100%;
+    margin-bottom: 5px;
+    
+    font-family: Open Sans, sans-serif;
+    background-color: white !important;
+  box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1);
+  
+  border-radius: 0.3rem;
+  border: solid 2px rgba(240, 248, 255, 0.89);
+  color: rgba(0, 0, 0, 0.54);
+
+  }
+
+  .form-control-lg ,select{
+    margin-bottom: 15px;
+    margin-top: 5px;
+    background-color: #fff;
+    height:40px;    
+  }
+   
+  .container{
+    background-color:white;
+    margin-top:3rem;
+  }
+  ::ng-deep td.mat-cell {
+    border-radius: .25rem;
+    color: rgba(0, 0, 0, 0.54);
+    padding-right: 1.75rem;
+    font-family: Open Sans, sans-serif;
+    vertical-align: middle !important;
+    text-align: center !important;
+    font-size: .9375rem;
+    border: 1px solid #CEEBED;
+  }
+  
+  ::ng-deep tr.mat-row:hover {
+    background-color: aliceblue;
+  }
+  
+  
+  ::ng-deep .mat-sort-header-container {
+    display: flex;
+    
+    justify-content: center;
+  }
+  
+  .mat-row:nth-child(odd) {
+    background-color: rgba(240, 248, 255, 0.89);
+  }
+  
+
+  i{
+    font-size: 20px;
+    margin-left: 3px;
+  }
+
+  #action{
+  
+
+    text-align: center;
+    text-overflow: initial !important;
+  
+    padding-left: 10px;
+    width : 25% !important;
+  
+    overflow: visible !important;
+  
+    white-space: normal !important;
+  
+  }
+
+  mat-icon{
+    font-size: 20px;
+  }

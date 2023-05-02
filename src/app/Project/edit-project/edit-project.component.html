@@ -1,0 +1,141 @@
+ <div class="master-container1 container p-0">
+  <div class="container1 heading pl-3 pr-4">
+    
+    <p >EDIT PROJECT</p>
+</div>
+
+<form [formGroup]="Project">
+  
+      <div class="container1 pl-3 pr-3">
+       
+        <div class="row">
+          
+          <div class="col-lg-6" id="add-user">
+           
+            
+      
+            <div class="form-group">
+  
+              <select class="form-control" formControlName="type" required>
+                <option disabled [innerHTML] value="">Type</option>
+                <ng-container *ngFor="let ty of type">
+                  <option [value]="ty.configValue">{{ty.configValue ? ty.configValue : '' }} </option>
+                </ng-container>
+              </select>
+  
+              <mat-error *ngIf="Project.controls['type'].errors?.required">This field is mandatory.</mat-error>
+  
+            </div>
+  
+  
+            <div class="form-group">
+  
+              <select class="form-control" formControlName="status" required>
+                <option disabled [innerHTML] value="">Status</option>
+                <ng-container *ngFor="let st of status">
+                  <option [value]="st.configValue">{{st.configValue ? st.configValue : ''}} </option>
+                </ng-container>
+              </select>
+  
+              <mat-error *ngIf=" Project.controls['status'].errors?.required">This field is mandatory.</mat-error>
+  
+            </div>
+  
+  
+  
+            <input class="form-control form-control-lg" type="text" placeholder="Project Key" formControlName="key">
+            <mat-error *ngIf=" Project.controls['key'].errors?.required">This field is mandatory.</mat-error>
+  
+  
+  
+            <input class="form-control form-control-lg" type="text" placeholder="Project Live URL"
+              formControlName="live_url" value="">
+  
+  
+  
+            <div class="form-group">
+  
+              <select class="form-control" formControlName="team_member" (change)="onChangeTeam($event.target.value)"
+                required>
+                <option disabled [innerHTML] value="">Team Member</option>
+                <ng-container *ngFor="let member of team_members">
+                  <option [value]="member.name">{{member.name ? member.name : ''}} </option>
+                </ng-container>
+              </select>
+  
+              <mat-error *ngIf="Project.controls['team_member'].errors?.required">This field is mandatory.</mat-error>
+  
+            </div>
+  
+  
+          </div>
+  
+  
+  
+  
+  
+  
+          <div class="col-lg-6" id="office">
+  
+            <div class="form-group">
+  
+              <select class="form-control" formControlName="category" required>
+                <option disabled [innerHTML] value="">Category</option>
+                <ng-container *ngFor="let ct of category">
+                  <option [value]="ct.configValue">{{ct.configValue ? ct.configValue : '' }} </option>
+                </ng-container>
+              </select>
+  
+              <mat-error *ngIf="Project.controls['category'].errors?.required">This field is mandatory.</mat-error>
+  
+            </div>
+  
+  
+  
+            <input class="form-control form-control-lg" type="text" placeholder="Project Name"
+              formControlName="proj_name">
+            <mat-error *ngIf="Project.controls['proj_name'].errors?.required">This field is mandatory.</mat-error>
+  
+  
+  
+            <input class="form-control form-control-lg" type="text" placeholder="Project Description"
+              formControlName="proj_desc" value="">
+  
+  
+  
+            <input class="form-control form-control-lg" type="text" placeholder="Project Test URL"
+              formControlName="test_url" value="">
+  
+  
+            <input class="form-control form-control-lg" type="text" placeholder="Designation" formControlName="desig"
+              disabled>
+  
+  
+  
+        </div>     
+        
+      
+      </div>
+      <hr>
+  
+        <div class="row">
+        
+        <div class="col-lg-6">
+          <button type="button" class="btn btn-secondary"  id="back-btn" (click)="cancel()">Cancel</button>
+        </div>
+          <div class="col-lg-4"></div>
+          <div class="col-lg-1">
+          <button type="button" class="btn btn-primary float-right"  (click)="reset()" id="create-btn" >Reset </button>
+        </div>
+        <div class="col-lg-1">
+          <button type="button"  class="btn btn-primary float-right" (click)="update()" id="create-btn">Update</button>
+          </div>
+        
+        
+        </div>
+        <br>
+        </div>
+      
+      </form>
+    </div>
+    

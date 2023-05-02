@@ -1,0 +1,138 @@
+
+  .inputBox{
+    border-radius: .17rem;
+       font-size: .9375rem;
+       font-weight: 500;
+       line-height: 1.5rem;
+       padding: .4375rem 1rem;
+       background-color: #f7f9fc;
+       border-color: #e4e9f2;
+       color: #222b45;
+       width: 100%;
+       border-style: solid;
+       border-width: 1px;
+       font-family: Open Sans,sans-serif;
+       -webkit-appearance: none;
+   overflow: visible;
+   }
+
+
+input,select{
+    margin-bottom: 15px;
+    background-color: #e9ecef;
+    height:40px;    
+}
+input:hover{
+    border-color: #007bff;
+}
+select:hover{
+    border-color: #007bff;
+}
+
+h3{
+    color:  #999999;         
+}
+
+button{
+    margin: 5px 0px 20px 0px;
+}
+
+select option{
+    background-color: #e9ecef;
+}
+
+table{
+    width: 100%;
+}
+.tabel-1{    
+    padding-right: 0px;
+}
+
+
+
+.table-2{
+    padding-left: 0px;
+}
+
+.container-fluid{
+    background-color: white;
+    border: 2px solid rgba(240, 248, 255, 0.89) ;
+    box-shadow: 0 0.5rem 1rem 0 rgba(44,51,73,.1);
+    border-radius: 0.3rem;
+}
+
+
+th {
+    padding: 1% 1%;
+    /* padding-right: 1.75rem; */
+    font-family: Open Sans, sans-serif;
+    border: 1px solid #CEEBED;
+    color: rgba(0, 0, 0, 0.54);
+    width : 10% !important;
+  
+    vertical-align: middle !important;
+    text-align: center !important;
+    font-size: medium !important;
+    font-weight: bolder;
+    max-height : 10px;
+    overflow: hidden !important;
+    padding-left: 10px !important;
+  
+    text-overflow: ellipsis !important; 
+    white-space: nowrap !important; 
+  
+  }
+  .tTd{
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  td{
+        vertical-align: middle !important;
+    text-align: center !important;
+    /* padding: 1% 1%; */
+    padding: 0.5% 0.5%;
+  
+    padding-right: 1.75rem;
+    font-family: Open Sans, sans-serif;
+    border: 1px solid #CEEBED;
+    color: rgba(0, 0, 0, 0.54);
+    /* max-width: 15px !important; */
+    width : 10% !important;
+  
+    vertical-align: middle;
+    text-align: center;
+  padding-left: 10px !important;
+    
+    font-size: small !important;
+    max-height: 5px !important;
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+    
+    text-overflow: ellipsis !important; 
+    white-space: nowrap !important; 
+  
+  }
+  
+  .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: rgba(240, 248, 255, 0.89);
+
+  }
+
+  .card-header{ 
+    background-color: white;
+    border: 2px solid rgba(240, 248, 255, 0.89) ;
+    box-shadow: 0 0.5rem 1rem 0 rgba(44,51,73,.1);
+    border-radius: 0.3rem;
+
+    font-size: medium !important;
+    font-weight: bolder;
+  
+    width:100%;
+    margin-bottom: 5px;
+    font-family: Open Sans, sans-serif;
+  color: rgba(0, 0, 0, 0.54);
+  
+  }
+  

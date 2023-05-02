@@ -1,0 +1,295 @@
+      <head>
+
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        </head>
+        
+      <div class="master-container1 container p-0 " id="imp">
+        
+        <div class="container1 heading pl-3 pr-3">
+    
+          <p >SUMMARIZED FEEDBACK</p>
+      </div>
+    
+        <div class="container1 pl-3 pr-3" >
+
+        <ng-template #name >
+          <div>
+           <div>
+             <div>
+         
+               <!-- Modal Header -->
+               <div class="modal-header">
+                <h4 class="modal-title">{{hidden_ques}}</h4>
+        
+                
+               </div>
+         
+               <!-- Modal body -->
+               <div class="modal-body">
+                <table class="table table-bordered table-striped" *ngIf="rating1_table">
+                  <thead>
+                    <tr>
+                      <th scope="col">User</th> 
+                      <th scope="col">Question</th>
+                      <th scope="col">Response</th>
+             
+                   </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let a of rating1, let i = index" >
+                      <td >{{a.user.name}}</td>
+                      <td >{{a.ques.question}}</td>
+                      <td >{{a.ans.answer}}</td>
+                    </tr>
+                    </tbody>
+                    </table>
+          
+                    <table class="table table-bordered table-striped" *ngIf="rating2_table">
+                      <thead>
+                        <tr>
+                          <th scope="col">User</th> 
+                          <th scope="col">Question</th>
+                          <th scope="col">Response</th>
+                 
+                       </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let a of rating2, let i = index" >
+                          <td >{{a.user.name}}</td>
+                          <td >{{a.ques.question}}</td>
+                          <td >{{a.ans.answer}}</td>
+                        </tr>
+                        </tbody>
+                        </table>
+        
+                        <table class="table table-bordered table-striped" *ngIf="rating3_table">
+                          <thead>
+                            <tr>
+                              <th scope="col">User</th> 
+                              <th scope="col">Question</th>
+                              <th scope="col">Response</th>
+                     
+                           </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let a of rating3, let i = index" >
+                              <td >{{a.user.name}}</td>
+                              <td >{{a.ques.question}}</td>
+                              <td >{{a.ans.answer}}</td>
+                            </tr>
+                            </tbody>
+                            </table>
+        
+                            <table class="table table-bordered table-striped" *ngIf="rating4_table">
+                              <thead>
+                                <tr>
+                                  <th scope="col">User</th> 
+                                  <th scope="col">Question</th>
+                                  <th scope="col">Response</th>
+                         
+                               </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let a of rating4, let i = index" >
+                                  <td >{{a.user.name}}</td>
+                                  <td >{{a.ques.question}}</td>
+                                  <td >{{a.ans.answer}}</td>
+                                </tr>
+                                </tbody>
+                                </table>  
+        
+                                <table class="table table-bordered table-striped" *ngIf="rating5_table">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">User</th> 
+                                      <th scope="col">Question</th>
+                                      <th scope="col">Response</th>
+                             
+                                   </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let a of rating5, let i = index" >
+                                      <td >{{a.user.name}}</td>
+                                      <td >{{a.ques.question}}</td>
+                                      <td >{{a.ans.answer}}</td>
+                                    </tr>
+                                    </tbody>
+                                    </table> 
+               </div>
+         
+               <!-- Modal footer -->
+               <div class="modal-footer">
+                 <button type="button" class="btn btn-primary" (click)="close()" >OK</button>
+                 
+               </div>
+         
+             </div>
+           </div>
+         </div>
+         </ng-template>
+        
+      
+      
+      
+      
+      
+        <div class="row">
+          
+           <div class="col-lg-12">
+             <h5 *ngFor="let d of arr3" style="font-weight: bold;">FEEDBACK NAME:{{arr3[0]['feedbackTitle']| uppercase}}</h5>
+            </div>
+             <div class="col-lg-6">
+               <p *ngFor="let d of arr3" >Teacher Name:{{arr3[0]['batch']['teacher']['name']}}</p>
+               <p *ngFor="let d of arr3">Course:{{arr3[0]['batch']['name']}}</p>
+             </div>
+             <div class="col-lg-6">
+               <p *ngFor="let d of arr3">Total Students:{{arr3.length}}</p>
+               <p *ngFor="let d of arr3">Batch:{{arr3[0]['batch']['name']}}</p>
+             </div>
+             <div class="container1 pl-3 pr-3" id="rating">
+              <div class="row">
+                  <div class="col-sm-4">
+                      <h4 style="font-weight: bold;">Rating Type Question:</h4>
+                  </div>
+                  <div class="col-sm-6">
+                      <select class="form-control" (change)="onChangeQues($event.target.value)">
+                        <option  disabled  [value]="">Select Question</option>
+      
+                        <ng-container *ngFor="let u of arr3[0]['questions']">
+                          <option   *ngIf="u.questionType == 'Rating'" [value]="u.id">{{u.question}}</option>
+                        </ng-container>
+                        </select>
+                  </div>
+                  <div class="col-sm-6" hidden>
+                    <select class="form-control" [(ngModel)]="hidden_ques">
+                      <option  disabled  [value]="">Select Question</option>
+      
+                      <ng-container *ngFor="let u of arr3[0]['questions']">
+                        <option   *ngIf="u.questionType == 'Rating'" [value]="u.question">{{u.question}}</option>
+                      </ng-container>
+                      </select>
+                </div>
+              </div>
+              <hr>
+              <div class="row" *ngIf="rating_div">
+                <div class="col-sm-3">
+                    <a href="#">
+                        <span class="fa fa-star"></span>
+                      </a><a href="#">
+                        <span class="fa fa-star"></span>
+                      </a><a href="#">
+                        <span class="fa fa-star"></span>
+                      </a><a href="#">
+                        <span class="fa fa-star"></span>
+                      </a><a href="#">
+                        <span class="fa fa-star"></span>
+                      </a>
+                </div>
+                <div class="col-sm-7">
+                    <div class="progress" (click)=" open(name) ; ratin5()"  style="cursor: pointer;" >
+                      <div  class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" [style.width]="per5"></div>
+                    </div>
+                </div>
+                <div class="col-sm-2"> <label>{{per5}}({{rating5.length}})</label></div>
+    
+                <div class="col-sm-3">
+                    <a href="#">
+                        <span class="fa fa-star"></span>
+                      </a><a href="#">
+                        <span class="fa fa-star"></span>
+                      </a><a href="#">
+                        <span class="fa fa-star"></span>
+                      </a><a href="#">
+                        <span class="fa fa-star"></span>
+                      </a>
+                </div>
+                <div class="col-sm-7">
+                    <div class="progress" (click)="open(name) ; ratin4()" style="cursor: pointer;" >
+                      <div  class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" [style.width]="per4"></div>
+                    </div>
+                </div>
+                <div class="col-sm-2"> <label>{{per4}}  ({{rating4.length}})</label></div>
+    
+                <div class="col-sm-3">
+                    <a href="#">
+                        <span class="fa fa-star"></span>
+                      </a><a href="#">
+                        <span class="fa fa-star"></span>
+                      </a><a href="#">
+                        <span class="fa fa-star"></span>
+                      </a>
+                </div>
+                <div class="col-sm-7">
+                    <div class="progress" (click)="open(name) ; ratin3()" style="cursor: pointer;" >
+                       <div   class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" [style.width]="per3"></div>
+                    </div>
+                </div>
+                <div class="col-sm-2"> <label>{{per3}}  ({{rating3.length}})</label></div>
+    
+                <div class="col-sm-3">
+                    <a href="#">
+                        <span class="fa fa-star"></span>
+                      </a><a href="#">
+                        <span class="fa fa-star"></span>
+                      </a>
+                </div>
+                <div class="col-sm-7">
+                    <div class="progress" (click)="open(name) ; ratin2()" style="cursor: pointer;" >
+                       <div  class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" [style.width]="per2"></div>      
+                    </div>
+                </div>
+                <div class="col-sm-2"> <label>{{per2}}  ({{rating2.length}})</label></div>
+                <div class="col-sm-3">
+                    <a href="#">
+                        <span class="fa fa-star"></span>
+                      </a>
+                </div>
+                <div class="col-sm-7">
+                    <div class="progress" (click)="open(name) ; ratin1()" style="cursor: pointer;" >
+                      <div  class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" [style.width]="per1"></div>
+                    </div>
+                </div>
+                <div class="col-sm-2"> <label>{{per1}}  ({{rating1.length}})</label></div>
+    
+            </div>
+    
+          </div>
+          
+      
+            <div class="col-lg-12 panel">
+              <p style="font-weight: bold;" >Option Type Question:</p>
+            </div>
+            <div class="col-lg-12">
+               <h3 style="font-weight: bold;" >INDIVIDUAL FEEDBACK:</h3>
+               <table class="table">
+           <thead>
+             <tr>
+               <th scope="col">User</th> 
+               <th scope="col">Questions</th>
+      
+               <th scope="col">Response</th>
+      
+            </tr>
+           </thead>
+           <tbody>
+             <tr *ngFor="let a of ques_ans, let i = index" >
+               <td >{{a.user.name}}</td>
+               <td >
+                 <tr *ngFor="let a1 of a.ques" id="individual">
+                   {{a1.question}}
+                 </tr>
+               </td>
+               <td >
+                <tr *ngFor="let a of a.ans" id="individual">
+                  {{a.answer}}
+                </tr>
+              </td>
+             </tr>
+             </tbody>
+             </table>
+      
+             </div>
+            </div>
+            </div>
+            </div>

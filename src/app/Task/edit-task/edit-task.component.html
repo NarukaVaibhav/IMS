@@ -1,0 +1,195 @@
+<div class="master-container1  container p-0" style="margin-bottom: 25px;" >
+  <div class="container1 pl-3 pr-3 heading">
+    
+    <p >EDIT TASK</p>
+</div>
+
+<form [formGroup]="Task">
+    <div class="container1 pl-3 pr-3">
+            <div class="row">
+        
+        <div class="col-lg-6" id="add-user">
+         
+          
+    
+          <div class="form-group">
+
+            <select class="form-control" formControlName="project" required>
+              <option disabled [innerHTML] value="">Project</option>
+              <ng-container *ngFor="let pr of project">
+                <option [value]="pr.projectName">{{pr.projectName ?  pr.projectName : ''}} </option>
+              </ng-container>
+            </select>
+
+            <mat-error *ngIf="Task.controls['project'].errors?.required">This field is mandatory.</mat-error>
+
+          </div>
+
+
+          
+          
+          <div class="form-group">
+
+            <select class="form-control" formControlName="type" required (change)="onChangeType($event.target.value)">
+              <option disabled [innerHTML] value="">Type</option>
+              <ng-container *ngFor="let ct of type">
+                <option [value]="ct.configValue">{{ct.configValue ? ct.configValue : ''}} </option>
+              </ng-container>
+            </select>
+
+            <mat-error *ngIf="Task.controls['type'].errors?.required">This field is mandatory.</mat-error>
+
+          </div>
+
+
+
+          <div class="form-group">
+
+            <select class="form-control" formControlName="label" required>
+              <option disabled [innerHTML] value="">Label</option>
+              <ng-container *ngFor="let st of label">
+                <option [value]="st.configValue">{{st.configValue ? st.configValue : ''}} </option>
+              </ng-container>
+            </select>
+
+            <mat-error *ngIf="Task.controls['label'].errors?.required">This field is mandatory.</mat-error>
+
+          </div>
+
+
+
+          <input class="form-control form-control-lg" type="text" placeholder="Summary" formControlName="summary">
+          <mat-error *ngIf="Task.controls['summary'].errors?.required">This field is mandatory.</mat-error>
+
+
+
+
+          <div class="form-group">
+
+            <select class="form-control" formControlName="team_member" (change)="onChangeTeam($event.target.value)"
+              required>
+              <option disabled [innerHTML] value="">Team Member</option>
+              <ng-container *ngFor="let member of team_members">
+                <option [value]="member.name">{{member.name ? member.name : ''}} </option>
+              </ng-container>
+            </select>
+
+            <mat-error *ngIf="Task.controls['team_member'].errors?.required">This field is mandatory.</mat-error>
+
+          </div>
+
+
+
+          <label for="Attachment">Attachment : </label>
+          <input (change)="onFileSelected($event, 'Attachment')" type="file">
+
+
+
+
+          <input placeholder="Start Date" class="textbox-n form-control" type="text" onblur="(this.type='text')"
+            onfocus="(this.type='date')" formControlName="st_date">
+          <mat-error *ngIf="Task.controls['st_date'].errors?.required">This field is mandatory.</mat-error>
+
+
+
+        </div>
+
+
+
+
+
+
+        <div class="col-lg-6" id="office">
+
+
+
+
+
+
+          <div class="form-group">
+
+            <select class="form-control" formControlName="priority" required>
+              <option disabled [innerHTML] value="">Priority</option>
+              <ng-container *ngFor="let ct of priority">
+                <option [value]="ct.configValue">{{ct.configValue ? ct.configValue : ''}} </option>
+              </ng-container>
+            </select>
+
+            <mat-error *ngIf=" Task.controls['priority'].errors?.required">This field is mandatory.</mat-error>
+
+          </div>
+
+
+
+
+
+
+          <div class="form-group">
+
+            <select class="form-control" formControlName="status" required>
+              <option disabled [innerHTML] value="">Status</option>
+              <ng-container *ngFor="let st of status">
+                <option [value]="st.configValue">{{st.configValue ? st.configValue : ''}} </option>
+              </ng-container>
+            </select>
+
+            <mat-error *ngIf="Task.controls['status'].errors?.required">This field is mandatory.</mat-error>
+
+          </div>
+
+
+
+
+
+
+
+          <input class="form-control form-control-lg" type="text" placeholder="Task Description" formControlName="desc"
+            value="">
+
+
+
+
+          <input class="form-control form-control-lg" type="text" placeholder="Designation" formControlName="desig"
+            disabled>
+
+
+
+
+          <input class="form-control form-control-lg" type="number" placeholder="Estimated Time" formControlName="time"
+            value="">
+
+
+
+          <input placeholder="End Date" class="textbox-n form-control" type="text" onblur="(this.type='text')"
+            onfocus="(this.type='date')" formControlName="en_date">
+          <mat-error *ngIf="Task.controls['en_date'].errors?.required">This field is mandatory.</mat-error>
+      
+
+
+
+      </div>     
+      
+    
+    </div>
+    <hr>
+
+      <div class="row">
+      
+      <div class="col-lg-6">
+        <button type="button" class="btn btn-secondary"  id="back-btn" (click)="cancel()" >Cancel</button>
+      </div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-1">
+        <button type="button" class="btn btn-primary float-right"  (click)="reset()" id="create-btn" >Reset </button>
+      </div>
+      <div class="col-lg-1">
+        <button type="button" class="btn btn-primary float-right" (click)="update()" id="create-btn">Update</button>
+        </div>
+      
+      
+      </div>
+      <br>
+      </div>
+    
+    </form>
+</div>

@@ -1,0 +1,146 @@
+<!-- <form class="Form-group" -->
+<div class="master-container1 conatiner p-0" style="margin-bottom: 25px;">
+  <div class="card-header mt-2">
+    ATTENDANCE
+  </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-attendance">Attendance</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <table class="table table-striped mt-2">
+        <tbody style="display:block; overflow:auto; height:300px;">
+          <tr>
+            <td style="font-size: medium !important; font-weight: bold; color: rgba(0,0,0,0.54) !important;">Date</td>
+            <td style="font-size: medium !important; font-weight: bold; color: rgba(0,0,0,0.54) !important;">Attendance</td>
+          </tr>
+          <tr *ngFor="let record of modalTableRecord">
+            <td>{{record.date}}</td>
+            <td>{{record.attendance}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+
+    </div>
+
+  </ng-template>
+
+  <div class="container-fluid">
+
+    <div class="row">
+
+      <div class="col-lg-6 col-md-6 col-sm-6 col-6 mt-4">
+        <select (change)="selectChangeHandler($event)" class="form-control inputBox" required>
+          <option [ngValue]="placeholder" disabled selected hidden>Select Course</option>
+          <option *ngFor="let res of results" value={{res.id}}> {{res.name}}</option>
+        </select>
+        <input (change)="selectDate1($event)" value="" class="form-control form-control-lg mt-4 inputBox" type="date">
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-6 col-6 mt-4">
+        <select (change)="selectChangeBatch($event)" class="form-control inputBox" name="batch" [(ngModel)]="batch"
+          required>
+          <option [ngValue]="placeholder" disabled selected hidden>Select Batch</option>
+          <option *ngFor="let res_b of batch_result" value={{res_b.id}}> {{res_b.name}} </option>
+        </select>
+        <input (change)="selectDate2($event)" value="" class="form-control form-control-lg mt-4 inputBox" type="date">
+        <div class="col-lg-2 offset-lg-10">
+          <button (click)="showData()" class="btn btn-primary">Filter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid p-0" *ngIf=display_data style="margin-top: 5px;">
+    <table class="table table-striped mt-2">
+      <thead>
+        <tr>
+          <th>StudentName</th>
+          <th>FatherName</th>
+          <th>Contact No</th>
+          <th>Total Attendance</th>
+          <th>Total Present</th>
+          <th>Total Absent</th>
+          <th>Total Leave</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let re of display">
+          <td style="cursor: pointer;" (click)="routeToEdit(re['student_Id'])">{{re.studentName}}</td>
+          <td>{{re.fatherName}}</td>
+          <td>{{re.mobileNumber}}</td>
+          <td>{{re.totalAttendance}}</td>
+          <td style="cursor: pointer;" (click)="showPresent(content, re['student_Id'])">{{re.Present}}</td>
+          <td style="cursor: pointer;" (click)="showAbsent(content, re['student_Id'])">{{re.Absent}}</td>
+          <td style="cursor: pointer;" (click)="showLeave(content,  re['student_Id'])">{{re.Leave}}</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- <div class="container" *ngIf="false" style="margin-top: 5px;">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 tabel-1">
+        <table class="table table-striped ">
+          <thead>
+            <tr>
+              <th>StudentName</th>
+              <th>FatherName</th>
+              <th>Contact No</th>
+              <th>Total Attendance</th>
+              <th>Total Absent</th>
+              <th>Total Present</th>
+              <th>Total Leave</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let re of display">
+              <td>{{re.studentName}}</td>
+              <td>{{re.fatherName}}</td>
+              <td>{{re.mobileNumber}}</td>
+
+            </tr>
+          </tbody>
+          <tbody>
+            <tr *ngFor="let re of table_data">
+              <td>{{re.studentName}}</td>
+              <td>{{re.fatherName}}</td>
+              <td>{{re.mobileNumber}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6 col-sm-6 table-2">
+        <table class="table table-striped  ">
+          <thead>
+            <tr>
+              <th>Total Attendance</th>
+              <th>Total Absent</th>
+              <th>Total Present</th>
+              <th>Total Leave</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let re of array">
+              <td>{{re.totalAttendance}}</td>
+              <td>{{re.Absent}}</td>
+              <td>{{re.Present}}</td>
+              <td>{{re.Leave}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div> -->
+
+</div>

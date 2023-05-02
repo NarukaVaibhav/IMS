@@ -1,0 +1,79 @@
+.master-container {
+  position: absolute;
+  margin-top: 110px;
+  width: 91%;
+  max-width: 87%;
+  left : 50%;
+  transform: translateX(-50%);
+}
+
+h3 {
+  font-size: medium !important;
+  margin: 0.8em auto;
+  background-color: white;
+  padding: 0.8em;
+  font-weight: bold;
+  border-radius: 0.2em;
+  box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1);
+  font-family: Open Sans, sans-serif;
+  color: rgba(0, 0, 0, 0.54);
+  width: 95%;
+}
+
+td {
+  vertical-align: middle;
+  text-align: center;
+  padding-right: 1.75rem;
+  font-family: Open Sans, sans-serif;
+  border: 1px solid #CEEBED;
+  color: rgba(0, 0, 0, 0.54);
+  max-width: 15px !important;
+  vertical-align: middle;
+  text-align: center;
+  padding: 1px !important;
+  font-size: small !important;
+  max-height: 5px !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+th {
+  padding: 1% 1%;
+  padding-right: 1.75rem;
+  font-family: Open Sans, sans-serif;
+  border: 1px solid #CEEBED;
+  color: rgba(0, 0, 0, 0.54);
+  max-width: 15px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: small !important;
+  font-weight: bolder;
+  max-height: 10px;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.row {
+  padding: 1.1rem;
+}
+
+mat-card {
+  width: 95%;
+  margin: 0 auto;
+  margin-bottom: 1%;
+  border: 0 solid transparent;
+  border-radius: .25rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(44, 51, 73, .1) !important;
+}
+
+
+img {
+  width: 45%;
+}
+
+th,
+td {
+  text-align: center;
+}

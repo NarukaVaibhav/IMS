@@ -1,0 +1,103 @@
+<div class="master-container1 container p-0" >
+    <div class="card-header" >Leaves </div>
+
+
+    <div  class="col-lg-12 card" style="margin-top: 10px;padding: 0px;">
+        <div class="card-header" *ngIf="teacherlogin">
+
+            <button   (click)="showapplyleave=true" mat-stroked-button  style="width:auto;text-align:center;float: right;">
+                Apply Leave</button>
+        </div>
+
+
+        <!-- Leave CArd Dialog -->
+        <div  class="row backdrop_effect"  *ngIf="showapplyleave" >
+        <div class="card" style="padding: 0px !important;" class="carddialog">
+            <div class="card-header">Apply Leave
+              <i (click)="hideleavecard()" class="material-icons ml-2"  matTooltip="Close" style="color: red; margin:0px !important; font-size: 22px;cursor: pointer;float: right;" >close</i>
+            </div>
+            <div class="row" style="margin:0px !important;padding: 20px; ">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Date from</mat-label>
+                    <input (dateChange)="checkSameDate()" (click)="fromdt.open()" [matDatepicker]="fromdt" matInput   name="dob" [(ngModel)]="applyleaveobj.dateFrom">
+                    <mat-datepicker-toggle matSuffix [for]="fromdt"></mat-datepicker-toggle>
+                    <mat-datepicker #fromdt></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Date To</mat-label>
+                    <input (dateChange)="checkSameDate()" (click)="todt.open()" [matDatepicker]="todt" matInput   name="dob" [(ngModel)]="applyleaveobj.dateTo">
+                                <mat-datepicker-toggle matSuffix [for]="todt"></mat-datepicker-toggle>
+                                <mat-datepicker #todt></mat-datepicker>
+                  </mat-form-field>
+                  <mat-checkbox style="margin-left: 5px;" *ngIf="hafldayShow" class="full-width" [(ngModel)]="halfday" >Half Day</mat-checkbox>
+                  <mat-form-field style="height: auto !important;" appearance="outline" class="full-width">
+                    <mat-label>Reason</mat-label>
+                    <textarea cdkTextareaAutosize
+
+                    cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="3"  matInput   name="reason" [(ngModel)]="applyleaveobj.reason">   </textarea>
+                  </mat-form-field>
+
+                  <button (click)="applyleave()"  mat-stroked-button  style="width:100%;text-align:center;bottom: 0;margin-top: 40px;">
+                    Apply Leave</button>
+
+
+            </div>
+        </div>
+        </div>
+
+
+
+        <div class="row" style="padding: 20px !important;">
+
+            <div class="col-lg-12 card" style="padding: 0px !important;">
+                <div class="card-header" style="padding-bottom:10px !important;margin-bottom: 0px !important;">
+<mat-button-toggle-group value="pleave" appearance="legacy" >
+    <mat-button-toggle active (click)="getLeaves(0)" value="pleave">Pending Leaves</mat-button-toggle>
+    <mat-button-toggle (click)="getLeaves(1)" value="aleave">Approved Leaves</mat-button-toggle>
+    <mat-button-toggle (click)="getLeaves(-1)" value="rleave">Rejected Leaved</mat-button-toggle>
+  </mat-button-toggle-group>
+
+                </div>
+                <table mat-table  [dataSource]="leaveData" matSort class="mat-elevation-z8">
+                    <tr mat-header-row *matHeaderRowDef="leaveColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: leaveColumns;"></tr>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
+                      <td mat-cell *matCellDef="let element" id="name"> {{element.name}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="designation">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Designation</th>
+                        <td mat-cell *matCellDef="let element" id="designation"> {{element.designation}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="datefrom">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date From</th>
+                        <td mat-cell *matCellDef="let element" id="datefrom"> {{element.dateFrom | date:'mediumDate' :'GMT'}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="dateto">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date To</th>
+                        <td mat-cell *matCellDef="let element" id="dateto"> {{element.dateTo | date:'mediumDate' :'GMT'}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="reason">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason</th>
+                        <td mat-cell [matTooltip]="element.reason" style="cursor: pointer;" *matCellDef="let element" id="reason"> {{(element.reason).slice(0,20)}} </td>
+                      </ng-container>
+                      <ng-container  matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header > Action</th>
+                        <td mat-cell *matCellDef="let element" id="action" >
+                            <i *ngIf="showpending && !teacherlogin" (click)="leaveUpdate(1,element)" class="material-icons ml-2"  matTooltip="Approve" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;"  >thumb_up_alt</i>
+                            <i *ngIf="showpending && !teacherlogin" (click)="leaveUpdate(-1,element)" class="material-icons ml-2"  matTooltip="Reject" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;"  >thumb_down_alt</i>
+                            <i *ngIf="!teacherlogin" (click)="leaveDelet(element)" class="material-icons ml-2"  matTooltip="Delete" style="padding-left: 0px !important; font-size: 20px; cursor: pointer;"  >delete</i>
+                        </td>
+                      </ng-container>
+
+                </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+        </div>
+
+     </div>
+ </div>
+
+
+

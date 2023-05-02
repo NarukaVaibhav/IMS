@@ -1,0 +1,47 @@
+<div class="master-container1 container p-0" >
+    <div class="card-header" >Pay Slip</div>
+
+
+    <div  class="col-lg-12 card" style="margin-top: 10px;padding: 0px;">
+        <div  class="row" style="padding: 20px !important;">
+            <div class="col-md-3" *ngIf="!teacherlogin">
+                <mat-form-field  appearance="outline" class="fullwidth">
+                    <mat-label>Choose Employee</mat-label>
+                    <mat-select>
+                        <mat-option (click)="selectemp(emp)" *ngFor="let emp of emplist" [value]="emp.id">
+                          {{emp.name}}
+                        </mat-option>
+                      </mat-select>                     
+                  </mat-form-field> 
+                
+            </div>
+            <div class="col-md-3">
+                <mat-form-field appearance="outline" class="fullwidth">
+                    <mat-label>Month</mat-label>
+                    <mat-select>
+                        <mat-option (click)="selectmonth(month)" *ngFor="let month of showmonth;let j=index;" [value]="month">
+                          {{month.m}}
+                        </mat-option>
+                      </mat-select>                     
+                  </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field appearance="outline" class="fullwidth">
+                    <mat-label>Year</mat-label>
+                    <mat-select>
+                        <mat-option (click)="selectyear(year)" *ngFor="let year of showyear;" [value]="year">
+                          {{year}}
+                        </mat-option>
+                      </mat-select>                     
+                  </mat-form-field>
+            </div>
+            <div class="col-md-1" style="padding: 10px;">
+                <button (click)="getPayslip()" mat-stroked-button  style="width:auto;text-align:center;">
+                    Get Payslip</button>                             
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                
+            </div>
+         </div>
+    </div>    

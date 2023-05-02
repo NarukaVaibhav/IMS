@@ -1,0 +1,279 @@
+  input {
+    font-size: 14px;
+    width: 100%;
+
+  }
+
+  input:focus {
+    border-color: rgba(240, 248, 255, 0.89);
+  }
+
+  .mat-elevation-z8 {
+    box-shadow: none;
+    z-index: 1;
+  }
+
+  #batchh {
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+   
+    padding-left: 0px !important;
+   text-align: center !important;
+  }
+
+  td {
+    max-width: 12px;
+  }
+
+  table {
+    max-width: 100%;
+    overflow-x: hidden;
+    table-layout: fixed;
+  }
+
+  /* .mat-elevation-z8 {
+  border: 0 solid transparent;
+  border-radius: .25rem;
+} */
+  i {
+    margin-left: 4px;
+  }
+
+
+
+  .example-container {
+    /* margin: auto; */
+    /* height: 35rem; */
+    width: 100%;
+    overflow-y: scroll;
+    /* margin-top: 20px; */
+
+
+    /* margin-left:3.5rem; */
+    /* margin-right: 3.5rem; */
+    background-color: white;
+    /* max-width : 100%; */
+    max-height: 350px;
+    border-radius: 0.3rem;
+    border: 1px solid rgba(240, 248, 255, 0.89);
+
+  }
+
+  #enquiry-table {
+    width: 100%;
+  }
+
+  table {
+    /* width:12.5rem; */
+
+    text-align: center;
+
+  }
+
+  /* #bs, #st{
+    width:50px;
+  } */
+
+
+
+  /* th.mat-column-position, td.mat-column-position {
+    
+  } */
+
+
+  .card-footer {
+    font-size: large;
+    font-weight: bolder;
+    background-color: white;
+    /* border: solid 1px #f5f5f5; */
+    width: 100%;
+    padding: 0;
+    position: sticky;
+  }
+
+
+
+  .card-header {
+    /* margin-top: .5rem; */
+    font-size: medium !important;
+    font-weight: bolder;
+    background-color: white;
+    /* border: solid 1px #f5f5f5; */
+    width: 100%;
+    margin-bottom: 5px;
+
+    font-family: Open Sans, sans-serif;
+    background-color: white !important;
+    box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1);
+
+    border-radius: 0.3rem;
+    border: solid 2px rgba(240, 248, 255, 0.89);
+    color: rgba(0, 0, 0, 0.54);
+
+  }
+
+
+  .form-control-lg,
+  select {
+    margin-bottom: 15px;
+    margin-top: 5px;
+    background-color: #fff;
+    height: 40px;
+  }
+
+  .container {
+    /* border: 0 solid transparent; */
+    /* box-shadow: 0 0.5rem 1rem 0 rgba(44,51,73,.1); */
+
+    background-color: white;
+    margin-top: 3rem;
+  }
+
+  textarea {
+    margin-bottom: 15px;
+    background-color: #fff;
+  }
+
+  table {
+    width: 100%;
+
+  }
+
+  #durat {
+    margin-bottom: 15px;
+    background-color: white;
+    height: 40px;
+    width: 200px;
+  }
+
+  .card-body {
+    padding: 0px;
+    margin: 0;
+  }
+
+  .card {
+    padding: 2%;
+    /* margin-top: 3rem; */
+    width: 100%;
+    /* margin: auto; */
+    /* margin-bottom: 6%; */
+
+    background-color: white;
+    box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1);
+    /* max-width: 100%; */
+    border-radius: 0.3rem;
+    border: solid 2px rgba(240, 248, 255, 0.89);
+  }
+
+  #enq {
+    font-weight: bolder;
+
+  }
+
+
+
+  th {
+    /* padding: 1% 1%; */
+    /* padding-right: 1.75rem; */
+    font-family: Open Sans, sans-serif;
+    border: 1px solid #CEEBED;
+    color: rgba(0, 0, 0, 0.54);
+    width : 10% !important;
+
+    vertical-align: middle !important;
+    text-align: center !important;
+    font-size: 12px !important;
+    font-weight: bolder !important;
+    max-height : 10px;
+    overflow: hidden !important;
+    padding-left: 10px !important;
+  
+    /* text-overflow: ellipsis !important; 
+    white-space: nowrap !important; 
+   */
+  }
+
+  
+  
+  td{
+        vertical-align: middle !important;
+    text-align: center !important;
+    /* padding: 1% 1%;
+    padding: 0.5% 0.5%;
+
+    padding-right: 1.75rem; */
+    font-family: Open Sans, sans-serif;
+    border: 1px solid #CEEBED;
+    color: rgba(0, 0, 0, 0.54);
+    /* max-width: 15px !important; */
+    /* width : 10% !important; */
+
+    vertical-align: middle !important;
+    text-align: center !important;
+  padding-left: 10px !important;
+  padding-right: 0px!important;
+    
+    font-size: 12px !important;
+    max-height: 5px !important;
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+    
+    text-overflow: ellipsis !important; 
+    white-space: nowrap !important; 
+  
+  }
+
+  i {
+    /* font-size: 18px !important; */
+    margin-left: 8px;
+  }
+
+
+
+  ::ng-deep td.mat-cell {
+    border-radius: .25rem;
+    color: rgba(0, 0, 0, 0.54);
+    padding-right: 1.75rem;
+    font-family: Open Sans, sans-serif;
+    vertical-align: middle;
+    text-align: center;
+    font-size: .9375rem;
+    border: 1px solid #CEEBED;
+  }
+
+  ::ng-deep tr.mat-row:hover {
+    background-color: aliceblue;
+  }
+
+
+  ::ng-deep .mat-sort-header-container {
+    display: flex;
+
+    justify-content: center;
+  }
+
+  .mat-row:nth-child(odd) {
+    background-color: rgba(240, 248, 255, 0.89);
+  }
+
+  #action{
+    text-align: center;
+    text-overflow: initial !important;
+    padding-left: 10px;
+    width : 28% !important;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+
+
+
+
+  mat-icon {
+    font-size: 15px!important;
+    cursor: pointer;
+    background-color: transparent;
+  }
+  th{
+    text-overflow: unset !important; 
+    white-space: normal !important;
+  }

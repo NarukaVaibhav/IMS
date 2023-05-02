@@ -1,0 +1,258 @@
+
+
+::selection {
+  background-color: #0273d4;
+  color: #fff;
+}
+
+:host>>>.ng-sidebar__content {
+  /* right: 15% !important; */
+  width: calc(100% - var(--sidebar-length)) !important;
+  position: fixed !important;
+
+}
+
+
+a {
+  font-weight: 600;
+  font-family: Open Sans, sans-serif;
+  line-height: 1.5rem;
+  padding: .75rem 1rem;
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-size: .8125rem !important;
+  border-top: 0px;
+  /* padding: 10px 0px 10px 0px; */
+  /* color: #192038; */
+  /* background-color: white; */
+  /* display: block; */
+  /* -webkit-transition: 0.3s; */
+  /* transition: 0.3s; */
+}
+
+:host>>>.ng-sidebar {
+  /* width: 16rem; */
+  z-index: 800 !important;
+}
+
+a:hover svg path,
+a:hover {
+  fill: #007bff;
+  color: #0273d4 !important;
+}
+
+.row {
+  width: 100%;
+}
+
+::ng-deep aside {
+  background-color: #fff;
+  padding: 2em 0em;
+  z-index: 2;
+}
+
+:host .ng-sidebar__backdrop {
+  z-index: 2
+}
+
+.side-icon:hover {
+  background-color: #edf3f9;
+}
+
+.demo-header {
+  position: fixed;
+  height: 5em;
+  width: 100%;
+  z-index: 900;
+  align-items: center;
+  background: white;
+  color: #fff;
+  display: flex;
+  padding-left: 1em;
+  box-shadow: 0 0rem 0.5rem 0 rgba(44, 51, 73, .1);
+}
+
+.demo-sidebar.ng-sidebar--opened.ng-sidebar--over {
+  box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.5);
+}
+
+.demo-contents {
+  padding: 0 2em;
+}
+
+.ng-sidebar__content--opened {
+  position: fixed;
+}
+
+
+.demo-control {
+  background-color: #f6f6f6;
+  border: 1px solid #545555;
+  cursor: pointer;
+  margin-bottom: 0.5em;
+  padding: 0.5em 2em;
+  transition: background-color 0.15s;
+}
+
+.demo-control:hover {
+  background-color: #545555;
+  color: #fff;
+}
+
+
+body {
+  background-color: #edf1f7;
+  padding-top: 70px;
+}
+
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 30px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ececec;
+  height: 30px;
+  overflow-y: hidden;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #007bff;
+  max-height: 30px !important;
+  outline: 1px solid slategrey;
+
+}
+
+::-webkit-scrollbar-track-piece {
+  height: 30px;
+}
+
+h3 span {
+  margin-left: 15px;
+}
+
+.title {
+  margin-left: 0.4em;
+  font-family: Open Sans, sans-serif;
+  font-size: 1.75rem;
+  color: #222B45;
+  margin: auto 1rem;
+}
+
+
+
+.toggleIcon {
+  width: 2em;
+}
+
+img {
+  height: -webkit-fill-available;
+  width: 3em;
+}
+
+
+.dropdown-container {
+  background-color: white;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.dropdown-container a {
+  margin-left: 3rem !important;
+  font-size: medium;
+
+}
+
+
+
+.dropdown-btn {
+  border-right: 0px;
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+  font-family: Open Sans, sans-serif;
+  line-height: 1.5rem;
+  padding: .75rem 1rem !important;
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-size: .8125rem !important;
+  border-top: 0px;
+
+}
+
+.dropdown-btn:hover svg path,
+.dropdown-btn:hover {
+  color: #007bff !important;
+  fill: #007bff;
+}
+
+.dropdown-btn:hover svg,
+.dropdown-btn:hover {
+  color: #007bff !important;
+  fill: #007bff;
+}
+
+.sidenav a,
+.dropdown-btn {
+  padding: 10px 0px 10px 0px;
+  text-decoration: none;
+  font-size: medium;
+  border: 0px;
+  color: #192038;
+  background-color: white;
+  display: block;
+}
+
+
+.sidenav a:hover {
+  color: #007bff !important;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+
+.login-button {
+  float: right;
+  height: 100%;
+  background-color: transparent;
+  border: 0;
+  color: #8f9bb3;
+}
+
+.proicon{
+  font-size: 50px;
+}
+.sideicon{
+  font-size: 20px;
+  margin-left: 10px!important;
+  padding-top: 4px;
+}
+mat-icon {
+  /*font-size: 50px;*/
+  margin-right: 10px;
+}
+
+
+.modal-body {
+  text-align: center;
+  font-size: x-large;
+  color: red;
+}
+
+.nav-icons {
+  height: 1.5em;
+  width: 3em;
+}

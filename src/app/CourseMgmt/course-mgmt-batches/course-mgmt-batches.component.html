@@ -1,0 +1,330 @@
+<div class="master-container">
+
+  <h3>BATCHES
+    <a style="float: right;
+    text-decoration: underline;
+    cursor: pointer;" (click)="openAddBatch()">Add Batch</a>
+  </h3>
+  <div class="module-container" style="width: 100%;">
+
+    <div class="form-container" *ngIf="AddEditable==true">
+      <div class="row">
+        <div class="col-12">
+          <h5 style="font-size:medium; font-weight: bold; color: rgba(0, 0, 0, 0.54);">Add Batches</h5>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <input type="text" placeholder="Batch Name" [(ngModel)]="batchName" required>
+        </div>
+
+        <div class="col-6 ">
+          <select (change)="selectSubCourse()" [(ngModel)]="selectedCourse">
+            <option [ngValue]="undefined" disabled> Select Course </option>
+            <option *ngFor="let course of courseNames" [ngValue]="course">{{course.name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div *ngIf="subCoursePresent==true" class="row">
+        <div class="col-6 ">
+        </div>
+        <div class="col-6 ">
+          <select  (change)="selectSubject()" [(ngModel)]="selectedSubcourse">
+            <option [ngValue]="undefined" disabled> Select Subcourse </option>
+            <option *ngFor="let subCourse of subCourseNames" [ngValue]="subCourse">{{subCourse.name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <select [(ngModel)]="selectedSubjectName" required>
+            <option [ngValue]="undefined" disabled> Select Subject </option>
+            <option *ngFor="let subject of subjectNames" [value]="subject">{{subject.course.name}}</option>
+          </select>
+        </div>
+
+        <div class="col-6 ">
+          <input type="number" min="0" placeholder="Batch Duration" [(ngModel)]="batchDuration" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+
+          <input type="text" min="{{today}}" placeholder="Start Date" onfocus="(this.type='date')"
+            [(ngModel)]="startDate" required>
+
+        </div>
+
+        <div class="col-6 ">
+
+          <input type="text" min="{{today}}" placeholder="End Date" onfocus="(this.type='date')" [(ngModel)]="endDate"
+            required>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+
+          <input type="text" onfocus="(this.type='time')" [(ngModel)]="startTime" placeholder="Timing From" required>
+        </div>
+
+        <div class="col-6 ">
+
+          <input type="text" onfocus="(this.type='time')" [(ngModel)]="endTime" placeholder="Timing To" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <select [(ngModel)]="assignedTeacher">
+            <option [ngValue]="undefined" disabled> Assign To (Teacher/Trainer) </option>
+            <option [ngValue]="teacher" *ngFor="let teacher of teacherNames">{{teacher['name']}}</option>
+          </select>
+        </div>
+
+        <div class="col-6">
+          <button class='process-btn' (click)="uploadCourse()">Submit</button>
+          <button class='process-btn' (click)="clearAll()">Reset</button>
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+
+    <!-- edit dialog -->
+    <div class="form-container" *ngIf="editable==true">
+      <div class="row">
+        <div class="col-12">
+          <h5 style="color: rgba(0, 0, 0, 0.54);">Edit Batches</h5>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <input type="text" placeholder="Batch Name" [(ngModel)]="batchName" value="batchName" required>
+        </div>
+
+        <div class="col-6 ">
+          <select (change)="selectSubCourse()" [(ngModel)]="selectedCourse">
+            <option [ngValue]="undefined" disabled> Select Course </option>
+            <option *ngFor="let course of courseNames" [ngValue]="course">{{course['name']}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div *ngIf="subCoursePresent==true" class="row">
+        <div class="col-6 ">
+        </div>
+        <div class="col-6 ">
+          <select  (change)="selectSubject()" [(ngModel)]="selectedSubcourse">
+            <option [ngValue]="undefined" disabled> Select Subcourse </option>
+            <option *ngFor="let subCourse of subCourseNames" [ngValue]="subCourse">{{subCourse.name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <select [(ngModel)]="selectedSubjectName" required>
+            <option [ngValue]="undefined" disabled> Select Subject </option>
+            <option *ngFor="let subject of subjectNames" [value]="subject">{{subject['name']}}</option>
+          </select>
+        </div>
+
+        <div class="col-6 ">
+          <input type="number" placeholder="Batch Duration" [(ngModel)]="batchDuration" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+
+          <input type="date" placeholder="Start Date" [(ngModel)]="startDate" required>
+
+        </div>
+
+        <div class="col-6 ">
+
+          <input type="date" placeholder="End Date" [(ngModel)]="endDate" required>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+
+          <input type="time" [(ngModel)]="startTime" placeholder="Timing From" required>
+        </div>
+
+        <div class="col-6 ">
+
+          <input type="time" [(ngModel)]="endTime" placeholder="Timing To" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <select [(ngModel)]="assignedTeacher">
+            <option [ngValue]="undefined" disabled> Assign To (Teacher/Trainer) </option>
+            <option [value]="teacher" *ngFor="let teacher of teacherNames">{{teacher['name']}}</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <button class='process-btn' (click)="updateBatch()">Submit</button>
+          <button class='process-btn' (click)="clearAll()">Reset</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+        </div>
+
+        <div class="col-6">
+
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <div class="msg-box" *ngIf="msgEditable=='true'">
+
+      <h5>Send Message</h5>
+      <div class="row">
+        <div class="col-12">
+          <input [(ngModel)]="message" placeholder="Add Message">
+        </div>
+      </div>
+      <div class="row">
+        <button class='process-btn' (click)="sendMsgTeacher()">Send Message to Teacher</button>
+        <button class='process-btn' (click)="sendMsgAll()">Send Message to All</button>
+        <button class='process-btn' (click)="closeMsgDialog()">Cancel</button>
+      </div>
+    </div>
+
+    <div class="msg-box" *ngIf="attendanceEditable=='true'">
+
+      <h5>Get Attendance</h5>
+      <div class="row">
+        <div class="col-6">
+          <label for="attStart">From</label>
+          <input type="date" min="{{today}}" name="attStart" [(ngModel)]="attendanceStart">
+        </div>
+        <div class="col-6">
+          <label for="attEnd">To</label>
+          <input type="date" min="{{today}}" name="attEnd" [(ngModel)]="attendanceEnd">
+        </div>
+      </div>
+      <div class="row">
+        <button class='process-btn' (click)="getAttendance()">Print</button>
+        <button class='process-btn' (click)="closeAttendanceDialog()">Cancel</button>
+
+      </div>
+    </div>
+
+
+    <!-- Batch Table Data -->
+    <div class="container">
+      <div class="row" style="padding:0px;">
+        <div class="col-6">
+        </div>
+
+        <div class="col-6">
+          <button class="msg-btn" mat-button color="primary" (click)="sendMsg()">Send Message</button>
+
+        </div>
+      </div>
+      <div class="row" style="padding:0px;">
+        <div class="col-sm-12">
+          <input type="text" class="filter-row" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </div>
+      </div>
+      <div class="mat-elevation-z8">
+        <table mat-table #table [dataSource]="dataSource">
+
+          <ng-container matColumnDef="Select">
+            <th mat-header-cell *matHeaderCellDef> Select </th>
+            <td mat-cell *matCellDef="let row">
+              <input class='checkbox' type="checkbox" (change)="selector(row)">
+            </td>
+          </ng-container>
+
+          <!-- Batch Column -->
+          <ng-container matColumnDef="Batch">
+            <th mat-header-cell *matHeaderCellDef> Batch </th>
+            <td mat-cell *matCellDef="let row"> {{row.batch}} </td>
+          </ng-container>
+
+          <!-- Course Column -->
+          <ng-container matColumnDef="Course">
+            <th mat-header-cell *matHeaderCellDef> Course </th>
+            <td mat-cell *matCellDef="let row"> {{row.course.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="SubCourse">
+            <th mat-header-cell *matHeaderCellDef> SubCourse </th>
+            <td mat-cell *matCellDef="let row"> {{row.subCourse}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Subject">
+            <th mat-header-cell *matHeaderCellDef> Subject </th>
+            <td mat-cell *matCellDef="let row"> {{row.subject.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Teacher">
+            <th mat-header-cell *matHeaderCellDef> Teacher </th>
+            <td mat-cell *matCellDef="let row"> {{row.teacher.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Duration">
+            <th mat-header-cell *matHeaderCellDef> Duration </th>
+            <td mat-cell *matCellDef="let row"> {{row.duration}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="FromTo">
+            <th mat-header-cell *matHeaderCellDef> From-To </th>
+            <td mat-cell *matCellDef="let row"> {{row.fromTo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Timing">
+            <th mat-header-cell *matHeaderCellDef> Timing </th>
+            <td mat-cell *matCellDef="let row"> {{row.timing}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Action">
+            <th style="font-size: medium; padding-right: 0px; text-align: center;" mat-header-cell *matHeaderCellDef>
+              Action </th>
+            <td style="padding-right: 0px; white-space: normal !important;" mat-cell *matCellDef="let row"
+              class="action-link">
+              <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(row, 'edit')" title="Edit">edit
+              </mat-icon>
+              <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(row, 'delete')" title="Delete">delete_outline</mat-icon>
+              <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(row, 'attendance')" title="Attendance">launch
+              </mat-icon>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+
+    </div>
+
+
+
+
+  </div>
+
+</div>

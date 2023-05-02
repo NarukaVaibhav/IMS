@@ -1,0 +1,208 @@
+<div class="master-container1 container p-0">
+    <div class="card-header" >Attendance </div>
+
+
+    <div  class="col-lg-12 card" style="margin-top: 10px;padding: 0px;">
+            <div class="card-header" > <span>View All Attendance</span>
+                <button *ngIf="!teacherlogin" (click)="attan()" mat-stroked-button  style="width:auto;text-align:center;float: right;">
+                    Mark Attendance</button>
+                 </div>
+                <div  class="row backdrop_effect" *ngIf="showatt" >
+                 <div  class="col-md-5 card shadow carddialog" style="margin:0px !important;">
+                    <div class="card-header">
+                        Mark Attendance
+                        <i (click)="attan()" class="material-icons ml-2"  matTooltip="Close" style="color: red; margin:0px !important; font-size: 22px;cursor: pointer;float: right;" >close</i>
+                    </div>
+                    <div style="padding: 20px;">
+                        <mat-form-field *ngIf="!teacherlogin" appearance="outline" class="fullwidth">
+                            <mat-label>Choose Employee</mat-label>
+                            <mat-select [disabled]="update_attan" [(ngModel)]="mark_att_obj.id">
+                                <mat-option (click)="change_emp_mark_att(emp)" *ngFor="let emp of emplistselect" [value]="emp.id">
+                                  {{emp.name}}
+                                </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+						  
+                        <mat-form-field *ngIf="!update_attan" appearance="outline" class="fullwidth">
+                            <mat-label>Choose Date *</mat-label>
+                            <input (click)="mdate.open()" [matDatepicker]="mdate" matInput   name="dob" [(ngModel)]="mark_att_obj.date">
+                                <mat-datepicker-toggle matSuffix [for]="mdate"></mat-datepicker-toggle>
+                                <mat-datepicker #mdate></mat-datepicker>
+                          </mat-form-field>
+						  
+						<mat-form-field *ngIf="update_attan" appearance="outline" class="fullwidth">
+                            <mat-label>Choose Date *</mat-label>
+                            <input disabled  matInput   name="dob" [(ngModel)]="mark_att_obj.date">                               
+                          </mat-form-field>
+						  
+                          <mat-form-field class="halfwidth" appearance="outline">
+                            <mat-label>Time From *</mat-label>
+                            <input type="time"  matInput   name="tf" [(ngModel)]="mark_att_obj.timefrom">
+
+                          </mat-form-field>
+
+                          <mat-form-field class="halfwidth" appearance="outline" style="margin-left: 1%;">
+                            <mat-label>Time To *</mat-label>
+                            <input type="time" matInput   name="tf" [(ngModel)]="mark_att_obj.timeto">
+                          </mat-form-field>
+						  
+						  <mat-checkbox style="margin-left: 20px;margin-top: 20px;"  [(ngModel)]="at_present" (change)="ps()" >Present</mat-checkbox>
+						  <mat-checkbox style="margin-left: 20px;margin-top: 20px;"  [(ngModel)]="at_absent" (change)="asp()" >Absent</mat-checkbox>
+                    
+
+                          <button *ngIf="!update_attan" (click)="saveAttendance()" mat-stroked-button  style="width:100%;text-align:center;">
+                            Mark Attendance</button>
+							
+							<div *ngIf="!teacherlogin">
+							<button *ngIf="update_attan && threeday" (click)="updateAttendance()" mat-stroked-button  style="width:47%;text-align:center;">
+                            Update</button>
+							<button *ngIf="update_attan && threeday" (click)="deleteAttendance()" mat-stroked-button  style="margin-left:3%;width:47%;text-align:center;">
+                            Delete</button>
+							</div>
+							
+
+                    </div>
+                </div>
+            </div>
+                 <div  class="row" style="padding: 20px !important;">
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="fullwidth">
+                            <mat-label>From</mat-label>
+                            <input (click)="fromdt.open()" [matDatepicker]="fromdt" matInput   name="dob" [(ngModel)]="datefrom">
+                                <mat-datepicker-toggle matSuffix [for]="fromdt"></mat-datepicker-toggle>
+                                <mat-datepicker #fromdt></mat-datepicker>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="fullwidth">
+                            <mat-label>To</mat-label>
+                            <input (click)="todt.open()" [matDatepicker]="todt" matInput   name="dob" [(ngModel)]="dateto">
+                                <mat-datepicker-toggle matSuffix [for]="todt"></mat-datepicker-toggle>
+                                <mat-datepicker #todt></mat-datepicker>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-md-1" style="padding: 10px;">
+                        <button (click)="searchAttandence()" mat-stroked-button  style="width:auto;text-align:center;">
+                            Search</button>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <mat-form-field *ngIf="!teacherlogin" appearance="outline">
+                            <mat-label>Search Employee</mat-label>
+                            <input type="text"  matInput  name="searchemp" (keyup)="searchEmployee()" [(ngModel)]="searchemp">
+
+                          </mat-form-field>
+                    </div>
+                 </div>
+
+                 <div class="row" style="padding: 20px !important;">
+
+                    <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">Emp Name</th>
+                            <th scope="col">Working Days</th>
+                            <th scope="col">Off</th>
+                            <th scope="col" (click)="back_ten_Days()" style="cursor:pointer;"><<</th>
+                            <th scope="col" *ngFor="let day of showdays;let j=index;"> <span style="text-align: center;">{{day.date}} <br> {{day.day}}</span></th>
+                            <th scope="col" (click)="next_ten_Days()" style="cursor:pointer;">>></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let emp of emplist;let index=index;">
+                            <th>{{emp.emp}}</th>
+                            <!-- <td >{{empdata[emp].length}}</td> -->
+                            <td >{{emp.workingdays}}</td>
+                            <td></td>
+                             <td></td>
+                            <td *ngFor="let day of emp.show;let j=index;">
+                                <i (click)="editAttan(emp,day)" *ngIf="day.present=='P'" class="material-icons ml-2"  matTooltip="Edit/View" style="color: green; margin:0px !important;font-size: 20px; cursor: pointer;" >done_all</i>
+                                <i (click)="editAttan(emp,day)" *ngIf="day.present=='A'" class="material-icons ml-2"  matTooltip="Edit/View" style="color: red; margin:0px !important; font-size: 20px;cursor: pointer;" >close</i>
+                            </td>
+                            <td></td>
+                          </tr>
+                       </tbody>
+                    </table>
+                    <!-- <div class="col-md-4" *ngFor="let emp of emplist">
+                        {{emp}}
+                    </div>
+
+
+                    <div class="col-md-8" *ngFor="let emp of emplist">
+                        {{emp}}
+                    </div> -->
+
+
+                </div>
+
+
+        </div>
+
+
+        <!-- <div *ngIf="showatt" class="col-lg-12 card" style="margin-top: 10px;padding: 0px;">
+            <div class="card-header"style="text-align:center;" >
+                <span (click)="attan()" style="cursor: pointer;float: left;"> <<Back </span>
+                    <span >Mark Attendance</span>
+            </div>
+
+
+            <div class="row" style="padding: 20px !important;">
+
+            <div *ngIf="showatt" class="col-md-5 card shadow">
+                <div class="card-header">
+                    Mark Attendance
+                </div>
+                <div style="padding: 20px;">
+                    <mat-form-field appearance="outline" class="fullwidth">
+                        <mat-label>Choose Employee</mat-label>
+                        <mat-select>
+                            <mat-option (click)="change_emp_mark_att(emp)" *ngFor="let emp of emplistselect" [value]="emp.id">
+                              {{emp.name}}
+                            </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                    <mat-form-field appearance="outline" class="fullwidth">
+                        <mat-label>Choose Date *</mat-label>
+                        <input (click)="mdate.open()" [matDatepicker]="mdate" matInput   name="dob" [(ngModel)]="mark_att_obj.date">
+                            <mat-datepicker-toggle matSuffix [for]="mdate"></mat-datepicker-toggle>
+                            <mat-datepicker #mdate></mat-datepicker>
+                      </mat-form-field>
+
+                      <mat-form-field class="halfwidth" appearance="outline">
+                        <mat-label>Time From *</mat-label>
+                        <input type="time"  matInput   name="tf" [(ngModel)]="mark_att_obj.timefrom">
+
+                      </mat-form-field>
+
+                      <mat-form-field class="halfwidth" appearance="outline" style="margin-left: 1%;">
+                        <mat-label>Time To *</mat-label>
+                        <input type="time" matInput   name="tf" [(ngModel)]="mark_att_obj.timeto">
+                      </mat-form-field>
+
+                      <button (click)="saveAttendance()" mat-stroked-button  style="width:100%;text-align:center;">
+                        Mark Attendance</button>
+
+
+                </div>
+            </div>
+
+             <div class="col-md-5 card shadow">
+                <div class="card-header">
+                    Mark Holiday
+                </div>
+                <div style="padding: 20px;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Choose Date *</mat-label>
+                        <input (click)="hdate.open()" [matDatepicker]="hdate" matInput   name="dob" >
+                            <mat-datepicker-toggle matSuffix [for]="hdate"></mat-datepicker-toggle>
+                            <mat-datepicker #hdate></mat-datepicker>
+                      </mat-form-field>
+
+                </div>
+            </div>
+            </div>
+
+
+        </div> -->
+
+  </div>

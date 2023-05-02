@@ -1,0 +1,86 @@
+<div class="master-container1 container p-0">
+    <div class="container1 pl-3 pr-3 heading">
+
+        <p >SKILL BHARAT</p>
+    </div>
+
+<form>
+<div class="container1 pl-3 pr-3 pt-3">
+
+
+    <div class="row">
+     <div class="col-lg-6" id="add-user">
+
+        <input type="text" class="form-control" [(ngModel)]='url' placeholder="Url"  [ngModelOptions]="{standalone: true}">
+
+        <input type="password" class="form-control" [(ngModel)]='pass' placeholder="Password"  [ngModelOptions]="{standalone: true}">
+    </div>
+
+    <div class="col-lg-6">
+
+            <input type="text" class="form-control" [(ngModel)]='email' placeholder="Login Email"  [ngModelOptions]="{standalone: true}">
+
+
+        <input type="text" class="form-control" [(ngModel)]='tenant' placeholder="Tenant Id"  [ngModelOptions]="{standalone: true}">
+
+    </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-12" style="text-align: center;">
+            <button type="button" class="btn btn-primary float-center" (click)="update()" id="back-btn">Update</button>
+          </div>
+
+    </div>
+
+     <hr>
+
+
+
+     <div class="row">
+
+
+    <div class="col-lg-6">
+     <div class="autocomplete">
+
+
+       <mat-form-field style="width: 100%;" class="fullwidth" appearance="outline">
+         <mat-label>Choose Course</mat-label>
+         <mat-select >
+           <mat-option *ngFor="let s of ims_courses"  (click)="selectCourse(s)"  [value]="s.id">
+             {{ s.name ? s.name : '' }}
+           </mat-option>
+         </mat-select>
+       </mat-form-field>
+<!--            <div class="autocomplete-items" *ngIf="show">-->
+<!--              <div *ngFor="let s of ims_courses" (click)="selectCourse(s)">{{ s.name ? s.name : '' }}</div>-->
+<!--            </div>-->
+        </div>
+
+    </div>
+
+    <div class="col-lg-6">
+        <button class="btn btn-primary" (click)="map()" style="margin-top:7px;">Map</button>
+    </div>
+
+
+    </div>
+  <div class="row" >
+<!--    <div class="chips-input-container">-->
+
+      <div class="user-chip" *ngFor="let course of selectedCourses">
+        {{course.name}}
+        <span style="float:right;" (click)="removeCourse(course)" class="delete-icon-chip">&#10006;</span>
+      </div>
+
+      <!--            <input name="suggestion" id="sugg" type="text" placeholder="Courses" (click)="suggest()" [(ngModel)]="course"  [ngModelOptions]="{standalone: true}">-->
+<!--    </div>-->
+  </div>
+
+
+
+</div>
+</form>
+</div>

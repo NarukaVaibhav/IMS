@@ -1,0 +1,229 @@
+<div class="master-container1  container p-0 pt-2 " >
+    <div class="aaaa">
+   <br>
+   <h5>RECEIPT</h5>
+
+      <hr>
+        <div class="row">
+            <div class="col-md-3">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Payment Ref No </mat-label>
+                    <input type="text" matInput   placeholder="Ref No*" name="ref" [(ngModel)]="ref">
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Favor Of</mat-label>
+                    <input type="text" matInput   placeholder="Favor Of" name="favor" [(ngModel)]="favor">
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Bank Name</mat-label>
+                    <input type="text" matInput   placeholder="Bank Name" name="bname" [(ngModel)]="bankname">
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Physical receipt Number</mat-label>
+                    <input type="number" matInput   placeholder="Receipt" (keyup)="checkphyscial()" name="bname" [(ngModel)]="phycial">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="col-lg-12" id="printDIV" style="margin-top: 10px;" >
+            <div class="row" style="padding: 10px !important;margin-left: 4px;margin-right: 4px;">
+                <div class="col-md-1"></div>
+                <div class="col-md-12 card" >
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img [src]="img" style="height:100px;width: 50%;">
+                        </div>
+                        <div class="col-md-6">
+                            <h4 style="float: right;margin-top: 20px;margin-right:50px;">Receipt No : {{prints['receiptNumber'] ? prints['receiptNumber'] : ''}}</h4><br>
+                            <h4 *ngIf="showphy" style="float: right;margin-top: 20px;margin-right:50px;">Physical Receipt No : {{phycial}}</h4>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-6">
+                            <h3 class="printcss" style="background-color:darkslateblue;color: white;border: 1px solid;border-radius: 4px;text-align: center;width: 400px;">
+                                Student's Development Fund</h3>
+
+                        </div>
+                        <div class="col-md-6">
+                            <h5 style="margin-left:30px;margin-top: 7px;position: absolute;">Dated : {{cdate |  date:'mediumDate' }} </h5>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                            <h5 style="margin-left:30px;">Recceived With Thanks From : {{prints['basicDetails']['studentName'] ? prints['basicDetails']['studentName'] : ''}}</h5>
+
+                    </div>
+
+                    <div class="row" style="margin-top: 20px;">
+                        <h5 style="margin-left:30px;">The Sum of Rupees in words : {{prints['amountInWords']}} </h5>
+
+                    </div>
+
+                    <div class="row" style="margin-top: 20px;">
+                        <h5 style="margin-left:30px;">By Cash/Cheque/D.D. No./Online/Paytm Ref No : {{ref}}</h5>
+                        </div>
+
+                    <div class="row" style="margin-top: 20px;">
+                        <h5 style="margin-left:30px;">Date :{{prints['date'] | date :'mediumDate'}}.... Favor of : {{favor}}.... Bank Name : {{bankname}}</h5>
+
+                    </div>
+
+                    <div class="row" style="margin-top: 20px;">
+                        <h5 style="margin-left:30px;">Programm Name : {{prints['receipt'].programName}}.. Technology : {{prints['officeUseForm']['course'][0].name ? prints['officeUseForm']['course'][0].name : ''}}</h5>
+
+                    </div>
+
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-4" style="border-radius: 4px;margin-left:15px;border:1px solid darkslateblue;height:40px;padding: 0px !important;">
+                            <h5 class="printcss" style="height:38px;border-radius:4px;margin:0px !important;padding: 4px;display:inline;float:left;background-color:darkslateblue;color: white;text-align: center;width:50px;">
+                                RS.
+                            </h5>
+                            <h5 style="display:inline;position: absolute;margin:0px !important;height: 38px; padding: 7px;"> {{prints['payAmount'] ? prints['payAmount'] : ''}}</h5>
+                        </div>
+                       <div class="col-md-7">
+                           <h5 style="float: right;">
+                               <span style="margin-right:50px;">Authorised-Signatory</span>
+                           </h5>
+                       </div>
+
+
+
+
+                    </div>
+
+                </div>
+                <div class="col-md-1"></div>
+        </div>
+
+      <!--<div class="row" >-->
+
+        <!--<div class="col-lg-3">-->
+
+            <!--<label>Student Name</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['basicDetails']['studentName'] ? prints['basicDetails']['studentName'] : ''}}</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>Receipt Number</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['receiptNumber'] ? prints['receiptNumber'] : ''}}</label>-->
+        <!--</div>-->
+
+     <!-- -->
+        <!-- -->
+        <!--&lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;2&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>Father's Name</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['basicDetails']['fatherName'] ? prints['basicDetails']['fatherName'] :''}}</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>Default GST Tax</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['receipt']['defaultGSTTax'] ? prints['receipt']['defaultGSTTax'] : ''}}</label>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;3&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>Mobile Number</label>-->
+                <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['basicDetails']['mobileNumber'] ? prints['basicDetails']['mobileNumber'] :''}}</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>GST</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['gst'] ? prints['gst'] : ''}}</label>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;4-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>College Name</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['officeUseForm']['collegeName'] ? prints['officeUseForm']['collegeName'] : ''}}</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>Total Payable Fee</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['receipt']['totalPayableFee'] ? prints['receipt']['totalPayableFee'] :''}}</label>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;5-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>Date of Registration</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['officeUseForm']['dateOfRegistration'] ?( prints['officeUseForm']['dateOfRegistration'] | date) :''}}</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>Pay Amount</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['payAmount'] ? prints['payAmount'] : ''}}</label>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;6&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>Course(Enrolled For)</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['officeUseForm']['course']['name']? prints['officeUseForm']['course']['name'] : ''}}</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>Due Fees</label>-->
+                <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['receipt']['amtToSettle'] ? prints['receipt']['amtToSettle'] : ''}}</label>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;7&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>Date of Joining</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['officeUseForm']['dateOfJoining'] ?(prints['officeUseForm']['dateOfJoining'] | date) : ''}}</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>Submitted Date</label>-->
+        <!--</div>-->
+        <!--<div class="col-lg-3">-->
+            <!--<label>{{prints['date'] ? prints['date'] : ''}}</label>-->
+        <!--</div>-->
+
+        <!-- -->
+      <!--</div>-->
+    
+   
+   
+   </div>
+
+   <hr>
+    
+   <div class="row">
+   
+     <div class="col-lg-8">
+         <button
+                 [useExistingCss]="true"  printSectionId="printDIV" ngxPrint class="btn btn-primary" style="background-color: darkslateblue;">Print Receipt</button>
+     </div>
+
+     <div >
+
+         <!--<button-->
+                 <!--[useExistingCss]="true"  printSectionId="printDIV" ngxPrint class="btn btn-primary float-right">Print Receipt</button>-->
+         <!--<button type="button" class="btn btn-primary float-right" (click)="print_receipt()" id="create-btn" >Print </button>-->
+     </div>
+   </div>
+   </div>
+    </div>

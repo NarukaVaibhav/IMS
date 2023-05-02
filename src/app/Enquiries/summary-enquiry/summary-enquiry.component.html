@@ -1,0 +1,167 @@
+<div class="master-container1 container p-0" >
+  <div class="container1 heading col-lg-12 pl-3 pr-3">
+    
+    <p >ENQUIRY DETAILS</p>
+</div>
+
+  <div class="container1 col-lg-12" style="padding-top : 10px;" >
+ <div class="row">
+   
+   <div class="col-lg-3" id="enq">
+    
+
+     <label>Name</label><br>
+     <label>Email</label><br>
+     <label>Enquired For</label><br>
+     <label>College Name</label><br>
+     <label>Enquiry Mode</label><br>
+     <label>Description</label><br>
+
+   </div>
+
+  
+
+   <div class="col-lg-3" id="office">
+     <label >{{EnquiryDetails[0] ? EnquiryDetails[0]['name'] : ''}}</label><br>
+     <label >{{EnquiryDetails[0] ? EnquiryDetails[0]['emailId'] : ''}}</label><br>
+     <label >{{EnquiryDetails[0] ? EnquiryDetails[0]['enquiredFor'] : ''}}</label><br>
+     <label>{{EnquiryDetails[0] ? EnquiryDetails[0]['collegeName'] : ''}}</label><br>
+     <label>{{EnquiryDetails[0] ? EnquiryDetails[0]['enquiryMode'] : ''}}</label><br>
+     <label>{{EnquiryDetails[0] ? EnquiryDetails[0]['description'] : ''}}</label> <br>
+   </div>
+
+
+   <div class="col-lg-3" id="enq">
+    
+
+     <label>Mobile</label><br>
+     <label>Qualification</label><br>
+     <label>Reference Name</label><br>
+     <label>Date</label><br>
+     <label>Status</label><br>
+
+   </div>
+
+
+   <div class="col-lg-3" id="office">
+     <label>{{EnquiryDetails[0] ? EnquiryDetails[0]['contactNumber'] : ''}}</label><br>
+     <label>{{EnquiryDetails[0] ? EnquiryDetails[0]['qualification'] : ''}}</label><br>
+     <label>{{EnquiryDetails[0] ? EnquiryDetails[0]['referenceName'] : ''}}</label><br>
+     <label>{{EnquiryDetails[0] ? (EnquiryDetails[0]['createdAt'] | date) : ''}}</label><br>
+     <label>{{EnquiryDetails[0] ? EnquiryDetails[0]['status'] : ''}}</label><br>
+
+   </div>
+ </div> 
+
+ <hr>
+
+ <div class="row">
+ 
+ <div *ngIf='arch' class="col-lg-4">
+   <button type="button" class="btn btn-secondary float-left" (click)="back()" id="back-btn">Back</button>
+ </div>
+
+ <div class="col-lg-8">
+  <div  *ngIf='conv'>
+    <button type="button" class="btn btn-primary float-right button-summary" (click)="convert()" id="create-btn">Convert</button>
+    </div>
+  
+ <div *ngIf='unarch'>
+  <button type="button" class="btn btn-primary float-right button-summary" (click)="unarchive()" id="create-btn" >Unarchive </button>
+</div>
+<div *ngIf='arch'>
+<button type="button" class="btn btn-primary float-right button-summary" (click)="archive()" id="create-btn" >Archive </button>
+</div>
+<div  *ngIf='addFoll'>
+  <button type="button" class="btn btn-primary float-right button-summary"  (click)="open(name); addFollowUp()" id="create-btn" >Add Follow Up</button>
+  </div>
+</div>
+ 
+ </div>
+
+
+ <div class="row col-lg-12" style="margin-top : 25px; width : 100%;" >
+   <div class="col-lg-12 first" style="padding-bottom: 40px;">
+    <h5 style="color:#007bff;">FOLLOW UP DETAILS</h5>
+     <hr>
+   <table class="table table-striped" >
+     <thead>
+       <tr>
+         <th scope="col"  >S.No</th>
+         <th scope="col">Name</th>
+         <th scope="col">Follow Date</th>
+         <th scope="col">Follow Mode</th>
+         <th scope="col">Response</th>
+           <th scope="col">Time</th>
+         <th scope="col">Comment</th>
+
+       </tr>
+     </thead>
+     <tbody>
+       <tr  *ngFor="let foll of EnquiryDetails[0]['followUps'] ; let i=index" >
+         <td scope="col">{{i+1}}</td>
+         <td scope="col">{{EnquiryDetails[0]['followUps'] ? foll.name : ''}}</td>
+         <td scope="col">{{EnquiryDetails[0]['followUps'] ? (foll.date | date) : ''}}</td>
+         <td scope="col">{{EnquiryDetails[0]['followUps'] ? foll.followMode : ''}}</td>
+         <td scope="col">{{EnquiryDetails[0]['followUps'] ? foll.response : ''}}</td>
+           <td scope="col">{{EnquiryDetails[0]['followUps'] ? foll.time : ''}}</td>
+         <td scope="col">{{EnquiryDetails[0]['followUps'] ? foll.adminComment : ''}}</td>
+
+         
+       </tr>
+     </tbody>
+   </table>
+   </div>
+   </div>
+ </div>
+
+
+ <ng-template #name>
+ <div>
+  <div>
+    <div>
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">ADD FOLLOW</h4>
+       
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <input class="form-control form-control-lg" type="text"  value="" placeholder="Name" [(ngModel)]="user_name" [ngModelOptions]="{standalone: true}" required>
+
+
+    <select class="form-control" [(ngModel)]="followUp" required [ngModelOptions]="{standalone: true}" style="margin-top:10px; margin-bottom:10px;" required>
+                <option  disabled [innerHTML] value="" > Follow Up Mode </option>
+                <ng-container *ngFor= "let follow of FollowUps">
+                <option   [value] = "follow.name" > {{follow.name}} </option>
+                </ng-container>
+              </select>
+    
+   <textarea class="form-control form-control-lg"  rows ="3" placeholder="Response" [(ngModel)]="response" [ngModelOptions]="{standalone: true}" required value=""></textarea>
+   <textarea class="form-control form-control-lg"  rows ="3" placeholder="Admin's Comment" [(ngModel)]="comment" [ngModelOptions]="{standalone: true}" value=""></textarea>
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="cancel()" >Cancel</button>
+        <button type="submit" class="btn btn-primary"  (click)="submit()" >Submit</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</ng-template>
+
+ </div>
+
+
+
+
+
+
+
+
+ 

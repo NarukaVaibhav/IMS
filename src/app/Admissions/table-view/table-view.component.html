@@ -1,0 +1,219 @@
+<div class="master-container">
+  <h3>VIEW ADMISSIONS</h3>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-basic-title">{{modalRow['studentName']}}</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click'); resetModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div *ngIf="init_Menu==true" class='dialog-col' id='dialog-col'>
+        <div (click)="hideMenu('Attendance')" class='dialog-row'>
+          <h5>Attendance</h5>
+          View student Attendance record
+        </div>
+        <div (click)="hideMenu('feedback')" class='dialog-row'>
+          <h5>Feedbacks</h5>
+          View student feedback
+        </div>
+        <div (click)="hideMenu('results')" class='dialog-row'>
+          <h5>Exam Results</h5>
+          View student exam results
+        </div>
+        <div (click)="hideMenu('assignment')" class='dialog-row'>
+          <h5>Assignments</h5>
+          View student assignments
+        </div>
+        <div (click)="routeToEdit('modalrow'); modal.dismiss('Cross click');" class='dialog-row'>
+          <h5>Edit details</h5>
+          Edit student details
+        </div>
+      </div>
+
+      <div *ngIf="specific_Menu==true" class='dialog-col' id='dialog-col'>
+        <div (click)="openSelectedModal()" class='dialog-row'>
+          <h5>Batch: {{modalRow['batch']}}</h5>
+          Subject: {{modalRow['subject']}}
+        </div>
+      </div>
+
+      <div *ngIf="attendanceModal==true" class='dialog-col' id='dialog-col'>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSourceAttendance" matSort>
+
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="hide-arrow"> date </th>
+              <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="attendance">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="hide-arrow"> attendance </th>
+              <td mat-cell *matCellDef="let element"> {{element.attendance}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsAttendance; sticky: true"></tr>
+            <tr mat-row *matRowDef="let element; columns: displayedColumnsAttendance;">
+            </tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+
+      </div>
+
+      <div *ngIf="resultMenu==true" class='dialog-col' id='dialog-col'>
+        <div (click)="openExamComponent(item);modal.dismiss('Cross click');" *ngFor="let item of result"
+          class='dialog-row'>
+          <h5>{{item.name}}</h5>
+        </div>
+      </div>
+
+      <div *ngIf="assignmentMenu==true" class='dialog-col' id='dialog-col'>
+        <div (click)="openAssignmentComponent(item);modal.dismiss('Cross click');" *ngFor="let item of assignmentList"
+          class='dialog-row'>
+          <h5>{{item.name}}</h5>
+        </div>
+      </div>
+
+      <div *ngIf="feedbackMenu==true" class='dialog-col' id='dialog-col'>
+        <div (click)="openFeedbackComponent(item);modal.dismiss('Cross click');" *ngFor="let item of feedbackList"
+          class='dialog-row'>
+          <h5>{{item.feedbackTitle}}</h5>
+        </div>
+      </div>
+
+
+    </div>
+
+  </ng-template>
+
+
+  <div class='container'>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <input type="text" class="filter-row" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- studentNameColumn -->
+        <ng-container matColumnDef="studentName">
+          <th style="font-size: small; padding-left: 1px !important;" mat-header-cell *matHeaderCellDef mat-sort-header
+            class="hide-arrow" class="hide-arrow"> Student Name </th>
+          <td (click)="routeToEdit(row)" style="padding-left: 1px !important; cursor: pointer;" mat-cell *matCellDef="let row">
+            {{row.studentName}} </td>
+        </ng-container>
+
+        <!-- fatherName Column -->
+        <ng-container matColumnDef="fatherName">
+          <th style="font-size: small;" mat-header-cell *matHeaderCellDef mat-sort-header class="hide-arrow"> Father
+            Name </th>
+          <td style="padding: 1px !important;" mat-cell *matCellDef="let row"> {{row.fatherName}} </td>
+        </ng-container>
+
+        <!-- courses Column -->
+        <ng-container matColumnDef="courses">
+          <th style="font-size: small;" mat-header-cell *matHeaderCellDef mat-sort-header class="hide-arrow"> Courses
+          </th>
+          <td style="padding: 1px !important;" mat-cell *matCellDef="let row"> {{row.courses}} </td>
+        </ng-container>
+
+        <!-- batch Column -->
+        <ng-container matColumnDef="batch">
+          <th style="font-size: small;" mat-header-cell *matHeaderCellDef mat-sort-header class="hide-arrow"> Batch
+          </th>
+          <td style="padding: 1px !important;" mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.batch}}
+          </td>
+        </ng-container>
+
+        <!-- subject Column -->
+        <ng-container matColumnDef="subject">
+          <th style="font-size: small;" mat-header-cell *matHeaderCellDef mat-sort-header class="hide-arrow"> Subject
+          </th>
+          <td style="padding: 1px !important;" mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.subject}}
+          </td>
+        </ng-container>
+
+        <!-- mobile Column -->
+        <ng-container matColumnDef="mobile">
+          <th style="font-size: small;" mat-header-cell *matHeaderCellDef mat-sort-header class="hide-arrow"> Mobile
+          </th>
+          <td style="padding: 1px !important;" mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.mobile}}
+          </td>
+        </ng-container>
+
+        <!-- collegeName Column -->
+        <ng-container matColumnDef="collegeName">
+          <th style="font-size: small;" mat-header-cell *matHeaderCellDef mat-sort-header class="hide-arrow"> College
+            Name </th>
+          <td style="padding: 1px !important;" mat-cell *matCellDef="let row" [style.color]="row.color">
+            {{row.collegeName}} </td>
+        </ng-container>
+
+        <!-- paymentMode Column -->
+        <ng-container matColumnDef="paymentMode">
+          <th style="font-size: small;" mat-header-cell *matHeaderCellDef mat-sort-header class="hide-arrow"> Payment
+            Mode </th>
+          <td style="padding: 1px !important;" mat-cell *matCellDef="let row" [style.color]="row.color">
+            {{row.paymentMode}} </td>
+        </ng-container>
+
+        <!-- dueAmount Column -->
+        <ng-container matColumnDef="dueAmount">
+          <th style="font-size: small;" mat-header-cell *matHeaderCellDef mat-sort-header class="hide-arrow"> Due Amount
+          </th>
+          <td style="padding: 1px !important;" mat-cell *matCellDef="let row" [style.color]="row.color">
+            {{row.dueAmount}} </td>
+        </ng-container>
+
+        <!-- registrationDate Column -->
+        <ng-container matColumnDef="registrationDate">
+          <th style="font-size: small;" mat-header-cell *matHeaderCellDef mat-sort-header class="hide-arrow"> Reg. Date
+          </th>
+          <td style="padding: 1px !important;" mat-cell *matCellDef="let row" [style.color]="row.color">
+            {{row.registrationDate | date:"dd/MM/yyyy"}}
+          </td>
+        </ng-container>
+
+        <!-- type Column -->
+        <ng-container matColumnDef="type">
+          <th style="font-size: small;" mat-header-cell *matHeaderCellDef mat-sort-header class="hide-arrow"> Type </th>
+          <td style="padding: 1px !important;" mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.type}}
+          </td>
+        </ng-container>
+
+        <!-- status Column -->
+        <ng-container matColumnDef="status">
+          <th style="font-size: small;" mat-header-cell *matHeaderCellDef mat-sort-header class="hide-arrow"> status
+          </th>
+          <td style="padding: 1px !important;" mat-cell *matCellDef="let row"> {{row.status}} </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th style="font-size: small; padding-right: 0px; text-align: center;" mat-header-cell *matHeaderCellDef>
+            Action </th>
+          <td mat-cell *matCellDef="let row" class="action-link"
+            style="padding-right: 0px; white-space: normal !important;">
+            <mat-icon style="cursor: pointer; font-size: 20px;" (click)="confirmDeleteRow(row)" title="Delete">delete_outline</mat-icon>
+            <mat-icon style="cursor: pointer; font-size: 20px;" (click)="changeStatus(row)" title="Update Status">autorenew</mat-icon>
+            <mat-icon style="cursor: pointer; font-size: 20px;" (click)="open(content, row)">launch</mat-icon>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+
+  </div>
+
+</div>

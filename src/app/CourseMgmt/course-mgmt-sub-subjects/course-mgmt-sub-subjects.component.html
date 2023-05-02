@@ -1,0 +1,296 @@
+  <div class="master-container module-container">
+
+    <h3 style="font-size: medium !important;
+  margin: 0.8em auto;
+  background-color: white;
+  padding: 0.8em;
+  border-radius: 0.2em;
+  box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1);
+  font-family: Open Sans, sans-serif;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.54);">SUBJECTS
+      <a (click)="openAddSubject()" style="float: right; text-decoration: underline; cursor: pointer;">ADD SUBJECT</a>
+    </h3>
+
+    <div *ngIf="addEditable=='true'" class="example-container">
+      <mat-card
+        style="box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1); width: 100%; margin: 0 auto; border: 0 solid transparent; border-radius: .25rem; padding: 1%; background-color: white; margin-bottom: 20px;">
+        <p class="title">Add</p>
+        <div class="row">
+          <div class="col-6">
+            <input style="display: block;
+          width: 100%;
+          height: calc(1.5em + .75rem + 2px);
+          padding: .375rem .75rem;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #495057;
+          background-color: #fff;
+          background-clip: padding-box;
+          border: 1px solid #ced4da;
+          border-radius: .25rem;
+          transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;" placeholder="Subject Name"
+              type="text" [(ngModel)]="newSubjectName">
+            
+          </div>
+
+          <div class="col-6">
+            <select style="display: block;
+          width: 100%;
+          height: calc(1.5em + .75rem + 2px);
+          padding: .375rem .75rem;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #495057;
+          background-color: #fff;
+          background-clip: padding-box;
+          border: 1px solid #ced4da;
+          border-radius: .25rem;
+          transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;" (change)="selectSubCourse()"
+              [(ngModel)]="selectedCourse" #ctrl="ngModel">
+              <option [ngValue]="undefined" disabled> Skill Bharat Course </option>
+              <option *ngFor="let Item of CourseNameList" [ngValue]="Item">{{Item.name}}</option>
+            </select>
+            
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 15px;">
+          <div class="col-6">
+            <select *ngIf="showSubCourseMenu" style="display: block;
+          width: 100%;
+          height: calc(1.5em + .75rem + 2px);
+          padding: .375rem .75rem;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #495057;
+          background-color: #fff;
+          background-clip: padding-box;
+          border: 1px solid #ced4da;
+          border-radius: .25rem;
+          transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;"
+              [(ngModel)]="selectedSubCourse" #ctrl="ngModel">
+              <option [ngValue]="undefined" disabled> Subcourse </option>
+              <option *ngFor="let Item of subCourseName" [ngValue]="Item">{{Item.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <button
+              style="color: #0095FF; font-size: 14px; font-family: Open Sans, sans-serif; margin-right: 1rem; padding: 7px 18px; border-color: #0095ff; background: transparent; border-style: solid; border-width: .0625rem; text-transform: uppercase; border-radius: .25rem; background-color: white; margin-top: 20px;"
+              class='submit-btn-grp' (click)="addSubject()">Submit</button>
+            <button
+              style="color: #0095FF; font-size: 14px; font-family: Open Sans, sans-serif; margin-right: 1rem; padding: 7px 18px; border-color: #0095ff; background: transparent; border-style: solid; border-width: .0625rem; text-transform: uppercase; border-radius: .25rem; background-color: white; margin-top: 20px; "
+              class='submit-btn-grp' (click)="closeAddSubject()">Cancel</button>
+          </div>
+        </div>
+
+
+      </mat-card>
+    </div>
+
+    <div *ngIf="SBEditable=='true'" class="example-container">
+      <mat-card
+        style="box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1); width: 100%; margin: 0 auto; border: 0 solid transparent; border-radius: .25rem; padding: 1%; background-color: white; margin-bottom: 20px;">
+        <p class="title">Map Subject</p>
+        <div class="row">
+          <div class="col-6">
+            <select style="display: block;
+          width: 100%;
+          height: calc(1.5em + .75rem + 2px);
+          padding: .375rem .75rem;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #495057;
+          background-color: #fff;
+          background-clip: padding-box;
+          border: 1px solid #ced4da;
+          border-radius: .25rem;
+          transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;" (change)="selectSBSubCourse()"
+              [(ngModel)]="selectedSBCourse" #ctrl="ngModel">
+              <option [ngValue]="undefined" disabled> Skill Bharat Course </option>
+              <option *ngFor="let Item of SBCourseName" [ngValue]="Item">{{Item.name}}</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <select style="display: block;
+          width: 100%;
+          height: calc(1.5em + .75rem + 2px);
+          padding: .375rem .75rem;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #495057;
+          background-color: #fff;
+          background-clip: padding-box;
+          border: 1px solid #ced4da;
+          border-radius: .25rem;
+          transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;" (change)="selectSBSubCourse()"
+              [(ngModel)]="selectedSBSubCourse" #ctrl="ngModel">
+              <option [ngValue]="undefined" disabled> Subject </option>
+              <option *ngFor="let Item of SBSubCourse" [ngValue]="Item">{{Item.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <button
+              style="color: #0095FF; font-size: 14px; font-family: Open Sans, sans-serif; margin-right: 1rem; padding: 7px 18px; border-color: #0095ff; background: transparent; border-style: solid; border-width: .0625rem; text-transform: uppercase; border-radius: .25rem; background-color: white;    margin-top: 20px; "
+              class='submit-btn-grp' (click)="  editSBCourse()">Submit</button>
+            <button
+              style="color: #0095FF; font-size: 14px; font-family: Open Sans, sans-serif; margin-right: 1rem; padding: 7px 18px; border-color: #0095ff; background: transparent; border-style: solid; border-width: .0625rem; text-transform: uppercase; border-radius: .25rem; background-color: white;    margin-top: 20px; "
+              class='submit-btn-grp' (click)="closeDialog()">Cancel</button>
+          </div>
+        </div>
+
+
+      </mat-card>
+    </div>
+
+    <div *ngIf="editable=='true'" class="example-container">
+      <mat-card
+        style="box-shadow: 0 0rem 2rem 0 rgba(44, 51, 73, .1); width: 100%; margin: 0 auto; border: 0 solid transparent; border-radius: .25rem; padding: 1%; background-color: white; margin-bottom: 20px;">
+        <p class="title">Edit</p>
+        <div class="row">
+          <div class="col-6">
+            <input style="display: block;
+          width: 100%;
+          height: calc(1.5em + .75rem + 2px);
+          padding: .375rem .75rem;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #495057;
+          background-color: #fff;
+          background-clip: padding-box;
+          border: 1px solid #ced4da;
+          border-radius: .25rem;
+          transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;" placeholder="Subject Name"
+              type="text" [(ngModel)]="newSubjectName">
+            
+          </div>
+
+          <div class="col-6">
+            <select style="display: block;
+          width: 100%;
+          height: calc(1.5em + .75rem + 2px);
+          padding: .375rem .75rem;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #495057;
+          background-color: #fff;
+          background-clip: padding-box;
+          border: 1px solid #ced4da;
+          border-radius: .25rem;
+          transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;" (change)="selectSubCourse()"
+              [(ngModel)]="selectedCourse" #ctrl="ngModel">
+              <option [ngValue]="undefined" disabled hidden> {{selectedCourse_show}} </option>
+              <option *ngFor="let Item of CourseNameList" [ngValue]="Item">{{Item.name}}</option>
+            </select>
+            
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 15px;">
+          <div class="col-6">
+            <select *ngIf="showSubCourseMenu==true" style="display: block;
+          width: 100%;
+          height: calc(1.5em + .75rem + 2px);
+          padding: .375rem .75rem;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #495057;
+          background-color: #fff;
+          background-clip: padding-box;
+          border: 1px solid #ced4da;
+          border-radius: .25rem;
+          transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;"
+              [(ngModel)]="selectedSubCourse" #ctrl="ngModel">
+              <option [ngValue]="undefined" disabled hidden> {{selectedSubCourse_show.name}} </option>
+              <option *ngFor="let Item of subCourseName" [ngValue]="Item">{{Item.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <button
+              style="color: #0095FF; font-size: 14px; font-family: Open Sans, sans-serif; margin-right: 1rem; padding: 7px 18px; border-color: #0095ff; background: transparent; border-style: solid; border-width: .0625rem; text-transform: uppercase; border-radius: .25rem; background-color: white; margin-top: 20px;"
+              class='submit-btn-grp' (click)="editSubject()">Submit</button>
+            <button
+              style="color: #0095FF; font-size: 14px; font-family: Open Sans, sans-serif; margin-right: 1rem; padding: 7px 18px; border-color: #0095ff; background: transparent; border-style: solid; border-width: .0625rem; text-transform: uppercase; border-radius: .25rem; background-color: white; margin-top: 20px; "
+              class='submit-btn-grp' (click)="closeDialog()">Cancel</button>
+          </div>
+        </div>
+
+
+      </mat-card>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <div class="row" style="width: 100%; margin: 0 auto; padding: 0%;">
+        <div class="col-sm-12">
+          <input type="text" class="filter-row" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </div>
+      </div>
+      <table mat-table #table [dataSource]="dataSource" style="width: 100%; text-align: center;">
+        <ng-container matColumnDef="Name">
+          <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.Name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Course">
+          <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Course </th>
+          <td mat-cell *matCellDef="let row"> {{row.Course}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="SubCourse">
+          <th style="text-align: center;" mat-header-cell *matHeaderCellDef> SubCourse </th>
+          <td mat-cell *matCellDef="let row"> {{row.SubCourse.name}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Status">
+          <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let row"> {{row.Status}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="SBMapped">
+          <th style="text-align: center;" mat-header-cell *matHeaderCellDef> SBMapped </th>
+          <td mat-cell *matCellDef="let row"> {{row.SBMapped}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Action">
+          <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let row" class="action-link">
+
+            <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(row, 'edit')" title="Edit">edit
+            </mat-icon>
+
+            <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(row, 'delete')" title="Delete">
+              delete_outline
+            </mat-icon>
+
+            <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(row, 'setStatus')"
+              title="Update Status">autorenew</mat-icon>
+
+            <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(row, 'mapSB')"
+              title="Map Skill Bharat">launch</mat-icon>
+
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+  </div>

@@ -1,0 +1,103 @@
+<div class="master-container1 container p-0">
+    <div class="card-header" >Payroll Overview </div>
+
+
+    <div class="col-lg-12 card" style="margin-top: 10px;">
+        <div class="row">            
+            <div class="col-md-3 shadow">
+                <p><span class="headerfont" style="border-bottom: 1px solid rgb(134, 130, 130);">
+                    Net PayOut</span><br>
+                <span class="normalfont">{{payrolloverview.netcompany}}</span></p>
+            </div>
+            <div class="col-md-3 shadow">
+                <p>
+                    <span class="headerfont" style="border-bottom: 1px solid rgb(134, 130, 130);">
+                        Employees</span><br>
+                   <span class="normalfont">{{payrolloverview.no_of_employee}}</span>
+                </p>
+            </div>
+            <div class="col-md-2 shadow">
+                <p><span class="headerfont" style="border-bottom: 1px solid rgb(134, 130, 130);">
+                    Year</span><br>
+                <span class="normalfont">{{payrolloverview.year}}</span></p>
+            </div>
+            <div class="col-md-2 shadow">
+                <p>
+                    <span class="headerfont" style="border-bottom: 1px solid rgb(134, 130, 130);">
+                        Month</span><br>
+                   <span class="normalfont">{{payrolloverview.month}}</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- <div class="col-md-1"></div> -->
+
+            <div class="col-md-5 shadow2 card cardstyle">                
+                    <div class="card-header headerfont">Consolidated Salary</div>
+                    <table>
+                        <tr>
+                            <th>Basic Salary</th>
+                            <th>{{payrolloverview.netbs}}</th>
+                        </tr>
+                        <tr>
+                            <th>HRA</th>
+                            <th>{{payrolloverview.nethra}}</th>
+                        </tr>
+                        <tr>
+                            <th>Conveyance</th>
+                            <th>{{payrolloverview.netconv}}</th>
+                        </tr>
+                        <tr>
+                            <th>Medical allowance</th>
+                            <th>{{payrolloverview.netma}}</th>
+                        </tr>
+                        <tr>
+                            <th>Bonus</th>
+                            <th>{{payrolloverview.netbonus}}</th>
+                        </tr>
+                    </table>
+                 <br>
+                 <br>
+               <br>
+                <br>
+                <br>
+            </div>
+
+            <div class="col-md-5 shadow2 card cardstyle">                
+                <div class="card-header headerfont">Net Salary </div>
+                <table>                 
+                    <tr>
+                        <th>PF</th>
+                        <th>{{payrolloverview.netpf}}</th>
+                    </tr>
+                    <tr>
+                        <th>Loan</th>
+                        <th>{{payrolloverview.netloan}}</th>
+                    </tr>
+                    <tr>
+                        <th>Advance Salary</th>
+                        <th>{{payrolloverview.netsa}}</th>
+                    </tr>
+                    <tr>
+                        <th>It/TDS</th>
+                        <th>{{payrolloverview.nettds}}</th>
+                    </tr>
+                    <tr>
+                        <th>Insurance</th>
+                        <th>{{payrolloverview.netins}}</th>
+                    </tr>
+                    <tr>
+                        <th>Other</th>
+                        <th>{{payrolloverview.netother}}</th>
+                    </tr>
+                 </table>                  
+                
+            </div>
+
+            <!-- <div class="col-md-1"></div> -->
+        </div>
+
+
+    </div>
+</div>       

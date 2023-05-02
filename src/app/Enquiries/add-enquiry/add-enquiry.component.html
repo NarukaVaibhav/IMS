@@ -1,0 +1,195 @@
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<div class="master-container1 container p-0">
+  <div class="container1 heading pl-3 pr-3">
+    <div class="row">
+      <div class="col-lg-6">
+      <p >ADD ENQUIRY</p>
+      </div>
+      <div class="col-lg-6">
+      <button class="btn btn-primary upload float-right" (click)="open(name)" >Upload Excel File</button>
+      </div>
+      </div>
+  </div>
+<form [formGroup]="Enquiry" *ngIf="addEnq">
+    <div class="container1 pl-3 pr-3">
+        
+      <div class="row">
+        
+        <div class="col-lg-6" id="add-user">
+         
+
+          <input class="form-control form-control-lg" type="text" placeholder="Name" formControlName="name">
+          <mat-error *ngIf="(Enquiry.controls['name'].dirty || Enquiry.controls['name'].touched) && Enquiry.controls['name'].errors?.required">This field is mandatory.</mat-error>
+
+
+
+          <input class="form-control form-control-lg" type="text" placeholder="Qualification" formControlName="qualification">
+          <mat-error *ngIf="(Enquiry.controls['qualification'].dirty || Enquiry.controls['qualification'].touched) && Enquiry.controls['qualification'].errors?.required">This field is mandatory.</mat-error>
+
+          
+    
+          <div class="form-group">
+           
+            <select class="form-control" formControlName="enquiredFor">
+                <option  disabled [innerText] value="">Enquired For</option>
+                <ng-container *ngFor= "let course of courses">
+                <option   [value] = "course.name" > {{course.name ? course.name : ''}} </option>
+                </ng-container>
+              </select>
+              
+            <mat-error *ngIf="(Enquiry.controls['enquiredFor'].dirty || Enquiry.controls['enquiredFor'].touched) && Enquiry.controls['enquiredFor'].errors?.required">This field is mandatory.</mat-error>
+
+
+          </div>
+
+
+          <input class="form-control form-control-lg" type="text" placeholder="Reference Name" formControlName="reference" value="">
+
+
+
+          <textarea class="form-control form-control-lg"  rows ="3" placeholder="Description" formControlName="description" value=""></textarea>
+          
+        </div>
+
+
+    
+        <div class="col-lg-6" id="office">
+          
+          
+          <input class="form-control form-control-lg" type="text" placeholder="Contact No" formControlName="contact" >
+                    <!-- <mat-error *ngIf="Enquiry.controls['contact'].value == [a-z][A-Z]"> Only numbers</mat-error> -->
+                    <mat-error *ngIf="(Enquiry.controls['contact'].dirty || Enquiry.controls['contact'].touched) && Enquiry.controls['contact'].errors?.required">This field is mandatory.</mat-error>
+                   <mat-error *ngIf="(Enquiry.controls['contact'].dirty || Enquiry.controls['contact'].touched) && Enquiry.controls['contact'].errors?.pattern">Enter correct pattern.</mat-error>
+
+                    <mat-error *ngIf="(Enquiry.controls['contact'].dirty || Enquiry.controls['contact'].touched) && Enquiry.controls['contact'].errors?.minlength">Minimum 10 characters needed.</mat-error>
+                    <mat-error *ngIf="(Enquiry.controls['contact'].dirty || Enquiry.controls['contact'].touched) && Enquiry.controls['contact'].errors?.maxlength">Maximum 10 characters needed.</mat-error>
+
+
+
+            <input class="form-control form-control-lg" type="email" placeholder="Email Id" formControlName="email">
+             <mat-error *ngIf="(Enquiry.controls['email'].dirty || Enquiry.controls['email'].touched) && Enquiry.controls['email'].errors?.required">This field is mandatory.</mat-error>
+             <mat-error *ngIf="(Enquiry.controls['email'].dirty || Enquiry.controls['email'].touched) && Enquiry.controls['email'].errors?.pattern">Enter correct pattern.</mat-error>
+          
+
+
+          <input class="form-control form-control-lg" type="text" placeholder="Institute/College Name" formControlName="colg" value="">
+
+
+
+          <input placeholder="Enquiry Date" class="textbox-n form-control" type="text" onblur="(this.type='text')" onfocus="(this.type='date')"  formControlName="date">
+          <mat-error *ngIf="(Enquiry.controls['date'].dirty || Enquiry.controls['date'].touched) && Enquiry.controls['date'].errors?.required">This field is mandatory.</mat-error>
+
+
+          
+        </div>
+    
+      </div>     
+      
+      <hr>
+    
+      <div class="row">
+      
+      <div class="col-lg-6">
+        <button type="button" class="btn btn-secondary" (click)="back()" id="back-btn">Back</button>
+      </div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-1">
+        <button type="button" class="btn btn-primary float-right" (click)="clear()" id="create-btn" >Reset </button>
+      </div>
+      <div class="col-lg-1">
+        <button type="button" class="btn btn-primary float-right" (click)="addEnquiry()" id="create-btn">Add</button>
+        </div>
+      
+      
+      </div>
+      <br>
+      </div>
+    </form>
+</div>
+
+
+
+<div>
+
+
+<ng-template #name >
+
+  <div class="col-lg-12">
+    <div >
+        <div  role="document">
+          <div>
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Upload Excel Sheet</h5>
+              <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button> -->
+
+            </div>
+            <div class="modal-body" >
+              <div class="row">
+                <div class="col-lg-6">
+                    <p>Select File to Import Enquiries (xls, xlsx):</p>
+                    <input type="file" class="form-control" name="testName" id="excel_file"  (change)="onFileChange($event)" multiple="false" 
+                    style="background-color: white !important; border: transparent !important;"  [(ngModel)]="UploadExcelBtn">
+                </div>
+                
+                <div class="col-lg-12 col-sm-12" *ngIf="true">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>
+                            S.No	
+                          </th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Enquiry For</th>
+                          <th>Enquiry Date</th>
+                          <th>Mobile</th>
+                          <th>Qualification</th>
+                          <th>College Name</th>
+                          <th>Reference Name</th>
+                          <th>Description</th>
+                          <th>Upload Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let row of questionExcel; let i = index">
+                            <td>{{row.id ? row.id : '' }}</td>
+                            <td>{{row.Name ? row.Name : ''}}</td>
+                            <td>{{row.Email ? row.Email : ''}}</td>
+                            <td>{{row.EnquiryFor ? row.EnquiryFor : ''}}</td>
+                            <td>{{row.EnquiryDate ? row.EnquiryDate : '' }}</td>
+                            <td>{{row.Mobile ? row.Mobile : ''}}</td>
+                            <td>{{row.Qualification ? row.Qualification : ''}}</td>
+                            <td>{{row.CollegeName ? row.CollegeName : ''}}</td>
+                            <td>{{row.ReferenceName ? row.ReferenceName : ''}</td>
+                            <td>{{row.Description ? row.Description : ''}}</td>
+                            <td>{{row.UploadStatus ? row.UploadStatus : ''}}</td>
+                            
+                            
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  
+               
+              </div>
+             
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary float-left" (click)="sameDownload()" style="margin-right:40%; margin-left: 0% !important;" > Downlaod Sample Format</button>
+
+              <button type="button" class="btn btn-secondary"  (click)="close_dialog()">Close</button>
+              <button type="button" class="btn btn-primary"  (click)="addexcel()">Upload</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  </div>

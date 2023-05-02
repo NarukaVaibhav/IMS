@@ -1,0 +1,14 @@
+.aaaa{
+    background-color: white;
+    padding-left: 15px !important;
+padding-right: 15px !important;
+}
+
+.printcss{
+
+    outline: none;
+    color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    padding: 2px;
+}

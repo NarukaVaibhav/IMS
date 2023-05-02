@@ -1,0 +1,44 @@
+<div class="master-container1  container p-0 pt-2">
+    <div >
+        <h2>Logins</h2>  
+        <div class="row">
+        
+            <div class="col-lg-8">
+                 
+                <input type="text" class="form-control" [(ngModel)]="str" placeholder="User Email Id/Mobile" name="str">    
+               
+            </div>
+            <div class="col-lg-4 text-center">
+                <button (click)=search() class="submitButton btnCSS">Search</button> 
+            </div>
+        </div>
+               
+        
+        
+        <div class="row mt-4">
+            <div class="col-sm-12">
+                <table *ngIf="showtable" class="table"> 
+                    <tr>
+                        <th>Email ID/Mobile Number</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                    <tr *ngFor="let mail of email,let index=i">
+                        <td>{{mail.emailId}}</td>
+                        <td class="text-center"><button (click)="del(mail)" class="btnCSS submitButton">Reset Login</button>
+                            
+                            
+                             
+                              
+                         
+                          </td>
+                    </tr>
+                    
+            
+                </table>
+            </div>
+        </div>
+        
+    
+            
+    </div> 
+</div>

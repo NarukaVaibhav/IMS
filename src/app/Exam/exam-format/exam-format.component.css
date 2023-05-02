@@ -1,0 +1,234 @@
+.repeatt {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+
+.main {
+  background-color: white;
+  border: 1px solid #CEEBED;
+  padding: 1em;
+  border-radius: 0.2rem;
+
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  display: none;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input.default:checked+.slider {
+  background-color: #444;
+}
+
+input.primary:checked+.slider {
+  background-color: #2196F3;
+}
+
+input.success:checked+.slider {
+  background-color: #8bc34a;
+}
+
+input.info:checked+.slider {
+  background-color: #3de0f5;
+}
+
+input.warning:checked+.slider {
+  background-color: #FFC107;
+}
+
+input.danger:checked+.slider {
+  background-color: #f44336;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+input:hover {
+  border-color: #007bff;
+}
+
+select:hover {
+  border-color: #007bff;
+}
+
+textarea:hover {
+  border-color: #007bff;
+}
+
+
+
+.bottomBorder {
+  border-bottom: 1px solid #edf1f7;
+}
+
+.headerText {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #edf1f7;
+  border-top-left-radius: .17rem;
+  border-top-right-radius: .17rem;
+  color: rgba(0, 0, 0, 0.54);
+  font-family: Open Sans, sans-serif;
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+}
+
+.a1 {
+  max-width: 100px;
+  min-width: 100px;
+}
+
+.headerTextWB {
+
+  padding: 1rem 1.5rem;
+  border-top-left-radius: .17rem;
+  border-top-right-radius: .17rem;
+  color: rgba(0, 0, 0, 0.54);
+  font-family: Open Sans, sans-serif;
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+
+
+}
+
+.inputBox {
+  border-radius: .17rem;
+  font-size: .9375rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  padding: .4375rem 1rem;
+  background-color: #f7f9fc;
+  border-color: #e4e9f2;
+  color: #222b45;
+  width: 100%;
+  border-style: solid;
+  border-width: 1px;
+  font-family: Open Sans, sans-serif;
+  -webkit-appearance: none;
+  overflow: visible;
+}
+
+.text {
+  font-family: Open Sans, sans-serif;
+  font-size: .75rem;
+  line-height: 1rem;
+  color: #8f9bb3;
+  font-weight: 700;
+  padding-top: calc(.375rem + 1px);
+  padding-bottom: calc(.375rem + 1px);
+  margin-bottom: 0;
+
+}
+
+.th1 {
+  font-family: Open Sans, sans-serif;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: medium !important;
+  font-weight: bolder;
+  max-height: 10px;
+  overflow: hidden !important;
+}
+
+.tTd {
+  font-family: Open Sans, sans-serif;
+  font-size: .75rem;
+  line-height: 1rem;
+  color: #8f9bb3;
+  font-weight: 700;
+  padding-top: calc(.375rem + 1px);
+  padding-bottom: calc(.375rem + 1px);
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+.table-striped>tbody>tr:nth-child(2n+1)>td,
+.table-striped>tbody>tr:nth-child(2n+1)>th {
+  background-color: rgba(240, 248, 255, 0.89);
+
+}
+
+.btnCSS {
+  color: #fff;
+  padding: .6875rem 1.125rem;
+  border-style: solid;
+  border-width: .0625rem;
+  text-transform: uppercase;
+  border-radius: .17rem;
+  font-size: .875rem;
+  line-height: 1rem;
+  transition-duration: 0.15s;
+  transition-property: background-color, border-color, box-shadow, color;
+  transition-timing-function: ease-in;
+  cursor: pointer;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+}
+
+.submitButton {
+  background-color: #36f;
+  border-color: #36f;
+
+}
+
+.cancelButton {
+  background-color: #ff3d71;
+  border-color: #ff3d71;
+}

@@ -1,0 +1,56 @@
+.btnCSS{
+    color: #fff;
+    padding: .6875rem 1.125rem;
+    border-style: solid;
+        border-width: .0625rem;
+        text-transform: uppercase;
+    border-radius: .17rem;
+    font-size: .875rem;
+        line-height: 1rem;
+        transition-duration: 0.15s;
+        transition-property: background-color,border-color,box-shadow,color;
+        transition-timing-function: ease-in;
+    cursor: pointer;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+  }
+  .submitButton{
+    background-color: #36f;
+        border-color: #36f;
+  
+    }
+
+    .inputBox{
+        border-radius: .17rem;
+           font-size: .9375rem;
+           font-weight: 500;
+           line-height: 1.5rem;
+           padding: .4375rem 1rem;
+           background-color: #f7f9fc;
+           border-color: #e4e9f2;
+           color: #222b45;
+           width: 100%;
+           border-style: solid;
+           border-width: 1px;
+           font-family: Open Sans,sans-serif;
+           -webkit-appearance: none;
+           
+       overflow: visible;
+       }
+         .headerText{
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #edf1f7;
+        border-top-left-radius: .17rem;
+        border-top-right-radius: .17rem;
+        color: #222b45;
+        font-family: Open Sans,sans-serif;
+        font-size: .9375rem;
+        font-weight: 600;
+        line-height: 1.5rem;
+      }
+    

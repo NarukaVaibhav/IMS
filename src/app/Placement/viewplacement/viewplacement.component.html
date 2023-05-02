@@ -1,0 +1,78 @@
+  <div class="main container p-0">
+    <div class="card-header">
+      All Company
+  </div>
+  <div class="xyz">
+    <mat-form-field class="pl-2">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" class="filter">
+    </mat-form-field>
+      
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort  class="table table-striped">
+      
+           <!-- sno Column -->
+           <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> S. No </th>
+            <td mat-cell *matCellDef="let row ;let i = index"> {{ row.sno}} </td>
+          </ng-container>
+  
+          <!-- companyName Column -->
+          <ng-container matColumnDef="companyName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> companyName </th>
+            <td mat-cell *matCellDef="let row"> {{row.companyName }} </td>
+          </ng-container>
+      
+          <!-- requirements Column -->
+          <ng-container matColumnDef="requirements">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> requirements   </th>
+            <td mat-cell *matCellDef="let row"> {{row.requirements}} </td>
+          </ng-container>
+      
+          <!-- Vacancies Column -->
+          <ng-container matColumnDef="Vacancies">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Vacancies   </th>
+            <td mat-cell *matCellDef="let row"> {{row.vacancies}}  </td>
+          </ng-container>
+      
+          <!-- Package Column -->
+          <ng-container matColumnDef="Package">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Package </th>
+            <td mat-cell *matCellDef="let row" > {{row.Package}} </td>
+          </ng-container>
+    
+           <!-- status Column -->
+           <ng-container matColumnDef="Status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let row" [style.color]="row.color" > {{row.status}} </td>
+          </ng-container>
+  
+           <!-- action Column -->
+           <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+            <td mat-cell *matCellDef="let row ;let i = index" [style.color]="row.color" > 
+              <i style="cursor: pointer;" class="material-icons" (click)="edit(row)">
+                edit
+                </i>
+                <i style="cursor: pointer;" class="material-icons" (click)="delete(row,'delete' , i)">
+                  delete_outline
+                    </i>
+                <i style="cursor: pointer;" *ngIf="row.status=='Inactive'" class="material-icons" (click)="activate(row)">
+                    explore
+                    </i>
+                <i style="cursor: pointer;" *ngIf="row.status=='Active'" class="material-icons" (click)="deactivate(row)">
+                    explore_off
+                    </i>  
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+  </div>
+  </div>
+  
+ 

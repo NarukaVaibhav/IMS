@@ -1,0 +1,121 @@
+<div class="module-container master-container">
+  <h3>ALL COURSES
+    <a style="float: right;
+    text-decoration: underline;
+    cursor: pointer;" (click)="openAddCourse()">ADD COURSE</a>
+  </h3>
+
+  <div *ngIf="addEditable=='true'" class="example-container">
+    <mat-card>
+      <p class="title">Add Course</p>
+      <div class="row">
+        <div class="col-6">
+          <input type="text" [(ngModel)]="addCourseName" placeholder="course Name">
+        </div>
+
+        <div class="col-6">
+          <input type="text" [(ngModel)]="addCourseFee" placeholder="course Fee">
+        </div>
+      </div>
+
+      <div class="row row-bottom">
+        <div class="col-6">
+          <select [(ngModel)]="addIsParent">
+            <option [ngValue]="undefined" disabled> Is Parent </option>
+            <option value="true">yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <button class='submit-btn-grp' (click)="addCourse()">Submit</button>
+          <button class='submit-btn-grp' (click)="closeAddDialog()">Cancel</button>
+        </div>
+
+      </div>
+
+    </mat-card>
+  </div>
+
+  <div *ngIf="editable=='true'" class="example-container">
+    <mat-card>
+      <p class="title">Edit Course</p>
+      <div class="row">
+        <div class="col-6">
+          <input type="text" [(ngModel)]="courseName" placeholder="course Name">
+        </div>
+
+        <div class="col-6 ">
+          <input type="text" [(ngModel)]="courseFee" placeholder="course fee">
+        </div>
+      </div>
+
+      <div class="row row-bottom">
+        <div class="col-6">
+          <select [(ngModel)]="isParent">
+            <option [ngValue]="undefined" disabled> Is Parent </option>
+            <option value="true">yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <button class='submit-btn-grp' (click)="editCourse()">Submit</button>
+          <button class='submit-btn-grp' (click)="closeDialog()">Cancel</button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+
+
+  <div class="container" style="width: 100%;">
+    <div class="row" style="width: 100%; margin: 0 auto; padding: 0px;">
+      <div class="col-sm-12">
+        <input type="text" class="filter-row" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </div>
+    </div>
+    <div class="mat-elevation-z8">
+      <table mat-table #table [dataSource]="dataSource">
+        <ng-container matColumnDef="Name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.Name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="isParent">
+          <th mat-header-cell *matHeaderCellDef> Is Parent </th>
+          <td mat-cell *matCellDef="let row"> {{row.isParent}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Fee">
+          <th mat-header-cell *matHeaderCellDef> Fee </th>
+          <td mat-cell *matCellDef="let row"> {{row.Fee}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let row"> {{row.Status}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let row" class="action-link">
+
+            <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(row, 'edit')" title="Edit">edit
+            </mat-icon>
+
+            <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(row, 'delete')" title="Delete">delete_outline
+            </mat-icon>
+
+            <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(row, 'setStatus')" title="Update Status">autorenew</mat-icon>
+            
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+
+
+</div>

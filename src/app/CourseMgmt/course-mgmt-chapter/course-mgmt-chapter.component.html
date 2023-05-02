@@ -1,0 +1,130 @@
+<div class="module-container master-container">
+  
+  <h3>CHAPTER
+    <a style="float: right; text-decoration: underline; cursor: pointer;" (click)="openAddchapter()">ADD CHAPTER</a>
+  </h3>
+    
+  <div *ngIf="addEditable=='true'" class="example-container">
+    <mat-card>
+      <p class="title">Add</p>
+      <div class="row">
+        <div class="col-6">
+          <select class="form-control" (change)="selectSubject()" [(ngModel)]="selectedCourse">
+            <option [ngValue]="undefined" disabled> Course Name</option>
+            <option [ngValue]="Item" *ngFor="let Item of courseName" >{{Item.name}}</option>
+          </select>
+
+        </div>
+
+        <div class="col-6">
+          <select class="form-control" #ctrl="ngModel" [(ngModel)]="selectedSubject" placeholder="Subject">
+            <option [ngValue]="undefined" disabled> Subject Name</option>
+            <option [ngValue]="Item" *ngFor="let Item of subjectName">{{Item.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <input type="text" class="form-control" [(ngModel)]="chapterName" placeholder="Chapter Name">
+        </div>
+        <div class="col">
+          <button class='submit-btn-grp' (click)="addChapter()">Submit</button>
+          <button class='submit-btn-grp' (click)="closeDialog()">Cancel</button>
+        </div>
+      </div>
+
+    </mat-card>
+  </div>
+
+  <div *ngIf="editable=='true'" class="example-container">
+    <mat-card>
+      <p class="title">Edit</p>
+      <div class="row">
+        <div class="col-6">
+          <input type="text" class="form-control" value="{{selectedCourse}}" placeholder="Course" disabled>
+        </div>
+
+        <div class="col-6">
+          <input type="text" class="form-control" value="{{selectedSubject}}" placeholder="Subject" disabled>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <input type="text" class="form-control" [(ngModel)]="chapterName" placeholder="Chapter Name">
+        </div>
+
+        <div class="col-6">
+          <button class='submit-btn-grp' (click)="editChapter()">Submit</button>
+          <button class='submit-btn-grp' (click)="closeDialog()">Cancel</button>
+        </div>
+
+      </div>
+
+
+    </mat-card>
+  </div>
+
+
+
+
+  <mat-card>
+    <div class="row" style="padding:0%;">
+      <div class="col-sm-12">
+        <input type="text" class="filter-row" (keyup)="applyFilter($event)" placeholder="Search">
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table #table [dataSource]="dataSource">
+        <ng-container matColumnDef="Chapter">
+          <th mat-header-cell *matHeaderCellDef> Chapter </th>
+          <td mat-cell *matCellDef="let row"> {{row.Chapter}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Subject">
+          <th mat-header-cell *matHeaderCellDef> Subject </th>
+          <td mat-cell *matCellDef="let row"> {{row.Subject}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="SubCourse">
+          <th mat-header-cell *matHeaderCellDef> SubCourse </th>
+          <td mat-cell *matCellDef="let row"> {{row.SubCourse}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Course">
+          <th mat-header-cell *matHeaderCellDef> Course </th>
+          <td mat-cell *matCellDef="let row"> {{row.Course}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let row"> {{row.Status}} </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let row" class="action-link">
+
+            <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(row, 'edit')" title="Edit">edit
+            </mat-icon>
+
+            <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(row, 'delete')" title="Delete">delete_outline
+            </mat-icon>
+
+            <mat-icon style="cursor: pointer; font-size: 20px;" (click)="eventAction(row, 'setStatus')" title="Update Status">autorenew</mat-icon>
+
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+
+  </mat-card>
+
+</div>

@@ -1,0 +1,232 @@
+<div class='master-container' *ngIf="false">
+  <div class="outer" *ngIf="rec_details">
+    asd
+    <h4>VIEW RECEIPT</h4>
+    <div class="row">
+      <div class="col-lg-12 main">
+        <h5>Fees Receipt</h5>
+        <button type="button" (click)="receipt()" class="btn btn-primary view">View All Receipt</button>
+        <hr>
+        <div class="form-group">
+          <!-- <input type="text" required placeholder="Name/Number/Father's Name/Email Id" [(ngModel)]="input" (ngModelChange)="clearFilter($event)" class="form-control form-control-lg" id="title"> -->
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <p>From:</p>
+            <input class="form-control inputbox" (change)="selectDate1($event)" type="date">
+          </div>
+          <div class="col-lg-6">
+            <p>Till:</p>
+            <input class="form-control inputbox" (change)="selectDate2($event)" type="date">
+          </div>
+        </div>
+        <div class="button">
+          <button (click)="showData()" type="button" class="btn btn-primary">Filter</button>
+        </div>
+        <p>Total Submitted Amount:</p>
+      </div>
+    </div>
+    <div class="row main">
+      <div class="col-lg-12">
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th scope="col">SID</th>
+                <th scope="col">Receipt No.</th>
+                <th scope="col">Sname</th>
+                <th scope="col">Fname</th>
+                <th scope="col">Batch Name</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Submitted Fee</th>
+                <th scope="col">Submitted Date</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let res of result, let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{res.receiptNumber}}</td>
+                <td>{{res.basicDetails.studentName}}</td>
+                <td>{{res.basicDetails.fatherName}}</td>
+                <td></td>
+                <td>{{res.officeUseForm.course[0].name}}</td>
+                <td>{{res.payAmount}}</td>
+                <td>{{res.date | date:'mediumDate'}}</td>
+                <td><button type="button" class="btn btn-primary" name="button" (click)="print(res)">Print</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div *ngIf="printDetail">
+    <div class="container">
+      <br>
+      <h5>RECEIPT</h5>
+      <hr>
+      <div class="row col-lg-12">
+
+        <div class="col-lg-3" id="enq">
+
+          <label>Student Name</label><br>
+          <label>Father's Name</label><br>
+          <label>Mobile Number</label><br>
+          <label>College Name</label><br>
+          <label>Date of Registration</label><br>
+          <label>Course(Enrolled For)</label><br>
+          <label>Date of Joining</label><br>
+
+        </div>
+
+
+
+        <div class="col-lg-3" id="office">
+          <label>{{prints[0]['basicDetails']['studentName']}}</label><br>
+          <label>{{prints[0]['basicDetails']['fatherName']}}</label><br>
+          <label>{{prints[0]['basicDetails']['mobileNumber']}}</label><br>
+          <label>{{prints[0]['officeUseForm']['collegeName']}}</label><br>
+          <label>{{prints[0]['officeUseForm']['dateOfRegistration'] | date}}</label> <br>
+          <label>{{prints[0]['officeUseForm']['course'][0]['name']}}</label><br>
+          <label>{{prints[0]['officeUseForm']['dateOfJoining'] | date :'mediumDate'}}</label> <br>
+        </div>
+
+
+
+        <div class="col-lg-3" id="enq">
+
+          <label>Receipt Number</label><br>
+          <label>Default GST Tax</label><br>
+          <label>GST</label><br>
+          <label>Total Payable Fee</label><br>
+          <label>Pay Amount</label><br>
+          <label>Due Fees</label><br>
+          <label>Submitted Date</label><br>
+
+
+        </div>
+
+
+
+        <div class="col-lg-3" id="office">
+          <label>{{prints[0]['receiptNumber']}}</label><br>
+          <label>{{prints[0]['receipt']['defaultGSTTax']}}</label><br>
+          <label>{{prints[0]['gst']}}</label><br>
+          <label>{{prints[0]['receipt']['totalPayableFee']}}</label><br>
+          <label>{{prints[0]['payAmount']}}</label><br>
+          <label>{{prints[0]['receipt']['amtToSettle']}}</label><br>
+          <label>{{prints[0]['date'] | date :'mediumDate'}}</label><br>
+
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+      <div class="col-lg-8"></div>
+
+      <div>
+        <button type="button" class="btn btn-primary float-right" (click)="print_receipt()" id="create-btn">Print
+        </button>
+      </div>
+      <div>
+        <button type="button" class="btn btn-secondary float-right" (click)="cancel()" id="create-btn">Cancel </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+<div class="main container-fluid section-1">
+  <div class="col-lg-12 row">
+    <h4>VIEW RECEIPT</h4>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-lg-6">
+      <h6>Fees Receipt</h6>
+    </div>
+    <div class="col-lg-6 text-right">
+      <button class="btn btn-outline-primary">View ALL Receipt</button>
+    </div>
+    <hr>
+    <div class="col-lg-6 mt-4">
+      <input type="text" name="search" placeholder="Name/Number/Father's Name/Email Id" class="form-control"  [(ngModel)]="search" (input)="onFileChange($event.target.value)">
+    </div>
+    <input type="text" [ngModel]="mymodel"(keyup)="onKey($event)" />
+{{mymodel}}
+    {{search}}
+    <div class="col-lg-6 mt-4"></div>
+    <div class="col-lg-6 mt-5">
+     <div class="row">
+      <div class="col-lg-10">
+        <input class="form-control" matInput [matDatepicker]="picker" placeholder="Choose a date (FROM :)" 
+          name="date" [(ngModel)]="date">
+         
+      </div>
+      <div class="col-lg-2">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker  #picker></mat-datepicker>
+      </div>
+     </div>
+    </div>
+    <div class="col-lg-6 mt-5">
+      <div class="row">
+       <div class="col-lg-10">
+         <input class="form-control" matInput [matDatepicker]="dp2" placeholder="Choose a date (TILL :)" 
+           name="date2" [(ngModel)]="date2">
+          
+       </div>
+       <div class="col-lg-2">
+         <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+         <mat-datepicker  #dp2></mat-datepicker>
+       </div>
+      </div>
+     </div>
+  </div>
+  <br>
+  <hr>
+  <br>
+  <div class="row">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th scope="col">SID</th>
+          <th scope="col">Receipt No.</th>
+          <th scope="col">Sname</th>
+          <th scope="col">Fname</th>
+          <th scope="col">Batch Name</th>
+          <th scope="col">Course Name</th>
+          <th scope="col">Submitted Fee</th>
+          <th scope="col">Submitted Date</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let res of result, let i=index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{res.receiptNumber}}</td>
+          <td>{{res.basicDetails.studentName}}</td>
+          <td>{{res.basicDetails.fatherName}}</td>
+          <td></td>
+          <td>{{res.officeUseForm.course[0].name}}</td>
+          <td>{{res.payAmount}}</td>
+          <td>{{res.date}}</td>
+          <td><button type="button" class="btn btn-primary" name="button" (click)="print(res)">Print</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+    
+</div> -->

@@ -1,0 +1,173 @@
+<!-- ****************************************ADD - Assignment Module ********************** -->
+<div class="master-container1 container p-0 ">
+  <div class=" border heading pl-2 pr-2">
+    <div class="row">
+      <div class="col-lg-6 top">
+        ADD ASSIGNMENT
+      </div>
+      <div class="col-lg-6">
+        <button class="btnCSS submitButton upload float-right" (click)="addAssignment()">Add Assignment</button>
+      </div>
+    </div>
+  </div>
+  <div class="section1 mb-2">
+    <div class="container-fluid border pb-5 pt-4">
+
+      <!-- *******************************Middle -1 ************* -->
+      <div class="row mt-2">
+
+        <div class="col-lg-6 mt-2">
+          <select class="form-control inputBox" name="selectBranch" [(ngModel)]="selectBranch">
+            <option [ngValue]="placeholder" disabled selected hidden>Batch *</option>
+            <option *ngFor="let k of batchName ; let i = index" [value]="k.name">{{k.name}}</option>
+          </select>
+        </div>
+
+        <div class="col-lg-6 mt-2">
+          <input type="text" class="form-control inputBox" name="assignmentName" [(ngModel)]="assignmentName"
+            placeholder="Name *">
+        </div>
+
+        <div class="col-lg-6 mt-4">
+          <div class="row">
+            <div class="col-lg-10">
+              <input class="form-control inputBox" matInput [matDatepicker]="picker" (click)="picker.open()"
+                placeholder="Last Date To Submit*" [min]="tomorrow" name="lastDate" [(ngModel)]="lastDate">
+            </div>
+            <div class="col-lg-2">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 mt-4 fontHeader">
+          Quession For Assignment
+        </div>
+      </div>
+      <!-- *************************************** Middle -2 ************ -->
+
+
+      <div class="row">
+
+        <div class="col-lg-6 mt-4">
+          <textarea cols="40" rows="5" name="question" [(ngModel)]="question" placeholder="Enter Question*"
+            class="form-control inputBox"></textarea>
+        </div>
+
+        <div class="col-lg-6 mt-4">
+          <textarea cols="40" rows="5" [(ngModel)]="description" name="description" placeholder="Enter Description*"
+            class="form-control inputBox"></textarea>
+        </div>
+
+        <div class="col-lg-6 mt-5">
+          <input type="text" onfocus="(this.type='file')" class="form-control inputBox" accept="image/*"
+            (change)="imgFileUpload1($event)" [(ngModel)]="images" placeholder="Upload Image">
+        </div>
+
+        <div class="col-lg-2 mt-5 text">
+          Upload Image
+        </div>
+        <div class="col-lg-1 mt-5">
+          <label class="switch float-left">
+            <input type="checkbox" class="primary" (change)="Upload1()" [(ngModel)]="uploadImage">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="col-lg-2 mt-5 text">
+          Multiple Image
+        </div>
+        <div class="col-lg-1 mt-5">
+          <label class="switch float-left">
+            <input type="checkbox" class="primary" (change)="multipleUpload1()" [(ngModel)]="multipleImage">
+            <span class="slider round"></span>
+          </label>
+        </div>
+
+        <div class="col-lg-6 mt-5">
+          <input type="number" class="form-control inputBox " name="marks" [(ngModel)]="marks" placeholder="Marks*">
+        </div>
+        <div class="col-lg-6 mt-5 text-right">
+          <button class="btnCSS submitButton" (click)="addQuestion()" *ngIf="addQuestionButton">Add Question</button>
+          <button class="cancelButton btnCSS" (click)="Cancel()" *ngIf="cancel">Cancel</button>
+          <button class="btnCSS submitButton" (click)="Update()" *ngIf="update">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ***************************************Session - 2 ****************** -->
+
+  <div class="section-2 border">
+    <div class="fontHeader pt-2 pl-2">
+      All Question
+    </div>
+    <div>
+
+
+      <div>
+        <mat-form-field class="pl-2">
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+        </mat-form-field>
+
+        <div class="mat-elevation-z8 ">
+          <table mat-table [dataSource]="dataSource" matSort class="table">
+
+            <!-- S_no -->
+            <ng-container matColumnDef="S_no">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> S.NO </th>
+              <td mat-cell *matCellDef="let row"> {{row.S_no}} </td>
+            </ng-container>
+
+            <!-- assignment Column -->
+            <ng-container matColumnDef="assignment">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Assignment </th>
+              <td mat-cell *matCellDef="let row"> {{row.assignment}} </td>
+            </ng-container>
+
+            <!-- description Column -->
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+              <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+            </ng-container>
+
+            <!-- marks Column -->
+            <ng-container matColumnDef="marks">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Marks </th>
+              <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.marks}} </td>
+            </ng-container>
+
+            <!-- photo Column -->
+            <ng-container matColumnDef="photo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Photo </th>
+              <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.photo}} </td>
+            </ng-container>
+
+            <!-- multiplePhoto Column -->
+            <ng-container matColumnDef="multiplePhoto">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Multiple Photos </th>
+              <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.multiplePhoto}} </td>
+            </ng-container>
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+              <td mat-cell *matCellDef="let row ; let index=index" [style.color]="row.color">
+                <i class="material-icons " id="iconColor" matTooltip="Edit" (click)="edit(row , index)">create</i>
+                <i class="material-icons" id=" iconColor" matTooltip="Delete" (click)="delete(row)">delete</i>
+
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

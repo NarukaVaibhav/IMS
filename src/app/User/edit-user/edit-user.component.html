@@ -1,0 +1,130 @@
+<div class="master-container1 container p-0">
+  <div class="container1 pl-3 pr-3 heading">
+    
+    <p >EDIT USER</p>
+</div>
+
+    <form [formGroup]="xyz">
+  <div class="container1 pl-3 pr-3">
+    
+       <div class="row">
+
+        <div class="col-lg-6" id="add-user">
+          
+          <input class="form-control form-control-lg" type="text" placeholder="User Name" formControlName="user_name">
+          <mat-error *ngIf=" xyz.controls['user_name'].errors?.required">This field is mandatory.</mat-error>
+
+          
+            <div class="col-md-6 mt-4 text" *ngIf = "browser" style="display: inline-block;">
+              <p style="display: inline-block;">Browser Support</p>
+              <label class="switch float-left" style="display: inline-block;">
+                <input type="checkbox" class="primary " [(ngModel)]="bsp" [ngModelOptions]="{standalone: true}" >
+                <span class="slider round" id="brws_supp" ></span>
+              </label>
+            </div>
+
+            <input id= "durat" class="form-control form-control-lg" type="number" placeholder="Duration(in hrs)" [(ngModel)]="duration" *ngIf= "bsp && browser" [ngModelOptions]="{standalone: true}">
+  
+            
+          <div class="form-group">
+            <select class="form-control" formControlName="designation" *ngIf="desig">
+              <option value="" disabled [innerText]> Designation </option>
+              <option  *ngFor="let val of designations" [value]="val.name ? val.name : '' "> {{val.name ? val.name : ''}} </option>
+
+              <option value="Teacher">Teacher</option>
+              <option value="Student">Student</option>
+              <mat-error *ngIf="xyz.controls['designation'].errors?.required">This field is mandatory.</mat-error>
+            </select>
+          </div>
+
+
+
+          <textarea class="form-control form-control-lg" rows="3" placeholder="Postal Address"
+            formControlName="address" value=""></textarea>
+
+
+
+            <select class="form-control" formControlName="countries" (change)="onChangeCountry($event.target.value)">
+              <option value="" disabled [innerText]>Country</option>
+              
+                <option *ngFor="let con of country" [value]="con.countryId ? con.countryId : '' " > {{con.countryName ? con.countryName : ''}} </option>
+              
+            </select>
+  
+          
+
+
+          <input class="form-control form-control-lg" type="text" placeholder="Pincode" formControlName="pincode" value="">
+
+        </div>
+
+        <div class="col-lg-6" id="office">
+
+          <input class="form-control form-control-lg" type="tel" placeholder="Contact No" formControlName="contact">
+          <mat-error *ngIf=" xyz.controls['contact'].errors?.required">This field is mandatory.</mat-error>
+          <mat-error *ngIf=" xyz.controls['contact'].errors?.pattern">Enter correct pattern.</mat-error>
+
+          <mat-error *ngIf="xyz.controls['contact'].errors?.minlength">Minimum 10 characters needed.</mat-error>
+          <mat-error *ngIf="xyz.controls['contact'].errors?.maxlength">Maximum 10 characters needed.</mat-error>
+
+
+
+
+          <input class="form-control form-control-lg" type="email" placeholder="Email Id" formControlName="email">
+          <mat-error *ngIf=" xyz.controls['email'].errors?.required">This field is mandatory.</mat-error>
+          <mat-error *ngIf=" xyz.controls['email'].errors?.pattern">Enter correct pattern.</mat-error>
+
+
+
+
+
+          <input placeholder="Date of Birth" class="textbox-n form-control" type="text" onblur="(this.type='text')"
+            onfocus="(this.type='date')" formControlName="dob">
+
+          <mat-error *ngIf=" xyz.controls['dob'].errors?.required">This field is mandatory.</mat-error>
+
+
+
+
+          <select class="form-control" formControlName="states" (change)="onChangeState($event.target.value)">
+            <option value="" [innerHTML] disabled>State</option>
+            <option  *ngFor="let st of state" [value]="st.stateId ? st.stateId : '' "> {{st.stateName ? st.stateName : ''}} </option>
+          </select>
+
+
+
+
+
+          <select class="form-control" formControlName="cities" (change)="onChangeCity($event.target.value)">
+            <option value="" disabled [innerText]>City</option>
+            <option *ngFor="let cit of city" [value]="cit.cityId ? cit.cityId  : '' "> {{cit.cityName ? cit.cityName  : ''}} </option>
+          </select>
+
+
+
+
+          <input class="form-control form-control-lg" type="password" placeholder="Password" formControlName="pass">
+          <mat-error *ngIf=" xyz.controls['pass'].errors?.required">This field is mandatory.</mat-error>
+          <mat-error *ngIf=" xyz.controls['pass'].errors?.minlength">Minimum 6 characters required</mat-error>
+        </div>
+
+      </div>
+     
+    <hr>
+  
+    <div class="row">
+    
+    <div class="col-lg-6">
+      <button type="button" class="btn btn-secondary" (click)="back()" id="back-btn">Back</button>
+    </div>
+    <div class="col-lg-6">
+      <button type="button"  class="btn btn-primary float-right" (click)="update()" id="create-btn">Update</button>
+      </div>
+    
+    
+    </div>
+    <br>
+    </div>
+  </form>
+  </div>
+  

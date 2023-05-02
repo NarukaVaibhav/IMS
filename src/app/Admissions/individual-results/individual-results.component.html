@@ -1,0 +1,139 @@
+<div class="master-container container-fluid">
+
+
+<h3>Individual Results</h3>
+<div class="module-container">
+  <p class="title">EXAM DETAILS (RESULTS) OF {{studentName}}</p>
+  <div class="form-container">
+    <div class='row'>
+      <div class="col-4">
+        Exam Name/Title
+        {{resultData.name}}
+      </div>
+
+      <div class="col-4">
+        Exam Format
+        {{resultData.format.name}}
+      </div>
+
+      <div class="col-4">
+        Batch
+        {{resultData.batch.name}}
+      </div>
+    </div>
+    <hr>
+
+    <div class='row'>
+      <div class="col-4">
+        Date
+        {{resultData.date | date:"dd/MM/yy" }}
+      </div>
+
+      <div class="col-4">
+        Exam Start Time
+        {{resultData.examStartTime | date:'shortTime'}}
+      </div>
+
+      <div class="col-4">
+        Exam End Time
+        {{resultData.examEndTime | date:'shortTime'}}
+      </div>
+    </div>
+    <hr>
+
+    <div class='row'>
+      <div class="col-4">
+        Maximum Marks
+        {{resultData.maximumMarks}}
+      </div>
+
+      <div class="col-4">
+        Obtained Marks
+        {{resultData.obtainedMarks}}
+      </div>
+
+      <div class="col-4">
+        Result
+        {{resultData.result}}%
+      </div>
+    </div>
+    <hr>
+
+    <div class='row'>
+      <div class="col-4">
+        Student Contact Number
+        {{studentMOB}}
+      </div>
+
+      <div class="col-4">
+        Student Email ID
+        {{studentEmail}}
+      </div>
+      <div class="col-4"></div>
+    </div>
+
+
+  </div>
+</div>
+
+<mat-card>
+  <h3>RESULTS</h3>
+  <div class="row">
+    <div class="col-12">
+      <input type="text" (keyup)="applyFilter($event)" placeholder="Filter">
+    </div>
+  </div>
+  <div class="mat-elevation-z8">
+    <table mat-table #table [dataSource]="dataSource">
+
+      
+      <ng-container matColumnDef="Question">
+        <th mat-header-cell *matHeaderCellDef> Question </th>
+        <td mat-cell *matCellDef="let row"> {{row.Question}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Section">
+        <th mat-header-cell *matHeaderCellDef> Section </th>
+        <td mat-cell *matCellDef="let row"> {{row.Section}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Level">
+        <th mat-header-cell *matHeaderCellDef> Level </th>
+        <td mat-cell *matCellDef="let row"> {{row.Level}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Type">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let row"> {{row.Type}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Correct Answer">
+        <th mat-header-cell *matHeaderCellDef> Correct Answer </th>
+        <td mat-cell *matCellDef="let row"> {{row.CorrectAnswer}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Student Answer">
+        <th mat-header-cell *matHeaderCellDef> Student Answer </th>
+        <td mat-cell *matCellDef="let row"> {{row.StudentAnswer}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Marks">
+        <th mat-header-cell *matHeaderCellDef> Marks </th>
+        <td mat-cell *matCellDef="let row"> {{row.Marks}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Obtained Marks">
+        <th mat-header-cell *matHeaderCellDef> Obtained Marks </th>
+        <td mat-cell *matCellDef="let row"> {{row.ObtainedMarks}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</mat-card>
+
+</div>

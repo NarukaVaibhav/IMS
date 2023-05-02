@@ -1,0 +1,146 @@
+<div class="main container p-0">
+  <div class="card ">
+    <div class="card-title">
+      <b><h4> Edit Company</h4></b>
+    </div>
+    <hr>
+    <form>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        Company Name*
+      </div>
+      <div class="form-group col-md-4">
+        <input type="text" class="form-control inputBox" placeholder="Company Name" [(ngModel)]="companyname" name="companyname" required>
+            
+      </div>
+      <div class="form-group col-md-2">
+        Website*
+      </div>
+      <div class="form-group col-md-4">
+        <input type="url" placeholder="Website" class="form-control inputBox" [(ngModel)]="website" name="website" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        Contact No.*
+      </div>
+      <div class="form-group col-md-4">
+        <input type="number" placeholder="Contact No." class="form-control inputBox" [(ngModel)]="contactno" name="contactno" maxlength="10" required>
+      </div>
+      <div class="form-group col-md-2">
+        Email ID*
+      </div>
+      <div class="form-group col-md-4">
+        <input type="email" placeholder="EmailId" class="form-control inputBox" [(ngModel)]="emailid" name="emailid" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        Address*
+      </div>
+      <div class="form-group col-md-4">
+        <textarea placeholder="Address" class="form-control inputBox" id="" cols="30" rows="4" [(ngModel)]="address" name="address" required></textarea>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        Selection Criteria
+      </div>
+      <div class="form-group col-md-4">
+        <textarea placeholder="Selection Criteria" class="form-control inputBox" id="" cols="30" rows="4" [(ngModel)]="selectionCriteria" name="selectionCriteria"></textarea>
+      </div>
+      <div class="form-group col-md-2">
+        Technologies on which candidates shall be working
+      </div>
+      <div class="form-group col-md-4">
+        <textarea placeholder="Technologies" class="form-control inputBox" id="" cols="30" rows="4" [(ngModel)]="technologies" name="technologies"></textarea>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        Selection Procedure
+      </div>
+      <div class="form-group col-md-4">
+        <textarea placeholder="Procedure" class="form-control inputBox" id="" cols="30" rows="4" [(ngModel)]="selectionprocedure" name="selectionprocedure"></textarea>
+      </div>
+      <div class="form-group col-md-2">
+        Maximum Number of students required to undergo selection process*
+      </div>
+      <div class="form-group col-md-4">
+        <input  type="number" class="form-control inputBox" placeholder="Number of Students" [(ngModel)]="noofstudent" name="noofstudent">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        Place of Posting
+      </div>
+      <div class="form-group col-md-4">
+        <input type="text" class="form-control inputBox" placeholder="Place of Posting" [(ngModel)]="placeofposting" name="placeofposting">
+      </div>
+      <div class="form-group col-md-2">
+        Bond(Duration)
+      </div>
+      <div class="form-group col-md-4">
+        <input type="text" class="form-control inputBox" placeholder="Bond(Duration)" [(ngModel)]="bond" name="bond">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        No. of Vacancies
+      </div>
+      <div class="form-group col-md-4">
+        <input type="text" class="form-control inputBox" placeholder="No. of Vacancies" [(ngModel)]="vacancies" name="vacancies">
+      </div>
+      <div class="form-group col-md-2">
+        Gross Salary Package(per Annum)
+      </div>
+      <div class="form-group col-md-4">
+        <input type="text" class="form-control inputBox" placeholder="Gross Salary per Annum" [(ngModel)]="salaryperannum" name="salaryperannum">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        Probation Period
+      </div>
+      <div class="form-group col-md-4">
+        <input type="text" class="form-control inputBox" placeholder="Probation Period" [(ngModel)]="probationperiod" name="probationperiod">
+      </div>
+      
+      <div class="form-group col-md-2">
+        Tentative Joining date
+      </div>
+      <div class="form-group col-md-4">
+        <input type="date" class="form-control inputBox" placeholder="Joining Date" [(ngModel)]="joiningdate" name="joiningdate">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        Appraisal Period
+      </div>
+      <div class="form-group col-md-4">
+        <input type="text" class="form-control inputBox" placeholder="Appraisal Date" [(ngModel)]="appraisalperiod" name="appraisalperiod">
+      </div>
+      <div class="form-group col-md-2">
+        Tentative date for offer letter
+      </div>
+      <div class="form-group col-md-4">
+        <input type="text" class="form-control inputBox" placeholder="date for offer letter" [(ngModel)]="dateforofferletter" name="dateforofferletter">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        Others
+      </div>
+      <div class="form-group col-md-4">
+        <textarea placeholder="Others" class="form-control inputBox" id="" cols="30" rows="4" [(ngModel)]="others" name="others"></textarea>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <button type="button" class="  btn btn-primary float-left padl btnCSS" (click)="back()">Back</button>
+      <button type="submit" class="submitButton btnCSS float-right padr" (click)="updatedata()">Update</button>
+    </div>
+  </form>
+  </div>
+  
+  </div>

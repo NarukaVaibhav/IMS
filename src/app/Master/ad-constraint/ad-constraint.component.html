@@ -1,0 +1,174 @@
+<div class="master-container1 container p-0" >
+    <div class="card-header" >Pay Slip
+      <button *ngIf="!showpl"  (click)="showpl=true" mat-stroked-button  style="width:auto;text-align:center;float: right;">
+        Add PL</button>
+    </div>
+
+   <!-- Add pl -->
+    <div  class="row backdrop_effect"  *ngIf="showpl" >
+      <div class="card" style="padding: 0px !important;" class="carddialog">
+          <div class="card-header">
+            <button   mat-stroked-button (click)="PL()" style="width:150px;text-align:center;bottom: 0;">
+            Add PL</button>
+            <i (click)="hidecard()" class="material-icons ml-2"  matTooltip="Close" style="color: red; margin:0px !important; font-size: 22px;cursor: pointer;float: right;" >close</i>
+          </div>
+          <div class="row" style="overflow-y:scroll;height: 300px;margin:0px !important;padding: 20px; ">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Employee Name</mat-label>
+              <mat-select>
+                <mat-option (click)="addPL(emp.name)" *ngFor="let emp of emp_list" [value]="emp.id">
+                  {{emp.name}}
+                </mat-option>
+              </mat-select>
+               </mat-form-field>
+               <div *ngIf="ShowPL" >
+                <div *ngFor="let k of arrpl">
+                  <mat-label style="width: 100%;">{{k.name}}</mat-label>
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Pl leaves</mat-label>
+                    <input matInput  type="number"   name="" [(ngModel)]="plobj[k.name].avail_pl">
+                   </mat-form-field>
+                </div>
+              </div>
+
+
+
+          </div>
+      </div>
+      </div>
+
+    <div  class="col-lg-12 card" style="margin-top: 10px;">
+        <div class="row">
+        <div class="col-md-6 card" style="padding: 0px;">
+            <div class="card-header" style="margin: 0px;">Constraint
+            </div>
+
+            <div style="padding: 20px;">
+
+                <mat-form-field  appearance="outline" class="full-width">
+                <mat-label>PL Month</mat-label>
+                <mat-select [(value)]="constraint_obj.pl_month" >
+                    <mat-option   value="1">
+                      1
+                    </mat-option>
+                    <mat-option   value="2">
+                        2
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>
+
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Saturday Off</mat-label>
+                <mat-select [(value)]="constraint_obj.saturday_off[0]">
+                    <mat-option (click)="sat_OFF({'id':0})"  value="0">
+                        None
+                      </mat-option>
+                      <mat-option  (click)="sat_OFF({'id':1})" value="1">
+                          All
+                        </mat-option>
+                        <mat-option (click)="sat_OFF(emp)" *ngFor="let emp of emp_list" [value]="emp.id">
+                            {{emp.name}}
+                          </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <div *ngIf="show_sat_OFF" class="row" style="padding: 20px;">
+                  <div class="bdr"  *ngFor="let emp of selectedEmp_sat_off">
+                   <p class="empList">
+                    <i (click)="delete_sat_off(emp)"  class="material-icons ml-2"  matTooltip="Delete" style="color: red; margin:0px !important;font-size: 20px; cursor: pointer;float: right;" >delete</i>
+                    {{emp.name}}
+                </p>
+                </div>
+              </div>
+
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Alt Saturday Off</mat-label>
+                <mat-select [(value)]="constraint_obj.alt_saturday[0]">
+                    <mat-option (click)="alt_sat_OFF({'id':0})"  value="0">
+                        None
+                      </mat-option>
+                      <mat-option (click)="alt_sat_OFF({'id':1})"  value="1">
+                          All
+                        </mat-option>
+                        <mat-option (click)="alt_sat_OFF(emp)" *ngFor="let emp of emp_list" [value]="emp.id">
+                            {{emp.name}}
+                          </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <div *ngIf="show_alt_sat_OFF" class="row" style="padding: 20px;">
+                <div class="bdr"  *ngFor="let emp of selectedEmp_alt_sat_off">
+                 <p class="empList">
+                  <i (click)="delete_alt_sat_off(emp)"  class="material-icons ml-2"  matTooltip="Delete" style="color: red; margin:0px !important;font-size: 20px; cursor: pointer;float: right;" >delete</i>
+                  {{emp.name}}
+              </p>
+              </div>
+            </div>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Maternity Leave</mat-label>
+              <mat-select [(value)]="constraint_obj.maternity_leave[0]">
+                  <mat-option (click)="materniity_Leave({'id':0})"  value="0">
+                      None
+                    </mat-option>
+                    <mat-option (click)="materniity_Leave({'id':1})"  value="1">
+                        All
+                      </mat-option>
+                      <mat-option (click)="materniity_Leave(emp)" *ngFor="let emp of emp_list" [value]="emp.id">
+                          {{emp.name}}
+                        </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div *ngIf="show_maternity_OFF" class="row" style="padding: 20px;">
+              <div class="bdr"  *ngFor="let emp of selectedEmp_maternity_off">
+               <p class="empList">
+                <i (click)="delete_maternity_off(emp)"  class="material-icons ml-2"  matTooltip="Delete" style="color: red; margin:0px !important;font-size: 20px; cursor: pointer;float: right;" >delete</i>
+                {{emp.name}}
+            </p>
+            </div>
+          </div>
+            <!-- <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Maternity Leave</mat-label>
+                <input matInput  type="number"   name="maternity_leave" [(ngModel)]="constraint_obj.maternity_leave[0]">
+              </mat-form-field>  -->
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Office Shift Hours</mat-label>
+                <input matInput  type="number"   name="office_shift_hours" [(ngModel)]="constraint_obj.office_shift_hours">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Salary Days</mat-label>
+                <input matInput  type="number"   name="salary_days" [(ngModel)]="constraint_obj.salary_days[0]">
+              </mat-form-field>
+              <button *ngIf="!update" (click)="Add_Constraint()" mat-stroked-button  style="width:150px;text-align:center;background-color: transparent;border-radius: 1px;">
+                Add Constraint</button>
+
+                <button *ngIf="update" (click)="Add_Constraint()" mat-stroked-button  style="width:150px;text-align:center;background-color: transparent;border-radius: 1px;">
+                    Update Constraint</button>
+
+            </div>
+        </div>
+
+        <div class="col-md-5 card" style="padding: 0px;margin-left:50px;">
+          <div class="card-header" style="margin: 0px;">PL
+          </div>
+
+          <div style="padding: 20px;height:500px;overflow-y:scroll;">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Employee Name</th>
+                  <th scope="col">Available Leave</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let emp of plkeys">
+                <td>{{emp}}</td>
+                <td>{{PLList[emp].avail_pl}}</td>
+              </tr>
+              </tbody>
+              </table>
+          </div>
+        </div>
+
+    </div>
+    </div>
+</div>
